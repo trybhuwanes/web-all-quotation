@@ -11,6 +11,10 @@ class OrderAttachmentController extends Controller
 {
     public function store(Request $request, string $id)
     {
+        $request->validate([
+            'file' => 'required|mimes:pdf|max:2048', // max 2048 KB = 2 MB
+        ]);
+        
         try {
             $order = Order::where('id', $id)
                 ->select('id', 'attachment_path')
@@ -39,7 +43,11 @@ class OrderAttachmentController extends Controller
                 'message' => 'File berhasil disimpan.',
             ]);
         } catch (\Throwable $th) {
-            throw new \ErrorException($th->getMessage());
+            // throw new \ErrorException($th->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage(),
+            ]   , 500);
         }
     }
 

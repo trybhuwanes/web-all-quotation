@@ -40,7 +40,7 @@ var KTFileUploadAttach = (function () {
                     url: route("storage-attachment-dropzone-pdfs"), // Ganti dengan URL upload yang sesuai
                     paramName: "file",
                     maxFiles: 1, // Batasan maksimal hanya 1 file
-                    maxFilesize: 5, // Maksimal ukuran file dalam MB
+                    maxFilesize: 2, // Maksimal ukuran file dalam MB
                     addRemoveLinks: true,
                     acceptedFiles: ".pdf", // Hanya menerima file .pdf
                     headers: {
@@ -62,6 +62,19 @@ var KTFileUploadAttach = (function () {
                                     confirmButton: "btn btn-warning",
                                 },
                             });
+                        });
+                        // Error ukuran file
+                        this.on("error", function (file, message) {
+                            if (message.includes("File is too big")) {
+                                Swal.fire({
+                                    text: "Ukuran file maksimal 2MB.",
+                                    icon: "error",
+                                    buttonsStyling: false,
+                                    confirmButtonText: "OK",
+                                    customClass: { confirmButton: "btn btn-danger" }
+                                });
+                                this.removeFile(file); // buang file yg kegedean
+                            }
                         });
                     },
                 });
