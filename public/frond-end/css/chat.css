@@ -1,0 +1,129 @@
+.chat-wrap {
+    box-shadow: 0 3px 3px 3px rgba(0, 0, 0, 0.2);
+    height: 607px;
+}
+
+.inbox_people {
+    background: #f8f8f8 none repeat scroll 0 0;
+    float: left;
+    overflow: hidden;
+    width: 40%;
+    border-right: 1px solid #e0e0e0;
+}
+
+.mesgs {
+    float: left;
+    width: 60%;
+    height: inherit;
+    overflow: hidden;
+}
+
+.navbar-default {
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.3);
+    z-index: 9;
+}
+
+.navbar-inner {
+    height: 46px;
+}
+
+.input-group-search {
+    width: 100%;
+    position: relative;
+    display: flex;
+}
+
+.navbar-default {
+    border-bottom: 1px solid #f0f0f0
+}
+
+.searchTerm, .sendInput {
+    width: 100%;
+    background-color: #F0F0F0;
+    border: none;
+    padding: 5px;
+    height: 36px;
+    border-radius: 5px 0 0 5px;
+    color: #9DBFAF;
+}
+
+.searchTerm:focus, .sendInput:focus {
+    box-shadow: none;
+}
+
+.input-button {
+    width: 40px;
+    height: 36px;
+    border: 0;
+    text-align: center;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.list-view {
+    height: 550px;
+    overflow-y: auto;
+}
+
+.srch_bar {
+    display: inline-block;
+    text-align: right;
+    width: 100%;
+}
+
+.headind_srch {
+    padding: 10px;
+    overflow: hidden;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.srch_bar .input-group-addon button {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    padding: 0;
+    color: #707070;
+    font-size: 18px;
+}
+
+.srch_bar .input-group-addon {
+    margin: 0 0 0 -27px;
+}
+
+.chat-view {
+    height: 100%;
+}
+
+.chat-inner {
+    max-height: 500px;
+    overflow: auto;
+}
+
+.fw-semibold {
+    font-weight: 600;
+}
+
+.chat-message {
+    font-size: 16px;
+}
+
+.chat-time {
+    font-size: 12px;
+    font-weight: 300;
+}
+
+.chat-user-list.focus {
+    background-color: #bed8e7;
+}
+
+.badge-notif {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    right: 0;
+    font-size: 13px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #70bcd9;
+}

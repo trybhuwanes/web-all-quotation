@@ -1,0 +1,294 @@
+/* --------------------------------+
+| IG: @nandangpy                   |
+|----------------------------------+
+*/
+
+.select2-container--bootstrap5 .select2-dropdown {
+    border: 0 !important;
+    box-shadow: 0px 0px 50px 0px rgba(82, 63, 105, 0.15) !important;
+    border-radius: 0.475rem !important;
+    padding: 1rem 0 !important;
+    background-color: #ffffff;
+}
+
+.app-hero-home {
+    display: flex !important;
+    align-items: stretch !important;
+    background-position-x: right !important;
+    background-repeat: no-repeat !important;
+    background-size: contain !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.app-hero-home .app-hero-img {
+    position: absolute;
+    top: 0 !important;
+    right: auto !important;
+    bottom: 0 !important;
+    max-width: 100% !important;
+    height: 100% !important;
+}
+
+.app-hero-default {
+    background-color: var(--bs-app-hero-default-bg-color);
+    display: flex;
+    align-items: stretch;
+}
+
+@media (min-width: 992px) {
+    .app-hero-home .app-hero-img {
+        left: 45%;
+    }
+
+    .productadd-item {
+        min-width: 220px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .app-hero-home .app-hero-img {
+        left: 42.5%;
+    }
+
+    .productadd-item {
+        min-width: 220px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .app-hero-home .app-hero-img {
+        left: 40%;
+    }
+}
+
+.app-hero-home .app-hero-img {
+    left: 45%;
+}
+
+@media (max-width: 991.98px) {
+    .app-hero-home .app-hero-img {
+        display: none;
+    }
+}
+
+.stns {
+    width: 100%;
+    height: 100vh;
+}
+
+.soctagon {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.landing-bg {
+    background-color: #eeeeee00 !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 3, 0.1);
+}
+
+.bg-green {
+    --kt-bg-rgb-color: var(--kt-success-rgb);
+    background-color: #a3c93d !important;
+}
+
+.card-hover:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover img:hover {
+    filter: brightness(0.9);
+    transition: filter 0.3s ease;
+}
+
+.text-bg-linear {
+    background: linear-gradient(to right, #ce1212 0%, #6218ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.carousel-item img {
+    object-fit: cover;
+    width: 100%;
+    height: 90vh;
+}
+
+.carousel-caption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 10;
+    padding: 1rem;
+    max-width: 90%;
+}
+
+.carousel-caption h1,
+.carousel-caption p {
+    font-size: 5.7rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Media Queries untuk Responsivitas */
+@media (max-width: 768px) {
+    .carousel-caption h1 {
+        font-size: 2rem;
+    }
+
+    .carousel-caption p {
+        font-size: 1rem;
+    }
+
+    .carousel-caption .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+    .carousel-caption h1 {
+        font-size: 3rem;
+    }
+
+    .carousel-caption p {
+        font-size: 1.25rem;
+    }
+
+    .carousel-caption .btn {
+        padding: 0.75rem 2rem;
+        font-size: 1rem;
+    }
+}
+
+/* Transisi dan Animasi */
+.carousel-item {
+    transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+#loading-screen img {
+    width: 150px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.bg-guna-hijau {
+    background: linear-gradient(90deg, #20aa3e 0%, #03a588 100%) !important;
+}
+
+.btn-ghi {
+    --bs-btn-color: #ffffff;
+    --bs-btn-bg: #075e0c;
+    --bs-btn-border-color: #075e0c;
+    --bs-btn-hover-color: #075e0c;
+    --bs-btn-hover-bg: #ffe67b;
+    --bs-btn-hover-border-color: #075e0c;
+    --bs-btn-focus-shadow-rgb: 0, 134, 210;
+    --bs-btn-active-color: #000000;
+    --bs-btn-active-bg: #ffe67b;
+    --bs-btn-active-border-color: #ffe67b;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #000000;
+    --bs-btn-disabled-bg: #ffe67b;
+    --bs-btn-disabled-border-color: #ffe67b;
+}
+
+/* Submenu Container  */
+.submenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    display: none;
+    z-index: 9999;
+    min-width: 200px;
+}
+
+/* Submenu Links */
+.submenu-link {
+    display: block;
+    color: #333;
+    text-decoration: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.submenu-link:hover {
+    background-color: #f1f1f1 !important;
+}
+
+/* Parent Menu with Submenu */
+.menu-dropdown {
+    position: relative !important;
+}
+
+.menu-dropdown:hover .submenu {
+    display: block !important;
+}
+
+.dropdown-arrow {
+    margin-left: 8px !important;
+    font-size: 12px !important;
+    vertical-align: middle !important;
+    transition: transform 0.3s ease !important;
+}
+
+.menu-dropdown.open .dropdown-arrow {
+    transform: rotate(180deg) !important;
+}
+
+.offset-image {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    z-index: 1;
+    width: 500px;
+}
+
+.btn {
+    position: relative;
+    z-index: 2;
+}
+
+@media (max-width: 768px) {
+    .offset-image {
+        bottom: 50px;
+        width: 120px;
+    }
+}
+
+.flex-equal-search {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; 
+    gap: 10px; 
+}
