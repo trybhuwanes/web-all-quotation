@@ -1,10 +1,13 @@
 <!-- Header -->
 <div class="header mt-5">
-    <table class="table table-bordered">
+    <table class="header-table" cellspacing="0" cellpadding="6" >
         <tr>
-            <td class="align-middle text-center no-border-right" rowspan="2" class="p-5">
-                <x-app-logo alt="Logo" class="h-30px mb-4"></x-app-logo>
+            <td class="align-middle text-center no-border-right" rowspan="2" class="p-5" style="width: 10%;">
+                <div class="h-30px mb-4">
+                    <img alt="Logo-Guna-Hijau" src="{{ public_path('./template/assets/media/logos/logo-ghi.webp') }}" class="h-30px w-auto theme-light-show" />
+                </div>
             </td>
+
             <td class="align-middle no-border-left" rowspan="2">
                 <div class="company-name">
                     PT GUNA HIJAU INOVASI
@@ -13,41 +16,24 @@
                     Water &amp; Wastewater Management
                 </div>
             </td>
-
-            <td class="text-end">
-                Document No.
-            </td>
-            <td>
-                {{ str_replace('-', '/', $orderfind->trx_code) }}
-            </td>
-        </tr>
-
-        <tr>
-            <td class="text-end">
-                Revision No.
-            </td>
-            <td>
-                {{$orderfind->revisiquotation->sortByDesc('revision_number')->first()->revision_number}}
-            </td>
+            <td style="width: 25%;"><strong>Document No.</strong></td>
+            <td style="width: 25%;">{{ str_replace('-', '/', $orderfind->trx_code) }}</td>
         </tr>
         <tr>
-            <td colspan="2" rowspan="2" class="p-5">
-                Owner: </br> {{$orderfind->user->company}}
-            </td>
-            <td class="text-end">
-                Page
-            </td>
-            <td>
-                {{ $page }} of <span> {{ $countpage }} </span>
-            </td>
+            <td><strong>Revision No.</strong></td>
+            <td>{{ $orderfind->revisiquotation->sortByDesc('revision_number')->first()->revision_number }}</td>
         </tr>
         <tr>
-            <td class="text-end">
-                Issue Date
+            <td rowspan="2" colspan="2">
+            Owner:<br>
+            {{$orderfind->user->company}}
             </td>
-            <td>
-                {{  App\Helpers\Helper::dateFormat(now(), 'd F Y') }}
-            </td>
+            <td><strong>Page</strong></td>
+            <td>{{ $page }} of <span> {{ $countpage }} </span></td>
+        </tr>
+        <tr>
+            <td><strong>Issue Date</strong></td>
+            <td>{{  App\Helpers\Helper::dateFormat(now(), 'd F Y') }}</td>
         </tr>
     </table>
 </div>

@@ -1,0 +1,427 @@
+/* ==== Page Setup ==== */
+@page {
+    margin: 50px 40px;
+}
+
+@page:first {
+    margin: 0; /* halaman pertama (cover) tanpa margin */
+}
+
+body {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+body, html {
+    height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: "DejaVu Sans", sans-serif; /* pakai font bawaan dompdf */
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+/* Page break */
+.page-break {
+    page-break-after: always;
+}
+
+/* Table tanpa padding */
+.table.nopadding,
+.table.nopadding td,
+.table.nopadding th {
+    padding: 2px !important;
+    margin: 0 !important;
+}
+
+@media print {
+    .print-hidden {
+        display: none;
+    }
+
+    body,
+    html {
+        margin: 0;
+        padding: 0;
+    }
+
+
+
+    /* Sembunyikan tombol print saat dicetak */
+    .print-hidden {
+        display: none;
+    }
+}
+
+/* Layout grid */
+.three-columns {
+    display: grid;
+    grid-template-columns: 99% 1%;
+    grid-auto-rows: auto;
+}
+
+.three-columns .cell {
+    padding: 0 2px 2px 0;
+}
+
+.three-columns .label {
+    font-weight: bold;
+}
+
+.three-columns .value {
+    text-align: left;
+}
+
+/* Tabel */
+.table-bordered td,
+.table-bordered th {
+    border: 1px solid black;
+}
+
+.table tbody tr:last-child td {
+    border: 1px solid black !important;
+}
+
+.table > :not(:last-child) > :last-child > * {
+    border: 1px solid black !important;
+}
+
+.table tbody tr td.nopading,
+.table tbody tr th.nopading {
+    padding: 2px !important;
+}
+
+.table thead tr.nopading,
+.table tbody tr.nopading {
+    padding: 0px !important;
+}
+
+/* Header tabel */
+.header-table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 12px;
+    border: 1;
+}
+
+.header-table td, 
+.header-table th {
+    border: 1px solid #000;
+    padding: 3px 5px;
+}
+
+.header-table th {
+    text-align: left;
+    background: #f2f2f2;
+}
+
+
+.highlight-header {
+    background-color: #0f243e !important;
+    color: white !important;
+}
+
+/* Logo dan heading */
+.logo {
+    width: 50px;
+    height: 50px;
+}
+
+.company-name {
+    font-weight: bold;
+}
+
+.sub-title {
+    font-size: 0.9em;
+}
+
+/* Border util */
+.no-border-right {
+    border-right: none !important;
+}
+
+.no-border-left {
+    border-left: none !important;
+}
+
+/* Style halaman sampul */
+.cover-page {
+    width: 210mm;
+    height: 297mm;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: relative;
+}
+
+.cover-page img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block; /* biar gak ada gap bawah */
+}
+
+/* Heading di cover */
+.cover-heading {
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+.page .content {
+    flex: 1;
+    margin-bottom: 60px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.content-commercial {
+    flex: 1;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 20px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 30px;
+    font-size: 9px;
+}
+
+/* Daftar isi */
+.daftar-isi {
+    margin: 20px auto;
+    max-width: 600px;
+    text-align: left;
+}
+
+.daftar-isi h1 {
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-transform: uppercase; /* Huruf kapital */
+}
+
+.toc {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    
+.toc td {
+    padding: 2px 4px;
+    vertical-align: bottom;
+}
+
+.toc .title {
+    white-space: nowrap;
+    padding-right: 5px;
+}
+
+.toc .dots {
+    border-bottom: 1px dotted #000;
+    width: 100%;
+}
+
+.toc .page {
+    white-space: nowrap;
+    text-align: right;
+    padding-left: 5px;
+}
+
+
+/* Tombol print */
+.btn-print {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    font-size: 25px;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 40px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    cursor: pointer;
+}
+
+/* === Bootstrap Utility Classes (diambil dari style.bundle.css) === */
+
+/* Margin utilities */
+.mt-5 {
+  margin-top: 3rem !important;
+}
+
+.mt-2 {
+    margin-top: 2px !important;
+}
+.mt-1 {
+    margin-top: 1px !important;
+}
+
+.mt-0 {
+    margin-top: 0 !important;
+}
+
+.mb-0 {
+    margin-bottom: 0 !important;
+}
+
+.mx-15 {
+  margin-left: 15px !important;
+  margin-right: 15px !important;
+}
+
+/* Text alignment */
+.text-center {
+  text-align: center !important;
+}
+.text-end {
+  text-align: right !important;
+}
+.text-start {
+  text-align: left !important;
+}
+
+/* Font weight */
+.fw-bold {
+  font-weight: 700 !important;
+}
+
+/* Text transform */
+.text-uppercase {
+  text-transform: uppercase !important;
+}
+
+/* Padding utilities */
+.p-5 {
+  padding: 3rem !important;
+}
+.pe-6 {
+  padding-right: 3.75rem !important; /* sesuai scale bootstrap */
+}
+
+/* Row & column grid */
+.row {
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: calc(-1 * var(--bs-gutter-y));
+  margin-right: calc(-0.5 * var(--bs-gutter-x));
+  margin-left: calc(-0.5 * var(--bs-gutter-x));
+}
+.row > * {
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 100%;
+  padding-right: calc(var(--bs-gutter-x) * 0.5);
+  padding-left: calc(var(--bs-gutter-x) * 0.5);
+  margin-top: var(--bs-gutter-y);
+}
+.col-12 {
+  flex: 0 0 auto;
+  width: 100%;
+}
+
+/* Text color utilities */
+.text-gray-900 {
+  color: #181C32 !important;
+}
+.text-gray-800 {
+  color: #3F4254 !important;
+}
+
+/* Vertical align */
+.align-middle {
+  vertical-align: middle !important;
+}
+
+/* Image fluid */
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Font size small in header/footer */
+.h-30px {
+  height: 30px !important;
+}
+
+.h-40px {
+  height: 40px !important;
+}
+
+
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    color: var(--kt-headings-color);
+    outline: 0;
+}
+
+.h5, h5 {
+    font-size: 1.15rem;
+}
+
+table {
+    caption-side: bottom;
+    border-collapse: collapse;
+}
+
+/* ==== Table ==== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-bordered td,
+.table-bordered th {
+    border: 1px solid #000;
+    padding: 5px;
+    vertical-align: top;
+}
+
+.table th {
+    background: #0f243e;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Pastikan tidak ada border ganda */
+.table tr td, .table tr th {
+    border: 1px solid #000;
+}
+
+.table-mps {
+    padding-top: 0 !important;
+    padding-left: 5px;
+    font-size: 11px;
+    margin-top: 0 !important;
+}
+
+
+/* ==== Header / Footer ==== */
+.header {
+    text-align: center;
+    font-size: 10px;
+    margin-bottom: 10px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.footer {
+    position: fixed;
+    bottom: 20px;
+    left: 10px;
+    right: 10px;
+    text-align: center;
+    font-size: 7pt;
+    padding-top: 5px;
+    margin-left: 40px;
+    margin-right: 40px;
+}

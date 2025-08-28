@@ -8,215 +8,27 @@
 
     <title>{{ $judulDokumen }}</title>
     <title>{{ $judulDokumen }}</title>
-    <link href="{{ url('template/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+    {{-- <link href="{{ public_path('template/assets/css/Grinviropdf.css') }}" rel="stylesheet" type="text/css" /> --}}
     <style>
-        /* Page break */
-        .page-break {
-            page-break-after: always;
-        }
-
-        @media print {
-            .print-hidden {
-                display: none;
-            }
-
-            body,
-            html {
-                margin: 0;
-                padding: 0;
-            }
-
-            .page {
-                page-break-after: always;
-            }
-
-            /* Sembunyikan tombol print saat dicetak */
-            .print-hidden {
-                display: none;
-            }
-
-
-        }
-
-        .three-columns {
-            display: grid;
-            grid-template-columns: 99% 1%;
-            grid-auto-rows: auto;
-        }
-
-        .three-columns .cell {
-            padding: 0 2px 2px 0;
-        }
-
-        .three-columns .label {
-            font-weight: bold;
-        }
-
-        .three-columns .value {
-            text-align: left;
-        }
-
-        .table-bordered td,
-        .table-bordered th {
-            border: 1px solid black;    
-        }
-        .table tbody tr:last-child td {
-            border: 1px solid black !important;
-        }
-
-        .table> :not(:last-child)> :last-child>* {
-            border: 1px solid black !important;
-        }
-
-        .table tbody tr td.nopading {
-            padding: 1px !important;
-        }
-
-        .highlight-header {
-            background-color: #0f243e !important;
-            color: white !important;
-        }
-
-        .logo {
-            width: 50px;
-            height: 50px;
-        }
-
-        .company-name {
-            font-weight: bold;
-        }
-
-        .sub-title {
-            font-size: 0.9em;
-        }
-
-        .no-border-right {
-            border-right: none !important;
-        }
-
-        .no-border-left {
-            border-left: none !important;
-        }
-
-        /* Style untuk halaman sampul */
-        .cover-page {
-            height: 100vh;
-            width: 100%;
-            margin: 0%;
-        }
-
-        .cover-page img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .cover-heading {
-            position: absolute;
-            top: 60%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #fafafa;
-            font-family: Arial, sans-serif;
-            font-size: 2.5rem;
-            font-weight: bold;
-            text-align: center;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-
-        /* Struktur halaman */
-        .page {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            /* Sesuaikan jika diperlukan */
-            position: relative;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
-        .page .content {
-            flex: 1;
-            margin-bottom: 60px;
-        }
-
-        .footer {
-            position: absolute;
-            bottom: 30px;
-            /* Sesuaikan jarak dari bawah halaman */
-            /* left: 0; */
-            /* width: 100%; */
-            font-size: 9px;
-        }
-
-        .daftar-isi {
-            margin: 20px auto;
-            max-width: 600px;
-            text-align: left;
-        }
-
-        .daftar-isi h1 {
-            font-weight: bold;
-            margin-bottom: 20px;
-            text-transform: uppercase; /* Huruf kapital */
-        }
-
-        .toc {
-            list-style: none; /* Hilangkan bullet points */
-            padding: 0;
-        }
-
-        .toc li {
-            display: flex; /* Flexbox untuk mengatur elemen */
-            justify-content: space-between; /* Judul dan nomor halaman berjauhan */
-            align-items: flex-end; /* Garis berada di bawah teks */
-            margin: 10px 0;
-        }
-        
-        .toc li span {
-            white-space: nowrap; /* Mencegah teks terpotong */
-        }
-
-        .toc .line {
-            flex-grow: 1; /* Membuat garis titik memenuhi ruang */
-            border-bottom: 1px dotted #000; /* Garis titik-titik */
-            margin: 0 2px; /* Jarak antara teks dan garis */
-            position: relative; /* Pastikan garis tetap di bawah */
-        }
-
-        .toc .page-number {
-            text-align: right;
-        }
-
-        .btn-print {
-            position:fixed;
-            bottom:10px;
-            right:10px;
-            font-size:25px;                
-            padding:15px 25px;
-            border:none;
-            border-radius:40px;
-            box-shadow:0 4px 8px rgba(0,0,0,0.3);
-            cursor:pointer;
-        }
+    {!! file_get_contents(public_path('template/assets/css/Grinviropdf.css')) !!}
     </style>
 </head>
 
 <body>
     <!-- Cover page dengan gambar -->
-    <div class="cover-page">
-        <img src="{{ url('/quot/fas/cover-fas.webp') }}" alt="Cover Image">
+    <div class="cover-page page-break" 
+     style="background: url('file://{{ public_path('quot/fas/cover-fas.webp') }}') no-repeat center center; background-size: cover;">
+    
         <div class="cover-heading">
-            QUOTATION <br> {{ $orderfind->items->first()->product->nama_produk }} - {{ $productMainSpecification->type_name}}
-            <br><span>{{$orderfind->user->company}}</span>
+            QUOTATION <br>
+            {{ $orderfind->items->first()->product->nama_produk }} - {{ $productMainSpecification->type_name }}
+            <br><span>{{ $orderfind->user->company }}</span>
         </div>
     </div>
-    <div class="page-break"></div>
     <!-- End Cover page -->
 
     <!-- Halaman 2 -->
-    <div class="page mx-15">
+    <div class="page mx-15 page-break">
         <!-- Header -->
         <x-penawaran-pdf-header :orderfind="$orderfind" :page=2 :countpage=10/>
         <!-- End Header -->
@@ -274,7 +86,7 @@
     <!-- End Halaman 2-->
 
     <!-- Halaman 3 -->
-    <div class="page mx-15">
+    <div class="page mx-15 page-break">
         <!-- Header -->
         <x-penawaran-pdf-header :orderfind="$orderfind" :page=3 :countpage=10/>
         <!-- End Header -->
@@ -308,9 +120,9 @@
                     We hope you find our quotation in line with your requirements. However, if you have any questions,
                     please do not hesitate to contact us.
                 </p>
-                <br><br><br><br>
+                
                 <p> Sincerely, </p>
-                <br><br><br><br><br>
+                
                 <p class="mt-1">
                     {{$orderfind->pic->name}}
                     <br/>
@@ -338,34 +150,30 @@
     <!-- End Halaman 3-->
 
     <!-- Halaman 4 -->
-    <div class="page mx-15">
+    <div class="page mx-15 page-break">
         <!-- Header -->
         <x-penawaran-pdf-header :orderfind="$orderfind" :page=4 :countpage=10/>
         <!-- End Header -->
 
         <!-- Konten Utama -->
         <div class="content">
-
-            <div class="content">
-                <div class="daftar-isi">
-                    <h5 class="text-center">
-                        DAFTAR ISI
-                    </h5>
-                    <ul class="toc">
-                        <li><span>Cover</span><div class="line"></div><span class="page-number">1</span></li>
-                        <li><span>Document Revision Record</span><div class="line"></div><span class="page-number">2</span></li>
-                        <li><span>Cover Letter</span><div class="line"></div><span class="page-number">3</span></li>
-                        <li><span>Daftar Isi</span><div class="line"></div><span class="page-number">4</span></li>
-                        <li><span>A. Quotation Summary</span><div class="line"></div><span class="page-number">5</span></li>
-                        <li><span>B. Aerator Dimension</span><div class="line"></div><span class="page-number">6</span></li>
-                        <li><span>C. Scope Of Supply</span><div class="line"></div><span class="page-number">6</span></li>
-                        <li><span>D. Tehnical Data Sheet</span><div class="line"></div><span class="page-number">7</span></li>
-                        <li><span>E. Term And Condition</span><div class="line"></div><span class="page-number">8</span></li>
-                        <li><span>F. Product</span><div class="line"></div><span class="page-number">9</span></li>
-                    </ul>
-                </div>
+            <div class="daftar-isi">
+                <h5 class="text-center">
+                    DAFTAR ISI
+                </h5>
+                <table class="toc">
+                    <tr><td class="title">Cover</td><td class="dots"></td><td class="page">1</td></tr>
+                    <tr><td class="title">Document Revision Record</td><td class="dots"></td><td class="page">2</td></tr>
+                    <tr><td class="title">Cover Letter</td><td class="dots"></td><td class="page">3</td></tr>
+                    <tr><td class="title">Daftar Isi</td><td class="dots"></td><td class="page">4</td></tr>
+                    <tr><td class="title">A. Quotation Summary</td><td class="dots"></td><td class="page">5</td></tr>
+                    <tr><td class="title">B. Aerator Dimension</td><td class="dots"></td><td class="page">6</td></tr>
+                    <tr><td class="title">C. Scope Of Supply</td><td class="dots"></td><td class="page">6</td></tr>
+                    <tr><td class="title">D. Technical Data Sheet</td><td class="dots"></td><td class="page">7</td></tr>
+                    <tr><td class="title">E. Term And Condition</td><td class="dots"></td><td class="page">8</td></tr>
+                    <tr><td class="title">F. Product</td><td class="dots"></td><td class="page">9</td></tr>
+                </table>
             </div>
-
         </div>
         <!-- End Konten Utama -->
 
@@ -376,7 +184,7 @@
     <!-- End Halaman 4-->
 
     <!-- Halaman 5 -->
-    <div class="page mx-15">
+    <div class="page mx-15 page-break">
         <!-- Header -->
         <x-penawaran-pdf-header :orderfind="$orderfind" :page=5 :countpage=10/>
         <!-- End Header -->
@@ -493,7 +301,7 @@
     <!-- End Halaman 5-->
 
     <!-- Halaman 6 -->
-    <div class="page mx-15">
+    <div class="page mx-15 page-break">
         <!-- Header -->
         <x-penawaran-pdf-header :orderfind="$orderfind" :page=6 :countpage=10/>
         <!-- End Header -->
@@ -503,10 +311,10 @@
             <h5 class="mt-5">B. Aerator Dimension</h5>
             <div class="row text-center">
                 <div class="col-12 mb-3">
-                    <img src="{{ url('/quot/fas/sketsa-dimensi-aerator.webp') }}" alt="Gambar 1" class="img-fluid" style="width: 55%;">
+                    <img src="{{ public_path('/quot/fas/sketsa-dimensi-aerator.webp') }}" alt="Gambar 1" class="img-fluid" style="width: 45%;">
                 </div>
                 <div class="col-12">
-                    <img src="{{ url('/quot/fas/dimensi-aerator.webp') }}" alt="Gambar 2" class="img-fluid" style="width: 55%;">
+                    <img src="{{ public_path('/quot/fas/dimensi-aerator.webp') }}" alt="Gambar 2" class="img-fluid" style="width: 45%;">
                 </div>
             </div>                
         </div>
@@ -519,7 +327,7 @@
     <!-- End Halaman 6-->
 
     <!-- Halaman 7 -->
-    <div class="page mx-15">
+    <div class="page mx-15 page-break">
         <!-- Header -->
         <x-penawaran-pdf-header :orderfind="$orderfind" :page=7 :countpage=10/>
         <!-- End Header -->
@@ -701,21 +509,23 @@
     <!-- End Halaman 7-->
 
     <!-- Halaman 8 -->
-    <div class="page mx-15">
+    <div class="page mx-15 page-break">
         <!-- Header -->
         <x-penawaran-pdf-header :orderfind="$orderfind" :page=8 :countpage=10/>
         <!-- End Header -->
 
         <!-- Konten Utama -->
         <div class="content">
-            <h5 class="mt-5">D. Technical Data Sheet</h5>
-
-            <table class="table table-bordered">
+            <h5 class="mt-2">D. Technical Data Sheet</h5>     
+            <table class="header-table" cellspacing="0" cellpadding="6" >
                 <tr>
-                    <td class="align-middle text-center no-border-right p-5" rowspan="2">
-                        <x-app-logo alt="Logo" class="h-30px mb-4"></x-app-logo>
+                    <td class="align-middle text-center no-border-right" rowspan="2" class="p-5" style="width: 10%;">
+                        <div class="h-30px mb-4">
+                            <img alt="Logo-Guna-Hijau" src="{{ public_path('./template/assets/media/logos/logo-ghi.webp') }}" class="h-30px w-auto theme-light-show" />
+                        </div>
                     </td>
-                    <td class="align-middle no-border-left" rowspan="2">
+
+                    <td class="align-middle no-border-left" rowspan="2" style="width: 40%">
                         <div class="company-name">
                             PT GUNA HIJAU INOVASI
                         </div>
@@ -723,44 +533,25 @@
                             Water &amp; Wastewater Management
                         </div>
                     </td>
-                </tr>
-
-                <tr class="text-center">
-                    <td colspan="4" class="p-5">
-                        Floating Suface Aerator </br> Techical Specification Sheet
-                    </td>
-                </tr>
-
-                <tr class="text-center">
-                    <td colspan="2" rowspan="2" class="p-5">
-                        Technical Data Sheet,</br>{{ $productMainSpecification->type_name}}
-                    </td>
-                    <td class="text-end">
-                        Sheet
-                    </td>
-                    <td>
-                        Rev
-                    </td>
-                    <td>
-                        Mfc By
-                    </td>
-                    <td>
-                        Checked By
-                    </td>
+                    <td colspan="4" class="align-middle no-border-bottom">Floating Surface Aerator</td>
                 </tr>
                 <tr>
-                    <td class="text-end">
-                        1 0f 1
+                    <td colspan="4" class="align-middle no-border-top">Technical Specification Sheet</td>
+                </tr>
+                <tr>
+                    <td rowspan="2" colspan="2">
+                    Technical Data Sheet,</br>{{ $productMainSpecification->type_name }}
                     </td>
-                    <td>
-                        0
-                    </td>
-                    <td>
-                        GHI
-                    </td>
-                    <td>
-                        GHI
-                    </td>
+                    <td>Sheet</td>
+                    <td>Rev</td>
+                    <td>Mfc By</td>
+                    <td>Checked By</td>
+                </tr>
+                <tr>
+                    <td>1 of 1</td>
+                    <td>0</td>
+                    <td>GHI</td>
+                    <td>GHI</td>
                 </tr>
             </table>
 
@@ -778,7 +569,8 @@
                             Model
                         </td>
                         <td>
-                            {{ $orderfind->items->first()->product->nama_produk }} - {{ $productMainSpecification->type_name}}
+                            {{ $orderfind->items->first()->product->nama_produk }} -
+                            {{ $productMainSpecification->type_name }}
                         </td>
                     </tr>
                     <tr>
@@ -790,7 +582,8 @@
                             Transfer Rate (SOTR)
                         </td>
                         <td class="text-bold">
-                        {{ $productMainSpecification->aerator_sotr}} kg O<sub>2</sub> /hour (Clean Water – Standart Condition)
+                            {{ $productMainSpecification->aerator_sotr }} kg O<sub>2</sub> /hour (Clean Water –
+                            Standart Condition)
                         </td>
                     </tr>
                     <tr>
@@ -798,7 +591,7 @@
                             Depth in Meter of Complete Mixing
                         </td>
                         <td>
-                            {{ $productMainSpecification->aerator_d}} m
+                            {{ $productMainSpecification->aerator_d }} m
                         </td>
                     </tr>
                     <tr>
@@ -806,7 +599,8 @@
                             Motor Power
                         </td>
                         <td>
-                            {{ $productMainSpecification->power_hp}} hp / {{ $productMainSpecification->power_kw}} Kw/ 1450 rpm/ 380–460 V, 50 Hz
+                            {{ $productMainSpecification->power_hp }} hp / {{ $productMainSpecification->power_kw }}
+                            Kw/ 1450 rpm/ 380–460 V, 50 Hz
                         </td>
                     </tr>
                 </tbody>
@@ -882,7 +676,7 @@
     <!-- End Halaman 8-->
 
     <!-- Halaman 9 -->
-    <div class="page mx-15">
+    <div class="page mx-15 page-break">
         <!-- Header -->
         <x-penawaran-pdf-header :orderfind="$orderfind" :page=9 :countpage=10/>
         <!-- End Header -->
@@ -972,30 +766,29 @@
     <!-- End Halaman 9-->
 
     <!-- Halaman 10 -->
-    <div class="page mx-15">
+    <div class="page mx-15 page-break">
         <!-- Header -->
         <x-penawaran-pdf-header :orderfind="$orderfind" :page=10 :countpage=10/>
         <!-- End Header -->
 
        <!-- Konten Utama -->
-       <div class="content">
-           <h5 class="mt-5">F. Product</h5>
-
-           {{-- <div class="row"> --}}
-
-               <div class="row text-center">
-                   <div class="col-12 mb-3">
-                       <img src="{{ url('/quot/fas/fas-surface-aerator.webp') }} " alt="Gambar 1" class="img-fluid" style="width: 80%;">
-                   </div>
-                   <div class="col-12 mb-3">
-                       <img src="{{ url('/quot/fas/fas-surface-aerator-two.webp') }}" alt="Gambar 2" class="img-fluid" style="width: 80%;">
-                   </div>
-                   <div class="col-12">
-                       <img src="{{ url('/quot/fas/qr-code-fas.webp') }}" alt="Gambar 3" class="img-fluid" style="width: 20%;">
-                   </div>
-               </div>
-           {{-- </div> --}}
-       </div>
+        <div class="content ">
+            <h5 class="mt-2">F. Product</h5>
+            <div class="text-center">
+                <div class="col-12">
+                    <img src="{{ public_path('./quot/fas/fas-surface-aerator.webp') }}" alt="Gambar-2"
+                        class="img-fluid" style="width: 60%;">
+                </div>
+                <div class="col-12 mt-5">
+                    <img src="{{ public_path('./quot/fas/fas-surface-aerator-two.webp') }}" alt="Gambar-2"
+                        class="img-fluid" style="width: 60%;">
+                </div>
+                <div class="col-12 mt-5">
+                    <img src="{{ public_path('./quot/fas/qr-code-fas.webp') }}" alt="Gambar 3" class="img-fluid"
+                        style="width: 20%;">
+                </div>
+            </div>
+        </div>
        <!-- End Konten Utama -->
 
        <!-- Footer -->
@@ -1005,18 +798,10 @@
    <!-- End Halaman 10-->
 
     <!-- Back Cover page dengan gambar -->
-    <div class="cover-page">
-        <img src="{{ url('/quot/fas/back-cover.webp') }}" alt="Cover Image">
+    <div class="cover-page" 
+        style="background: url('file://{{ public_path('quot/fas/back-cover.webp') }}') no-repeat center center; background-size: cover;">
     </div>
     <!-- End Back Cover page dengan gambar -->
-
-    <!-- Tombol Print -->
-    <button onclick="window.print();"
-        class="print-hidden btn btn-info fw-bold btn-print"
-        style="font-size: 20px; padding: 15px 30px;">
-        <span style="font-size: 28px; margin-right: 8px;">&#x1f5b6;</span>
-        PRINT
-    </button>
 
 </body>
 

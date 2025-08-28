@@ -5,42 +5,43 @@ namespace App\Http\Controllers\Pic;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Order;
+use Barryvdh\DomPDF\Facade\Pdf;
+use setasign\Fpdi\Fpdi;
 
 class QuotationController extends Controller
 {
     //
     public function exportQoutationpdf(Request $request, $id)
     {
-        // $orderfind = Order::with(['items.product', 'items.productadd', 'user'])->findOrFail($id);
-            
         try {
-            $orderfind = Order::where('id', $id)->with(['user', 'pic','revisiquotation', 'shipping', 'termpayment',
-                                                    'items.product',    
-                                                    'items.productadd'])->first();
-                                                    
-            // dd($orderfind->shipping->use_shipping_to_onsite);
-            if (!$orderfind) {abort(404, 'Order not found');}
-            
+            $orderfind = Order::where('id', $id)->with([
+                'user', 'pic','revisiquotation', 'shipping', 'termpayment',
+                'items.product',    
+                'items.productadd'
+            ])->first();
                                                         
-            // Memastikan ada items dalam pesanan
+            if (!$orderfind) {
+                abort(404, 'Order not found');
+            }
+            
             if ($orderfind->items->isNotEmpty()) {
                 $firstItem = $orderfind->items[0];
                 $product = $firstItem->product;
-                $productId = $firstItem->product_id;
                 $productTypeId = $firstItem->product_type;
-        
+
                 $specificationTypes = [
                     'specificationFas',
                     'specificationFmp',
-                    // Nanti tambah disini untuk spesifikasi
+                    'specificationDiac',
                 ];
-        
+
                 $productMainSpecification = null;
                 $quotName = '';
 
                 foreach ($specificationTypes as $type) {
                     if ($product->{$type}->isNotEmpty()) {
                         $productMainSpecification = $product->{$type}->where('id', $productTypeId)->first();
+
                         switch ($type) {
                             case 'specificationFas':
                                 $quotName = 'admin.order-admin.exports._quotation-fas';
@@ -60,18 +61,74 @@ class QuotationController extends Controller
                 }
 
                 if (!$productMainSpecification) {
-                    dd('Spesifikasi tidak ditemukan untuk produk ini.');
+                    abort(404, 'Spesifikasi tidak ditemukan untuk produk ini.');
                 }
 
                 $remainingRows = 17 - $orderfind->revisiquotation->count();
                 $remainingRows = max($remainingRows, 0);
 
-                return view($quotName, compact('orderfind', 'productMainSpecification', 'remainingRows'));
+                // === 1. Generate PDF dari Blade ===
+                $pdf = Pdf::loadView($quotName, [
+                    'orderfind' => $orderfind,
+                    'productMainSpecification' => $productMainSpecification,
+                    'remainingRows' => $remainingRows,
+                ]);
+
+                $pdf->setOption('A4', 'potrait');
+                // pastikan folder temp ada
+                $tempPath = storage_path("app/temp");
+                if (!file_exists($tempPath)) {
+                    mkdir($tempPath, 0777, true);
+                }
+
+                $generatedPath = $tempPath . "/quotation_{$orderfind->id}.pdf";
+                $pdf->save($generatedPath);
+
+                // === 2. Siapkan file untuk merge ===
+                $filesToMerge = [$generatedPath];
+
+                // ambil file dari kolom `attachment_path`
+                if ($orderfind->attachment_path) {
+                    $attachmentFullPath = public_path('storage/' . $orderfind->attachment_path);
+
+                    if (file_exists($attachmentFullPath)) {
+                        $filesToMerge[] = $attachmentFullPath;
+                    }
+                }
+
+                // === 3. Merge file PDF ===
+                $mergedPath = $tempPath . "/merged_quotation_{$orderfind->id}.pdf";
+                $this->mergePdfs($filesToMerge, $mergedPath);
+
+                return response()->file($mergedPath);
+
             } else {
-                dd('Tidak ada item dalam pesanan.');
+                abort(404, 'Tidak ada items dalam pesanan.');
             }
         } catch (\Throwable $th) {
             throw new \ErrorException($th->getMessage());
         }
+    }
+
+    /**
+     * 
+     */
+    private function mergePdfs(array $files, string $outputPath)
+    {
+        $pdf = new Fpdi();
+
+        foreach ($files as $file) {
+            $pageCount = $pdf->setSourceFile($file);
+
+            for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
+                $tplId = $pdf->importPage($pageNo);
+                $size = $pdf->getTemplateSize($tplId);
+
+                $pdf->AddPage($size['orientation'], [$size['width'], $size['height']]);
+                $pdf->useTemplate($tplId);
+            }
+        }
+
+        $pdf->Output($outputPath, 'F');
     }
 }
