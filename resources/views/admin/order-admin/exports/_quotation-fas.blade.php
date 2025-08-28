@@ -191,7 +191,7 @@
 
         <!-- Konten Utama -->
         <div class="content">
-            <h5 class="mt-5">A. Quotation Summary</h5>
+            <h5 class="mt-1 mb-0">A. Quotation Summary</h5>
 
             <p>The following is the price for <strong>{{ $orderfind->items->first()->product->nama_produk }} - {{ $productMainSpecification->type_name}}</strong>. Please see item specific pages for more details.</p>
             
@@ -308,7 +308,7 @@
 
         <!-- Konten Utama -->
         <div class="content">
-            <h5 class="mt-5">B. Aerator Dimension</h5>
+            <h5 class="mt-1 mb-0">B. Aerator Dimension</h5>
             <div class="row text-center">
                 <div class="col-12 mb-3">
                     <img src="{{ public_path('/quot/fas/sketsa-dimensi-aerator.webp') }}" alt="Gambar 1" class="img-fluid" style="width: 45%;">
@@ -334,7 +334,7 @@
 
         <!-- Konten Utama -->
         <div class="content">
-            <h5 class="mt-5">C. Scope of Supply</h5>
+            <h5 class="mt-1 mb-0">C. Scope of Supply</h5>
 
             <table class="table table-bordered">
                 <thead>
@@ -359,14 +359,14 @@
                     <tr>
                         <td></td>
                         <td>Panel Control (for Aerator)</td>
-                        <td>√</td>
+                        <td class="text-center">√</td>
                         <td></td>
                         <td></td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>Aerator</td>
-                        <td>√</td>
+                        <td class="text-center">√</td>
                         <td></td>
                         <td></td>
                     </tr>
@@ -380,15 +380,15 @@
                     <tr>
                         <td></td>
                         <td class="description">Cable from Main Panel to Local Panel</td>
-                        <td></td>
-                        <td>√</td>
+                        <td class="text-center">{{ $orderfind->items->contains('productadd.nama_produk_tambahan',  'Cable from Main Panel to Local Panel') ? '√' : '' }}</td>
+                        <td class="text-center">{{ !$orderfind->items->contains('productadd.nama_produk_tambahan', 'Cable from Main Panel to Local Panel') ? '√' : '' }}</td>
                         <td></td>
                     </tr>
                     <tr>
                         <td></td>
                         <td class="description">Cable from Local Panel to Aerator</td>
-                        <td></td>
-                        <td>√</td>
+                        <td class="text-center">{{ $orderfind->items->contains('productadd.nama_produk_tambahan',  'Cable from Local Panel to Aerator') ? '√' : '' }}</td>
+                        <td class="text-center">{{ !$orderfind->items->contains('productadd.nama_produk_tambahan', 'Cable from Local Panel to Aerator') ? '√' : '' }}</td>
                         <td></td>
                     </tr>
                     <tr>
@@ -401,7 +401,7 @@
                     <tr>
                         <td></td>
                         <td class="description">Ropes for Aerator</td>
-                        <td>√</td>
+                        <td class="text-center">√</td>
                         <td></td>
                         <td>Only 100m</td>
                     </tr>
@@ -415,22 +415,22 @@
                     <tr>
                         <td></td>
                         <td class="description">Commissioning Cost</td>
-                        <td>{{ $orderfind->items->contains('productadd.nama_produk_tambahan',  'Commissioning Cost') ? '√' : '' }}</td>
-                        <td>{{ !$orderfind->items->contains('productadd.nama_produk_tambahan', 'Commissioning Cost') ? '√' : '' }}</td>
+                        <td class="text-center">{{ $orderfind->items->contains('productadd.nama_produk_tambahan',  'Commissioning Cost') ? '√' : '' }}</td>
+                        <td class="text-center">{{ !$orderfind->items->contains('productadd.nama_produk_tambahan', 'Commissioning Cost') ? '√' : '' }}</td>
                         <td>TBD</td>
                     </tr>
                     <tr>
                         <td></td>
                         <td class="description">Sufficient water and electricity during the commissioning</td>
-                        <td></td>
-                        <td>√</td>
+                        <td class="text-center">{{ $orderfind->items->contains('productadd.nama_produk_tambahan',  'Sufficient water and electricity') ? '√' : '' }}</td>
+                        <td class="text-center">{{ !$orderfind->items->contains('productadd.nama_produk_tambahan', 'Sufficient water and electricity') ? '√' : '' }}</td>
                         <td></td>
                     </tr>
                     <tr>
                         <td></td>
                         <td class="description">Site Supervision</td>
-                        <td>{{ $orderfind->items->contains('productadd.nama_produk_tambahan', 'Site Supervision') ? '√' : '' }}</td>
-                        <td>{{ !$orderfind->items->contains('productadd.nama_produk_tambahan', 'Site Supervision') ? '√' : '' }}</td>
+                        <td class="text-center">{{ $orderfind->items->contains('productadd.nama_produk_tambahan', 'Site Supervision') ? '√' : '' }}</td>
+                        <td class="text-center">{{ !$orderfind->items->contains('productadd.nama_produk_tambahan', 'Site Supervision') ? '√' : '' }}</td>
                         <td>TBD</td>
                     </tr>
                     <tr>
@@ -443,15 +443,15 @@
                     <tr>
                         <td></td>
                         <td class="description">Installation Manual Book</td>
-                        <td>√</td>
-                        <td></td>
+                        <td class="text-center">{{ $orderfind->items->contains('productadd.nama_produk_tambahan', 'Installation Manual Book') ? '√' : '' }}</td>
+                        <td class="text-center">{{ !$orderfind->items->contains('productadd.nama_produk_tambahan', 'Installation Manual Book') ? '√' : '' }}</td>
                         <td></td>
                     </tr>
                     <tr>
                         <td></td>
                         <td class="description">Packing List</td>
-                        <td>√</td>
-                        <td></td>
+                        <td class="text-center">{{ $orderfind->items->contains('productadd.nama_produk_tambahan', 'Packing List') ? '√' : '' }}</td>
+                        <td class="text-center">{{ !$orderfind->items->contains('productadd.nama_produk_tambahan', 'Packing List') ? '√' : '' }}</td>
                         <td></td>
                     </tr>
                     <tr>
@@ -464,8 +464,8 @@
                     <tr>
                         <td></td>
                         <td class="description">Any/All Insurance and Taxes Not Specially Hugh lighted/Mentioned in This document</td>
-                        <td></td>
-                        <td>√</td>
+                        <td class="text-center">{{ $orderfind->items->contains('productadd.nama_produk_tambahan', 'Any/All Insurance and Taxes') ? '√' : '' }}</td>
+                        <td class="text-center">{{ !$orderfind->items->contains('productadd.nama_produk_tambahan', 'Any/All Insurance and Taxes') ? '√' : '' }}</td>
                         <td></td>
                     </tr>
                     <tr>
@@ -478,22 +478,22 @@
                     <tr>
                         <td></td>
                         <td class="description">Shipping to Onsite</td>
-                        <td>{{ $orderfind->shipping?->use_shipping_to_onsite ? '√' : '' }}</td>
-                        <td>{{ !$orderfind->shipping?->use_shipping_to_onsite ? '√' : '' }}</td>
+                        <td class="text-center">{{ $orderfind->shipping?->use_shipping_to_onsite ? '√' : '' }}</td>
+                        <td class="text-center">{{ !$orderfind->shipping?->use_shipping_to_onsite ? '√' : '' }}</td>
                         <td></td>
                     </tr>
                     <tr>
                         <td></td>
                         <td class="description">Loading and unloading material/Equipment to laydown area</td>
-                        <td></td>
-                        <td>√</td>
+                        <td class="text-center">{{ $orderfind->items->contains('productadd.nama_produk_tambahan', 'Loading and unloading material') ? '√' : '' }}</td>
+                        <td class="text-center">{{ !$orderfind->items->contains('productadd.nama_produk_tambahan', 'Loading and unloading material') ? '√' : '' }}</td>
                         <td></td>
                     </tr>
                     <tr>
                         <td></td>
                         <td class="description">Installation Cost</td>
-                        <td></td>
-                        <td>√</td>
+                        <td class="text-center">{{ $orderfind->items->contains('productadd.nama_produk_tambahan', 'Installation Cost') ? '√' : '' }}</td>
+                        <td class="text-center">{{ !$orderfind->items->contains('productadd.nama_produk_tambahan', 'Installation Cost') ? '√' : '' }}</td>
                         <td></td>
                     </tr>
                 </tbody>
@@ -516,7 +516,7 @@
 
         <!-- Konten Utama -->
         <div class="content">
-            <h5 class="mt-2">D. Technical Data Sheet</h5>     
+            <h5 class="mt-1 mb-0">D. Technical Data Sheet</h5>     
             <table class="header-table" cellspacing="0" cellpadding="6" >
                 <tr>
                     <td class="align-middle text-center no-border-right" rowspan="2" class="p-5" style="width: 10%;">
@@ -683,7 +683,7 @@
 
         <!-- Konten Utama -->
         <div class="content">
-            <h5 class="mt-5">E. Term and Condition</h5>
+            <h5 class="mt-1 mb-0">E. Term and Condition</h5>
             <table class="table table-bordered">
                 <tbody>
                     <tr>
@@ -766,14 +766,14 @@
     <!-- End Halaman 9-->
 
     <!-- Halaman 10 -->
-    <div class="page mx-15 page-break">
+    <div class="page mx-15">
         <!-- Header -->
         <x-penawaran-pdf-header :orderfind="$orderfind" :page=10 :countpage=10/>
         <!-- End Header -->
 
        <!-- Konten Utama -->
         <div class="content ">
-            <h5 class="mt-2">F. Product</h5>
+            <h5 class="mt-1 mb-0">F. Product</h5>
             <div class="text-center">
                 <div class="col-12">
                     <img src="{{ public_path('./quot/fas/fas-surface-aerator.webp') }}" alt="Gambar-2"
@@ -797,11 +797,11 @@
    </div>
    <!-- End Halaman 10-->
 
-    <!-- Back Cover page dengan gambar -->
+    {{-- <!-- Back Cover page dengan gambar -->
     <div class="cover-page" 
         style="background: url('file://{{ public_path('quot/fas/back-cover.webp') }}') no-repeat center center; background-size: cover;">
     </div>
-    <!-- End Back Cover page dengan gambar -->
+    <!-- End Back Cover page dengan gambar --> --}}
 
 </body>
 

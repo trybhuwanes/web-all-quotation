@@ -28,7 +28,7 @@
     <!-- Halaman 2 -->
     <div class="page mx-15 page-break">
         <!-- Header -->
-        <x-penawaran-pdf-header :orderfind="$orderfind" :page=2 :countpage=12 />
+        <x-penawaran-pdf-header :orderfind="$orderfind" :page=2 :countpage=11 />
         <!-- End Header -->
 
         <!-- Konten Utama -->
@@ -86,7 +86,7 @@
     <!-- Halaman 3 -->
     <div class="page mx-15 page-break">
         <!-- Header -->
-        <x-penawaran-pdf-header :orderfind="$orderfind" :page=3 :countpage=12 />
+        <x-penawaran-pdf-header :orderfind="$orderfind" :page=3 :countpage=11 />
         <!-- End Header -->
 
         <!-- Konten Utama -->
@@ -147,7 +147,7 @@
     <!-- Halaman 4 -->
     <div class="page mx-15 page-break">
         <!-- Header -->
-        <x-penawaran-pdf-header :orderfind="$orderfind" :page=4 :countpage=12 />
+        <x-penawaran-pdf-header :orderfind="$orderfind" :page=4 :countpage=11 />
         <!-- End Header -->
 
         <!-- Konten Utama -->
@@ -190,32 +190,32 @@
                     <tr>
                         <td class="title">C. Technical Data</td>
                         <td class="dots"></td>
-                        <td class="page">7</td>
+                        <td class="page">6</td>
                     </tr>
                     <tr>
                         <td class="title">D. Material And Mode Of Main Parts</td>
                         <td class="dots"></td>
-                        <td class="page">8</td>
+                        <td class="page">7</td>
                     </tr>
                     <tr>
                         <td class="title">E. Scope Of Supply</td>
                         <td class="dots"></td>
-                        <td class="page">9</td>
+                        <td class="page">8</td>
                     </tr>
                     <tr>
                         <td class="title">F. Term And Condition</td>
                         <td class="dots"></td>
-                        <td class="page">10</td>
+                        <td class="page">9</td>
                     </tr>
                     <tr>
                         <td class="title">G. Drawing Of MPS</td>
                         <td class="dots"></td>
-                        <td class="page">11</td>
+                        <td class="page">10</td>
                     </tr>
                     <tr>
                         <td class="title">H. Project References</td>
                         <td class="dots"></td>
-                        <td class="page">12</td>
+                        <td class="page">11</td>
                     </tr>
                 </table>
             </div>
@@ -231,7 +231,7 @@
     <!-- Halaman 5 -->
     <div class="page mx-15 page-break">
         <!-- Header -->
-        <x-penawaran-pdf-header :orderfind="$orderfind" :page=5 :countpage=12 />
+        <x-penawaran-pdf-header :orderfind="$orderfind" :page=5 :countpage=11 />
         <!-- End Header -->
 
         <!-- Konten Utama -->
@@ -280,7 +280,7 @@
 
             <h4 class="mt-0 mb-0">Key Features</h4>
             <ul>
-                <li>Low Energy Consumption: This product is built for energy efficiency,
+                <li>Low Energy Consumption: The FLOWREX Multi Plate Screw Press is built for energy efficiency,
                     requiring minimal power for operation. Its innovative design reduces overall energy consumption,
                     resulting in significant cost savings over time.</li>
                 <li>Continuous and Automated Operation: The system is fully automated, allowing for 24/7 operation with
@@ -288,7 +288,7 @@
                     intervention. Its continuous dewatering process ensures consistent performance and reduced downtime,
                     maximizing operational
                     efficiency</li>
-                <li>Compact and Space-Saving Design: With a compact footprint, this product is
+                <li>Compact and Space-Saving Design: With a compact footprint, the FLOWREX Multi Plate Screw Press is
                     ideal for installations
                     where space is limited. Its modular structure enables easy integration into existing facilities.
                 </li>
@@ -303,7 +303,8 @@
                     sludge volume and disposal costs.
                 </li>
                 <li>Durable and Corrosion-Resistant Materials: Constructed with high-quality stainless steel and
-                    corrosion-resistant components, this product guarantees durability, longevity, and reliable performance even in
+                    corrosion-resistant components, the
+                    FLOWREX Multi Plate Screw Press guarantees durability, longevity, and reliable performance even in
                     harsh environments</li>
             </ul>
 
@@ -320,7 +321,7 @@
     <!-- Halaman 6 -->
     <div class="page mx-15 page-break">
         <!-- Header -->
-        <x-penawaran-pdf-header :orderfind="$orderfind" :page=6 :countpage=12 />
+        <x-penawaran-pdf-header :orderfind="$orderfind" :page=6 :countpage=11 />
         <!-- End Header -->
 
         <!-- Konten Utama -->
@@ -433,28 +434,17 @@
             </p>
 
         </div>
-        <!-- Footer -->
-        <x-penawaran-pdf-footer :orderfind="$orderfind" :page=6 />
-        <!-- End Footer -->
-    </div>
-    <!-- End Halaman 6-->
+        <!-- End Konten Utama -->
 
-    <!-- Halaman 7 -->
-    <div class="page mx-15 page-break">
-        <!-- Header -->
-        <x-penawaran-pdf-header :orderfind="$orderfind" :page=7 :countpage=12 />
-        <!-- End Header -->
-
-        <!-- Konten Utama -->
         <div class="content">
             <h5 class="mb-0 mt-1">C. Technical Data</h5>
             <table class="table table-bordered table-mps">
                 <thead>
-                    <tr class="highlight-header fw-bold">
-                        <th class="text-center text-bold nopading" colspan="2">
+                    <tr class="highlight-header fw-bold text-center">
+                        <th class="nopading" colspan="2">
                             Item
                         </th>
-                        <th class="text-center text-bold nopading">
+                        <th class="nopading">
                             Parameter
                         </th>
                     </tr>
@@ -511,6 +501,37 @@
                         <td class="nopading">Water Supply Pressure</td>
                         <td class="nopading">≥0.2MPa</td>
                     </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- End Konten Utama -->
+        <!-- Footer -->
+        <x-penawaran-pdf-footer :orderfind="$orderfind" :page=6 />
+        <!-- End Footer -->
+    </div>
+    <!-- End Halaman 6-->
+
+    <!-- Halaman 7 -->
+    <div class="page mx-15 page-break">
+        <!-- Header -->
+        <x-penawaran-pdf-header :orderfind="$orderfind" :page=7 :countpage=11 />
+        <!-- End Header -->
+
+        <!-- Konten Utama -->
+        <div class="content">
+            <table class="table table-bordered table-mps">
+                <thead>
+                    <tr class="highlight-header fw-bold">
+                        <th class="text-center text-bold nopading" colspan="2">
+                            Item
+                        </th>
+                        <th class="text-center text-bold nopading">
+                            Parameter
+                        </th>
+                    </tr>
+
+                </thead>
+                <tbody>
                     <tr>
                         <td class="nopading" rowspan="4">Screw Body</td>
                         <td class="nopading">Specification × Length</td>
@@ -571,22 +592,7 @@
 
                 </tbody>
             </table>
-        </div>
 
-        <!-- Footer -->
-        <x-penawaran-pdf-footer :orderfind="$orderfind" :page=7 />
-        <!-- End Footer -->
-    </div>
-    <!-- End Halaman 7-->
-
-    <!-- Halaman 8 -->
-    <div class="page mx-15 page-break">
-        <!-- Header -->
-        <x-penawaran-pdf-header :orderfind="$orderfind" :page=8 :countpage=12 />
-        <!-- End Header -->
-
-        <!-- Konten Utama -->
-        <div class="content">
             <h5 class="mt-1 mb-0">D. Material and Mode of Main Parts</h5>
             <table class="table table-bordered table-mps mt-0">
                 <thead>
@@ -697,18 +703,17 @@
                 </tbody>
             </table>
         </div>
-        <!-- End Konten Utama -->
 
         <!-- Footer -->
-        <x-penawaran-pdf-footer :orderfind="$orderfind" :page=8 />
+        <x-penawaran-pdf-footer :orderfind="$orderfind" :page=7 />
         <!-- End Footer -->
     </div>
-    <!-- Halaman 8 -->
+    <!-- End Halaman 7-->
 
-    <!-- Halaman 9 -->
+    <!-- Halaman 8 -->
     <div class="page mx-15 page-break">
         <!-- Header -->
-        <x-penawaran-pdf-header :orderfind="$orderfind" :page=9 :countpage=12 />
+        <x-penawaran-pdf-header :orderfind="$orderfind" :page=8 :countpage=11 />
         <!-- End Header -->
 
         <!-- Konten Utama -->
@@ -738,13 +743,13 @@
                     <tr>
                         <td class="p-0">Panel control (only for MPS)</td>
                         <td class="p-0 text-center">√</td>
-                        <td class="p-0 text-center"></td>
+                        <td class="p-0"></td>
                         <td class="p-0"></td>
                     </tr>
                     <tr>
                         <td class="p-0">MPS</td>
                         <td class="p-0 text-center">√</td>
-                        <td class="p-0 text-center"></td>
+                        <td class="p-0"></td>
                         <td class="p-0"></td>
                     </tr>
 
@@ -794,32 +799,20 @@
                     </tr>
                     <tr>
                         <td class="p-0 description">Chemical Tank</td>
-                        <td class="p-0 text-center">
-                            {{ $orderfind->items->contains('productadd.nama_produk_tambahan', 'Chemical Tank') ? '√' : '' }}
-                        </td>
-                        <td class="p-0 text-center">
-                            {{ !$orderfind->items->contains('productadd.nama_produk_tambahan', 'Chemical Tank') ? '√' : '' }}
-                        </td>
+                        <td class="p-0"></td>
+                        <td class="p-0 text-center">√</td>
                         <td class="p-0"></td>
                     </tr>
                     <tr>
                         <td class="p-0 description">Sludge Tank</td>
-                        <td class="p-0 text-center">
-                            {{ $orderfind->items->contains('productadd.nama_produk_tambahan', 'Sludge Tank') ? '√' : '' }}
-                        </td>
-                        <td class="p-0 text-center">
-                            {{ !$orderfind->items->contains('productadd.nama_produk_tambahan', 'Sludge Tank') ? '√' : '' }}
-                        </td>
+                        <td class="p-0"></td>
+                        <td class="p-0 text-center">√</td>
                         <td class="p-0"></td>
                     </tr>
                     <tr>
                         <td class="p-0 description">Filtrat Tank</td>
-                        <td class="p-0 text-center">
-                            {{ $orderfind->items->contains('productadd.nama_produk_tambahan', 'Filtrat Tank') ? '√' : '' }}
-                        </td>
-                        <td class="p-0 text-center">
-                            {{ !$orderfind->items->contains('productadd.nama_produk_tambahan', 'Filtrat Tank') ? '√' : '' }}
-                        </td>
+                        <td class="p-0"></td>
+                        <td class="p-0 text-center">√</td>
                         <td class="p-0"></td>
                     </tr>
 
@@ -860,42 +853,26 @@
                     </tr>
                     <tr>
                         <td class="p-0 description">Cable from Main Panel to Local Panel</td>
-                        <td class="p-0 text-center">
-                            {{ $orderfind->items->contains('productadd.nama_produk_tambahan', 'Cable from Main Panel to Local Panel') ? '√' : '' }}
-                        </td>
-                        <td class="p-0 text-center">
-                            {{ !$orderfind->items->contains('productadd.nama_produk_tambahan', 'Cable from Main Panel to Local Panel') ? '√' : '' }}
-                        </td>
+                        <td class="p-0"></td>
+                        <td class="p-0 text-center">√</td>
                         <td class="p-0"></td>
                     </tr>
                     <tr>
                         <td class="p-0 description">Interconnection Pipe from Feed Pump to Equipment</td>
-                        <td class="p-0 text-center">
-                            {{ $orderfind->items->contains('productadd.nama_produk_tambahan', 'Interconnection Pipe') ? '√' : '' }}
-                        </td>
-                        <td class="p-0 text-center">
-                            {{ !$orderfind->items->contains('productadd.nama_produk_tambahan', 'Interconnection Pipe') ? '√' : '' }}
-                        </td>
+                        <td class="p-0"></td>
+                        <td class="p-0 text-center">√</td>
                         <td class="p-0"></td>
                     </tr>
                     <tr>
                         <td class="p-0 description">Clean water washing tube connection</td>
-                        <td class="p-0 text-center">
-                            {{ $orderfind->items->contains('productadd.nama_produk_tambahan', 'Clean water washing tube connection') ? '√' : '' }}
-                        </td>
-                        <td class="p-0 text-center">
-                            {{ !$orderfind->items->contains('productadd.nama_produk_tambahan', 'Clean water washing tube connection') ? '√' : '' }}
-                        </td>
+                        <td class="p-0"></td>
+                        <td class="p-0 text-center">√</td>
                         <td class="p-0"></td>
                     </tr>
                     <tr>
                         <td class="p-0 description">Chemical Connection</td>
-                        <td class="p-0 text-center">
-                            {{ $orderfind->items->contains('productadd.nama_produk_tambahan', 'Chemical Connection') ? '√' : '' }}
-                        </td>
-                        <td class="p-0 text-center">
-                            {{ !$orderfind->items->contains('productadd.nama_produk_tambahan', 'Chemical Connection') ? '√' : '' }}
-                        </td>
+                        <td class="p-0"></td>
+                        <td class="p-0 text-center">√</td>
                         <td class="p-0"></td>
                     </tr>
 
@@ -918,22 +895,14 @@
                     </tr>
                     <tr>
                         <td class="p-0 description">Shelter</td>
-                        <td class="p-0 text-center">
-                            {{ $orderfind->items->contains('productadd.nama_produk_tambahan', 'Civil & Structural Work - Shelter') ? '√' : '' }}
-                        </td>
-                        <td class="p-0 text-center">
-                            {{ !$orderfind->items->contains('productadd.nama_produk_tambahan', 'Civil & Structural Work - Shelter') ? '√' : '' }}
-                        </td>
+                        <td class="p-0"></td>
+                        <td class="p-0 text-center">√</td>
                         <td class="p-0"></td>
                     </tr>
                     <tr>
                         <td class="p-0 description">Maintenance platform and safety handrails</td>
-                        <td class="p-0 text-center">
-                            {{ $orderfind->items->contains('productadd.nama_produk_tambahan', 'Maintenance platform and safety handrails') ? '√' : '' }}
-                        </td>
-                        <td class="p-0 text-center">
-                            {{ !$orderfind->items->contains('productadd.nama_produk_tambahan', 'Maintenance platform and safety handrails') ? '√' : '' }}
-                        </td>
+                        <td class="p-0"></td>
+                        <td class="p-0 text-center">√</td>
                         <td class="p-0"></td>
                     </tr>
                     <tr>
@@ -955,12 +924,8 @@
                     </tr>
                     <tr>
                         <td class="p-0 description">Sufficient water and electricity during the commissioning</td>
-                        <td class="p-0 text-center">
-                            {{ $orderfind->items->contains('productadd.nama_produk_tambahan', 'Sufficient water and electricity') ? '√' : '' }}
-                        </td>
-                        <td class="p-0 text-center">
-                            {{ !$orderfind->items->contains('productadd.nama_produk_tambahan', 'Sufficient water and electricity') ? '√' : '' }}
-                        </td>
+                        <td class="p-0"></td>
+                        <td class="p-0 text-center">√</td>
                         <td class="p-0"></td>
                     </tr>
                     <tr>
@@ -975,7 +940,7 @@
                     </tr>
 
                     <tr>
-                        <td rowspan="3">8</td>
+                        <td rowspan="4">8</td>
                         <td class="ps-0 fw-bold">{{ __('Document') }}</td>
                         <td></td>
                         <td></td>
@@ -983,21 +948,23 @@
                     </tr>
                     <tr>
                         <td class="p-0 description">Installation Manual Book</td>
-                        <td class="p-0 text-center">
-                            {{ $orderfind->items->contains('productadd.nama_produk_tambahan', 'Installation Manual Book') ? '√' : '' }}
-                        </td>
-                        <td class="p-0 text-center">
-                            {{ !$orderfind->items->contains('productadd.nama_produk_tambahan', 'Installation Manual Book') ? '√' : '' }}
-                        </td>
+                        <td class="p-0"></td>
+                        <td class="p-0 text-center">√</td>
                         <td class="p-0"></td>
                     </tr>
                     <tr>
                         <td class="p-0 description">Packing list</td>
+                        <td class="p-0"></td>
+                        <td class="p-0 text-center">√</td>
+                        <td class="p-0"></td>
+                    </tr>
+                    <tr>
+                        <td class="p-0 description">Lorem Ipsum</td>
                         <td class="p-0 text-center">
-                            {{ $orderfind->items->contains('productadd.nama_produk_tambahan', 'Packing list') ? '√' : '' }}
+                            {{ $orderfind->items->contains('productadd.nama_produk_tambahan', 'Lorem Ipsum') ? '√' : '' }}
                         </td>
                         <td class="p-0 text-center">
-                            {{ !$orderfind->items->contains('productadd.nama_produk_tambahan', 'Packing list') ? '√' : '' }}
+                            {{ !$orderfind->items->contains('productadd.nama_produk_tambahan', 'Lorem Ipsum') ? '√' : '' }}
                         </td>
                         <td class="p-0"></td>
                     </tr>
@@ -1008,16 +975,16 @@
         <!-- End Konten Utama -->
 
         <!-- Footer -->
-        <x-penawaran-pdf-footer :orderfind="$orderfind" :page=9 />
+        <x-penawaran-pdf-footer :orderfind="$orderfind" :page=8 />
         <!-- End Footer -->
     </div>
-    <!-- End Halaman 9-->
+    <!-- End Halaman 8-->
 
 
-    <!-- Halaman 10 -->
+    <!-- Halaman 9 -->
     <div class="page mx-15 page-break">
         <!-- Header -->
-        <x-penawaran-pdf-header :orderfind="$orderfind" :page=10 :countpage=12 />
+        <x-penawaran-pdf-header :orderfind="$orderfind" :page=9 :countpage=11 />
         <!-- End Header -->
 
         <!-- Konten Utama -->
@@ -1161,15 +1128,15 @@
         <!-- End Konten Utama -->
 
         <!-- Footer -->
-        <x-penawaran-pdf-footer :orderfind="$orderfind" :page=10 />
+        <x-penawaran-pdf-footer :orderfind="$orderfind" :page=9 />
         <!-- End Footer -->
     </div>
-    <!-- End Halaman 10-->
+    <!-- End Halaman 9-->
 
-    <!-- Halaman 11 -->
+    <!-- Halaman 10 -->
     <div class="page mx-15 page-break">
         <!-- Header -->
-        <x-penawaran-pdf-header :orderfind="$orderfind" :page=11 :countpage=12 />
+        <x-penawaran-pdf-header :orderfind="$orderfind" :page=10 :countpage=11 />
         <!-- End Header -->
 
         <!-- Konten Utama -->
@@ -1188,15 +1155,15 @@
         <!-- End Konten Utama -->
 
         <!-- Footer -->
-        <x-penawaran-pdf-footer :orderfind="$orderfind" :page=11 />
+        <x-penawaran-pdf-footer :orderfind="$orderfind" :page=10 />
         <!-- End Footer -->
     </div>
-    <!-- End Halaman 11-->
+    <!-- End Halaman 10-->
 
-    <!-- Halaman 12 -->
-    <div class="page mx-15">
+    <!-- Halaman 11 -->
+    <div class="page mx-15 page-break">
         <!-- Header -->
-        <x-penawaran-pdf-header :orderfind="$orderfind" :page=12 :countpage=12 />
+        <x-penawaran-pdf-header :orderfind="$orderfind" :page=11 :countpage=11 />
         <!-- End Header -->
 
         <!-- Konten Utama -->
@@ -1238,15 +1205,15 @@
         <!-- End Konten Utama -->
 
         <!-- Footer -->
-        <x-penawaran-pdf-footer :orderfind="$orderfind" :page=12 />
+        <x-penawaran-pdf-footer :orderfind="$orderfind" :page=11 />
         <!-- End Footer -->
     </div>
-    <!-- End Halaman 12-->
+    <!-- End Halaman 11-->
 
     <!-- Back Cover page dengan gambar -->
-    {{-- <div class="cover-page"
+    <div class="cover-page"
         style="background: url('file://{{ public_path('quot/fas/back-cover.webp') }}') no-repeat center center; background-size: cover;">
-    </div> --}}
+    </div>
     <!-- End Back Cover page dengan gambar -->
 
     <!-- Tombol Print -->
