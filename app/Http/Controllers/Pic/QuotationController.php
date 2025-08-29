@@ -81,50 +81,47 @@ class QuotationController extends Controller
                     mkdir($tempPath, 0777, true);
                 }
 
-                // $generatedPath = $tempPath . "/quotation_{$orderfind->id}.pdf";
-                // $pdf->save($generatedPath);
 
-                // // === 2. Siapkan file untuk merge ===
-                // $filesToMerge = [$generatedPath];
-
-                // // ambil file dari kolom `attachment_path`
-                // if ($orderfind->attachment_path) {
-                //     $attachmentFullPath = public_path('storage/' . $orderfind->attachment_path);
-
-                //     if (file_exists($attachmentFullPath)) {
-                //         $filesToMerge[] = $attachmentFullPath;
-                //     }
-                // }
-
-                // // === 3. Merge file PDF ===
-                // $mergedPath = $tempPath . "/merged_quotation_{$orderfind->id}.pdf";
-                // $this->mergePdfs($filesToMerge, $mergedPath);
-
-                // return response()->file($mergedPath);
                 // === Generate nama file dinamis ===
-                $customerName = $orderfind->user->name ?? 'customer';
-                $productName  = $product->name ?? 'product';
-                $dateExport   = now()->format('Ymd_His');
+                $customerName = $orderfind->user->company ?? 'customer';
+                $dateExport   = now()->format('Ymd');
 
                 // amanin spasi/karakter khusus
                 $customerName = preg_replace('/[^A-Za-z0-9_\-]/', '_', $customerName);
-                $productName  = preg_replace('/[^A-Za-z0-9_\-]/', '_', $productName);
 
-                $fileBaseName   = "Quotation_{$customerName}_{$productName}_{$dateExport}.pdf";
-                $generatedPath  = $tempPath . "/{$fileBaseName}";
+                $generatedPath = $tempPath . "/quotation_{$orderfind->id}.pdf";
                 $pdf->save($generatedPath);
-
+                
                 // === 2. Siapkan file untuk merge ===
                 $filesToMerge = [$generatedPath];
 
-                // === 3. Path hasil merge ===
-                $mergedPath = $tempPath . "/merged_{$fileBaseName}";
+                // ambil file dari kolom `attachment_path` dan back cover
+                $backCoverPath = public_path('./quot/back-cover.pdf');
+                if ($orderfind->attachment_path) {
+                    $attachmentFullPath = public_path('storage/' . $orderfind->attachment_path);
+
+                    if (file_exists($attachmentFullPath)) {
+                        $filesToMerge[] = $attachmentFullPath;
+                    }
+
+                    if (file_exists($backCoverPath)) {
+                        $filesToMerge[] = $backCoverPath;
+                    }
+                } else {
+                    if (file_exists($backCoverPath)) {
+                        $filesToMerge[] = $backCoverPath;
+                    }
+                }
+
+                // === 3. Merge file PDF ===
+                $mergedPath = $tempPath . "/merged_quotation_{$orderfind->id}.pdf";
                 $this->mergePdfs($filesToMerge, $mergedPath);
 
-                // return file dengan nama bagus
-                return response()->download($mergedPath, $fileBaseName, [
+                return response()->file($mergedPath, [
                     'Content-Type' => 'application/pdf',
+                    'Content-Disposition' => 'inline; filename="Quotation_' . $customerName .'_'. $dateExport . '.pdf"',
                 ]);
+
             } else {
                 abort(404, 'Tidak ada items dalam pesanan.');
             }
