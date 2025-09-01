@@ -22,6 +22,7 @@ return new class extends Migration
             $table->enum('discount_type', ['percentage', 'fixed'])->default('fixed'); // Jenis diskon (persentase atau nominal)
             $table->enum('status', ['cancelled', 'pending', 'submission', 'processing', 'completed'])->default('pending');
             $table->string('po_path')->nullable(); // Menyimpan path file PO PDF
+            $table->string('attachment_path')->nullable(); // Menyimpan path file attachment
             $table->timestamps();
 
             // Foreign key constraint

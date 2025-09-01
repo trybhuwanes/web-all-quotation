@@ -16,18 +16,9 @@
                 <!--begin::Hero container-->
                 <div class="d-flex flex-column justify-content-center w-100">
                     <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
-                        <!-- Indicators -->
-                        <div class="carousel-indicators">
-                            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
-                            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
-                            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
-                        </div>
-
-                        <!-- Slides -->
                         <div class="carousel-inner">
-                            <!-- Slide 1 -->
                             <div class="carousel-item active">
-                                <img src="{{ url('/images/guna-hijau-inovasi-project.webp') }}" class="d-block w-100 img-fluid" alt="Banner 1">
+                                <img loading="lazy" src="{{ asset('./images/guna-hijau-inovasi-project.webp') }}" class="d-block w-100 img-fluid" alt="Banner 1">
                                 <div class="carousel-caption">
                                     <h1 class="text-white fw-bold">{{__('Guna Hijau Inovasi')}}</h1>
                                     <p class="text-white fs-2">{{__('Teknologi inovatif untuk pengelolaan air, limbah, dan energi.')}}</p>
@@ -36,41 +27,12 @@
                                     </a>
                                 </div>
                             </div>
-                            <!-- Slide 2 -->
-                            <div class="carousel-item">
-                                <img src="{{ url('/images/guna-hijau-inovasi-staff-ahli.webp') }}" class="d-block w-100 img-fluid" alt="Banner 2">
-                                <div class="carousel-caption">
-                                    <h1 class="text-white fw-bolder">{{__('Solusi Terintegrasi')}}</h1>
-                                    <p class="text-white fs-2">{{__('Menghadirkan desain yang optimal untuk efisiensi.')}}</p>
-                                    <a href="#how-it-works" class="btn btn-light fw-bolder mt-3 px-4 py-2" aria-label="View Product" rel="noopener noreferrer">Pelajari Lebih Lanjut</a>
-                                </div>
-                            </div>
-                            <!-- Slide 3 -->
-                            <div class="carousel-item">
-                                <img src="{{ url('/images/guna-hijau-inovasi-product.webp') }}" class="d-block w-100 img-fluid" alt="Banner 3">
-                                <div class="carousel-caption">
-                                    <h1 class="text-white fw-bolder">{{__('Tim Profesional')}}</h1>
-                                    <p class="text-white fs-2">{{__('Dipercayakan para ahli di bidang pengelolaan limbah.')}}</p>
-                                    <a href="{{ route('about-us')}}" class="btn btn-ghi fw-bolder mt-3 px-4 py-2" aria-label="View Product" rel="noopener noreferrer">Hubungi Kami</a>
-                                </div>
-                            </div>
                         </div>
-
-                        <!-- Controls -->
-                        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon"></span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-                            <span class="carousel-control-next-icon"></span>
-                        </button>
                     </div>
                 </div>
             </div>
             <!--end::Hero wrapper-->
         </div>
-
-
-
     </div>
     <!--end::Banner-->
     
@@ -349,35 +311,57 @@
             </div>
             <!--end::Heading-->
 
-            <!--begin::Row with Videos-->
-            <div class="row g-5">
-                <!--begin::Column 1-->
+            <!--begin::Row-->
+            <div class="row g-lg-10 mb-10 mb-lg-20 text-center">
+                <!--begin::Col-->
                 <div class="col-md-6">
-                    <div class="ratio ratio-16x9">
-                        <iframe src="https://www.youtube.com/embed/dCAeZtfD9CM?si=JzqYGDXEFCH4VXCr" 
-                                title="YouTube video player" 
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen loading="lazy">
-                        </iframe>
+                    <!--begin::Card-->
+                    <div class="card">
+                        <!--begin::Overlay-->
+                        <a class="d-block overlay mb-4" href="https://youtu.be/dCAeZtfD9CM" title="Installation Process SUPRAX Bolted Tank 300 CMD" target="_blank">
+                            <!--begin::Image-->
+                            <div class="overlay-wrapper position-relative card-rounded flex-center shadow">
+                                <img loading="lazy" src="{{ asset("./images/thumbnail-suprax.webp") }}"  alt="Tim Profesional" class="img-fluid w-100 h-100 object-fit-cover card-rounded">
+                            </div>
+                            <!--end::Image-->
+                        
+                            <!--begin::Action-->
+                            <div class="overlay-layer card-rounded bg-dark bg-opacity-75 d-flex flex-column align-items-center justify-content-center text-center  shadow">
+                                <h2 class="text-white fs-4 fw-bold mb-2">{{ __('Tonton Video') }}</h2>
+                            </div>
+                            <!--end::Action-->
+                        </a>
+                        <!--end::Overlay-->
                     </div>
+                    <!--end::Card-->
                 </div>
-                <!--end::Column 1-->
+                <!--end::Col-->
 
-                <!--begin::Column 2-->
+                <!--begin::Col-->
                 <div class="col-md-6">
-                    <div class="ratio ratio-16x9">
-                        <iframe src="https://www.youtube.com/embed/4LOZKbTLLVI?si=0E2yQXxChlDjRQbR" 
-                                title="YouTube video player" 
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen loading="lazy">
-                        </iframe>
+                    <!--begin::Card-->
+                    <div class="card">
+                        <!--begin::Overlay-->
+                        <a class="d-block overlay mb-4" href="https://youtu.be/4LOZKbTLLVI" title="Tutorial Instalasi FLOWREX Surface Aerator" target="_blank">
+                            <!--begin::Image-->
+                            <div class="overlay-wrapper position-relative card-rounded flex-center shadow">
+                                <img loading="lazy" src="{{ asset("./images/thumbnail-fas.webp") }}"  alt="Tim Profesional" class="img-fluid w-100 h-100 object-fit-cover card-rounded">
+                            </div>
+                            <!--end::Image-->
+                        
+                            <!--begin::Action-->
+                            <div class="overlay-layer card-rounded bg-dark bg-opacity-75 d-flex flex-column align-items-center justify-content-center text-center  shadow">
+                                <h2 class="text-white fs-4 fw-bold mb-2">{{ __('Tonton Video') }}</h2>
+                            </div>
+                            <!--end::Action-->
+                        </a>
+                        <!--end::Overlay-->
                     </div>
+                    <!--end::Card-->
                 </div>
-                <!--end::Column 2-->
+                <!--end::Col-->
             </div>
-            <!--end::Row with Videos-->
+            <!--end::Row-->
         </div>
         <!--end::Container-->
     </section>
@@ -897,13 +881,29 @@
     
             <div class="row">
                 <!--begin::Videos-->
-                <!--begin::Column 1-->
+                <!--begin::Column-->
                 <div class="col-md-4 mb-5">
-                    <div class="ratio ratio-16x9 rounded border">
-                        <iframe src="https://www.youtube.com/embed/64bKehgi14M?si=acshjvnCKuMMZTSI" title="YouTube video" class="rounded" allowfullscreen loading="lazy"></iframe>
+                    <!--begin::Card-->
+                    <div class="card">
+                        <!--begin::Overlay-->
+                        <a class="d-block overlay mb-4" href="https://youtu.be/64bKehgi14M" title="Testimoni Penggunaan FLOWREX Multi Plate Screw Press di IPAL Industri Kosmetik" target="_blank">
+                            <!--begin::Image-->
+                            <div class="overlay-wrapper position-relative card-rounded flex-center shadow">
+                                <img loading="lazy" src="{{ asset("./images/thumbnail-mps.webp") }}"  alt="Tim Profesional" class="img-fluid w-100 h-100 object-fit-cover card-rounded">
+                            </div>
+                            <!--end::Image-->
+                        
+                            <!--begin::Action-->
+                            <div class="overlay-layer card-rounded bg-dark bg-opacity-75 d-flex flex-column align-items-center justify-content-center text-center  shadow">
+                                <h2 class="text-white fs-4 fw-bold mb-2">{{ __('Tonton Video') }}</h2>
+                            </div>
+                            <!--end::Action-->
+                        </a>
+                        <!--end::Overlay-->
                     </div>
+                    <!--end::Card-->
                 </div>
-                <!--end::Column 1-->
+                <!--end::Column-->
                 <!--end::Videos-->
     
                 <!--begin::Column 2-->

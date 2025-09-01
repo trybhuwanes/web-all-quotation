@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Pic\OrderAttachmentController;
 
 
 /*
@@ -21,7 +22,7 @@ use Illuminate\Support\Facades\Auth;
 
 // Back
 Route::middleware('auth')->group(function () {
-    
+
     // After login
     Route::get('product-overview/{slug}/specification', [App\Http\Controllers\ProductsController::class, 'specification'])->name('product-overview.specification');
     Route::get('product-overview/{slug}/download-brosur', [App\Http\Controllers\ProductsController::class, 'downloadBrosur'])->name('product-overview.brosur');
@@ -29,7 +30,7 @@ Route::middleware('auth')->group(function () {
 
     // Admin routes
     Route::prefix('admin')->middleware(['role:admin,pic'])->group(function () {
-        
+
         Route::get('/dashboard', [App\Http\Controllers\Admin\AdminController::class, 'dashboard'])->name('admin.dashboard');
         Route::get('/dashboard/sales', [App\Http\Controllers\Admin\AdminController::class, 'getSales'])->name('admin.dashboard.getsales');
         Route::get('/dashboard/salespic', [App\Http\Controllers\Admin\AdminController::class, 'getSalesPic'])->name('admin.dashboard.getsalespic');
@@ -44,7 +45,7 @@ Route::middleware('auth')->group(function () {
         Route::get('select2/item-category', [App\Http\Controllers\Select2Controller::class, 'itemCategory'])->name('select2.item-category');
         Route::get('select2/item-product-main', [App\Http\Controllers\Select2Controller::class, 'itemProductmain'])->name('select2.item-productmain');
         Route::get('select2/item-pic', [App\Http\Controllers\Select2Controller::class, 'userPic'])->name('select2.item-pic');
-        
+
         // Kategori Product
         Route::resource('kategori-product', App\Http\Controllers\Admin\KategoriproductController::class);
 
@@ -54,7 +55,7 @@ Route::middleware('auth')->group(function () {
         // Product
         Route::resource('product', App\Http\Controllers\Admin\ProductController::class);
         Route::post('storage-dropzone-img', [App\Http\Controllers\Admin\ProductController::class, 'storageDropzoneImg'])->name('storage-dropzone-img');
-        
+
         // Product Type
         Route::get('/product-type/{productId}/create', [App\Http\Controllers\Admin\ProducttypeController::class, 'create'])->name('product.type.create');
         Route::post('/product-type/store', [App\Http\Controllers\Admin\ProducttypeController::class, 'store'])->name('product.type.store');
@@ -65,7 +66,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('product-additional', App\Http\Controllers\Admin\AdditionalproductController::class);
         Route::post('storage-dropzone-img', [App\Http\Controllers\Admin\ProductController::class, 'storageDropzoneImg'])->name('storage-dropzone-img');
 
-        
+
 
         // Order
         Route::resource('order-admin', App\Http\Controllers\Admin\OrderadminController::class)->only(['index', 'show', 'edit', 'update']);
@@ -77,7 +78,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/exportquot-pdf/order-admin/{laporan}', [App\Http\Controllers\Admin\LaporanController::class, 'exportQoutationpdf'])->name('order-admin.export-quot-pdf');
         // PDF Order Detail
         Route::get('/export-pdf/order-admin/{laporan}', [App\Http\Controllers\Admin\LaporanController::class, 'exportPdf'])->name('order-admin.export-pdf');
-        
+
         // Purchase Order
         Route::put('order-po/{id}', [App\Http\Controllers\Admin\DocpurchaseorderController::class, 'po'])->name('order-po');
         Route::post('storage-po-dropzone-pdf', [App\Http\Controllers\Admin\DocpurchaseorderController::class, 'storageDropzonePdf'])->name('storage-dropzone-pdf');
@@ -90,12 +91,11 @@ Route::middleware('auth')->group(function () {
         // Excel Order All
         Route::get('/export-excel/order-admin', [App\Http\Controllers\Admin\LaporanController::class, 'exportExcel'])->name('order-admin.export-excel');
 
-
         // Route Attachment
         Route::put('order-attachment/{id}', [App\Http\Controllers\Pic\OrderAttachmentController::class, 'store'])->name('order-attachment');
         Route::post('storage-attachment-dropzone-pdf', [App\Http\Controllers\Pic\OrderAttachmentController::class, 'storageDropzonePdf'])->name('storage-attachment-dropzone-pdf');
-        Route::delete('/order/{id}/attachment', [App\Http\Controllers\Pic\OrderAttachmentController::class, 'destroy'])->name('order-attachment.destroy');
-        
+        Route::delete('/order/{id}/attachment', [OrderAttachmentController::class, 'destroy'])->name('order-attachment.destroy');
+
         Route::get('/profile', [ProfileController::class, 'edit'])->name('admin.profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('admin.profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('admin.profile.destroy');
@@ -103,13 +103,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/version', function () {
             return view('versiapps');
         })->name('versiapps.admin');
-
     });
     // End Admin routes
 
     // PIC routes
     Route::prefix('pic')->middleware(['role:pic'])->group(function () {
-        
+
         Route::get('/dashboard', [App\Http\Controllers\Pic\PicController::class, 'dashboard'])->name('pic.dashboard');
 
         Route::get('/dashboard/sales', [App\Http\Controllers\Pic\PicController::class, 'getSales'])->name('pic.dashboard.getsales');
@@ -142,13 +141,13 @@ Route::middleware('auth')->group(function () {
         Route::delete('/cart/del/{id}', [App\Http\Controllers\Pic\CartpicController::class, 'deleteFromCart'])->name('pic.cart.delete');
         Route::post('/cart/add-additional-product', [App\Http\Controllers\Pic\CartpicController::class, 'addAdditionalProductToCart'])->name('pic.cart.addAdditionalProduct');
 
-         // PDF Export Quot
-         Route::get('/exportquot-pdf/order-pic/{laporan}', [App\Http\Controllers\Pic\QuotationController::class, 'exportQoutationpdf'])->name('order-pic.export-quot-pdf');
-        
-         // Route Attachment
-         Route::put('orders-attachment/{id}', [App\Http\Controllers\Pic\OrderAttachmentController::class, 'store'])->name('orders-attachment');
-         Route::post('storage-attachment-dropzone-pdfs', [App\Http\Controllers\Pic\OrderAttachmentController::class, 'storageDropzonePdf'])->name('storage-attachment-dropzone-pdfs');
-         Route::delete('/orders/{id}/attachment', [App\Http\Controllers\Pic\OrderAttachmentController::class, 'destroy'])->name('orders-attachment.destroy');
+        // PDF Export Quot
+        Route::get('/exportquot-pdf/order-pic/{laporan}', [App\Http\Controllers\Pic\QuotationController::class, 'exportQoutationpdf'])->name('order-pic.export-quot-pdf');
+
+        // Route Attachment
+        Route::put('orders-attachment/{id}', [App\Http\Controllers\Pic\OrderAttachmentController::class, 'store'])->name('orders-attachment');
+        Route::post('storage-attachment-dropzone-pdfs', [App\Http\Controllers\Pic\OrderAttachmentController::class, 'storageDropzonePdf'])->name('storage-attachment-dropzone-pdfs');
+        Route::delete('/orders/{id}/attachment', [OrderAttachmentController::class, 'destroy'])->name('orders-attachment.destroy');
     });
     // End PIC routes
 

@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 class Order extends Model
 {
     use HasFactory;
-    
+
     /**
      * The primary key associated with the table.
      *
@@ -40,17 +40,17 @@ class Order extends Model
         static::creating(function ($model) {
             // Ambil nilai increment terakhir dari database
             $latestRecord = static::latest('id')->first();
-            
+
             // Jika ada record sebelumnya, tambahkan increment, jika tidak mulai dari 1
             $increment = $latestRecord ? ((int) substr($latestRecord->trx_code, 0, 3)) + 1 : 1;
-            
+
             // Format nomor urut menjadi tiga digit (misalnya 001, 002, dll.)
             $incrementFormatted = str_pad($increment, 3, '0', STR_PAD_LEFT);
-            
+
             // Ambil bulan dan tahun saat ini
             $currentMonth = now()->format('m');
             $currentYear = now()->format('Y');
-            
+
             // Membuat trx_code dengan format yang diinginkan
             $model->trx_code = $incrementFormatted . '-' . $currentMonth . '-EQUIP-GHI-' . $currentYear;
         });
@@ -111,7 +111,7 @@ class Order extends Model
     {
         return $this->hasMany(Revision_quot::class);
     }
-    
+
     /**
      * Relasi ke model.
      *

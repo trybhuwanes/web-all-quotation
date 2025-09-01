@@ -43,7 +43,7 @@
     {{-- <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&display=swap" rel="stylesheet"> --}}
 
     <!-- Vite CSS & JS -->
-    @vite(['resources/js/app.js'])
+    @vite('resources/js/app.js')
 
     
 

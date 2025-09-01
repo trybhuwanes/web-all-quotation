@@ -19,7 +19,7 @@ use App\Services\ProductService;
 class OrderController extends Controller
 {
     public $productService;
-    
+
     public function __construct(ProductService $productService)
     {
         $this->productService = $productService;
@@ -46,9 +46,9 @@ class OrderController extends Controller
             $cart = Cart::where('user_id', auth()->id())
                 ->with(['items.product.specificationFas', 'items.product.specificationFmp', 'items.productadd'])
                 ->first();
-            
+
             if ($cart && $cart->items->isNotEmpty()) {
-                $totalPrice = $cart->items->sum(function($item) {
+                $totalPrice = $cart->items->sum(function ($item) {
                     $product = $item->product;
                     $productTypeId = $item->product_type;
 
@@ -57,7 +57,7 @@ class OrderController extends Controller
                             'specificationFas',
                             'specificationFmp',
                         ];
-                
+
                         $productMainSpecification = null;
                         $priceFromSpecification = null;
 
@@ -108,7 +108,7 @@ class OrderController extends Controller
                     ]);
                 }
 
-                if ($request->boolean('use_shipping_to_onsite')){
+                if ($request->boolean('use_shipping_to_onsite')) {
                     Shipping::create([
                         'order_id' => $order->id,
                         'use_shipping_to_onsite' => true,
@@ -132,12 +132,12 @@ class OrderController extends Controller
 
                 Term_payments::create([
                     'order_id' => $order->id,
-                    'payment_description' =>'<ul><li>Payment–1: 30% Down Payment, Start Fabrication</li><li>Payment–2: 70% after Ready to Dispatch from Grinviro Workshop</li></ul>',
+                    'payment_description' => '<ul><li>Payment–1: 30% Down Payment, Start Fabrication</li><li>Payment–2: 70% after Ready to Dispatch from Grinviro Workshop</li></ul>',
                 ]);
 
                 Notes_commercial::create([
                     'order_id' => $order->id,
-                    'notes_description' =>'<p>-</p>',
+                    'notes_description' => '<p>-</p>',
                 ]);
 
                 // Kosongkan cart
@@ -164,22 +164,26 @@ class OrderController extends Controller
     {
         $myorderall = Order::where('user_id', auth()->id())->with('items')->get();
         $products = $this->productService->model()
-                        ->orderBy('created_at', 'desc')
-                        ->take(3)
-                        ->get();
+            ->orderBy('created_at', 'desc')
+            ->take(3)
+            ->get();
         return view('customer.order_list', compact('myorderall', 'products'));
     }
 
     public function orderDetail(string $code)
     {
-        
+
         $orderfind = Order::where('uuid', $code)->where('user_id', auth()->id())
-                                                    ->with(['user', 'shipping', 'items.product', 
-                                                    'items.productadd'])->first();
+            ->with([
+                'user',
+                'shipping',
+                'items.product',
+                'items.productadd'
+            ])->first();
         if (!$orderfind) {
             abort(404, 'Order not found');
         }
-                                             
+
         // Memastikan ada items dalam pesanan
         if ($orderfind->items->isNotEmpty()) {
             $firstItem = $orderfind->items[0]; // Mengambil item pertama dari pesanan
@@ -187,16 +191,16 @@ class OrderController extends Controller
             $product = $firstItem->product; // Mengambil produk dari item
             $productId = $firstItem->product_id;
             $productTypeId = $firstItem->product_type;
-    
+
             // Daftar semua jenis spesifikasi yang mungkin
             $specificationTypes = [
                 'specificationFas',
                 'specificationFmp',
                 // Tambahkan tipe spesifikasi lainnya di sini
             ];
-    
+
             $productMainSpecification = null;
-    
+
             // Loop melalui setiap tipe spesifikasi dan ambil yang cocok
             foreach ($specificationTypes as $type) {
                 if ($product->{$type}->isNotEmpty()) {
@@ -204,17 +208,16 @@ class OrderController extends Controller
                     break; // Hentikan loop begitu spesifikasi ditemukan
                 }
             }
-    
+
             if (!$productMainSpecification) {
                 dd('Spesifikasi tidak ditemukan untuk produk ini.');
             }
-    
+
             // Mengambil produk tambahan berdasarkan ID produk
             return view('customer.order_detail', compact('orderfind', 'productMainSpecification'));
         } else {
             dd('Tidak ada items dalam pesanan.');
         }
-        
     }
 
     public function thankyou()
@@ -232,21 +235,21 @@ class OrderController extends Controller
             //
             // $carts = Cart::where('user_id', auth()->id())->with(['items.product', 'items.productadd'])->first();
             $cart = Cart::where('user_id', auth()->id())->with('items')->first();
-            
-            
+
+
 
             if (!$cart || $cart->items->isEmpty()) {
                 return redirect()->back()->with('error', 'Keranjang Kosong!');
             }
 
-            $totalPrice = $cart->items->sum(function($item) {
+            $totalPrice = $cart->items->sum(function ($item) {
                 if ($item->product) {
                     return $item->product->harga * $item->quantity;
                 } elseif ($item->productadd) {
                     return $item->productadd->harga_produk_tambahan * $item->quantity;
                 }
             });
-        
+
             // Create order
             $order = Order::create([
                 'user_id' => auth()->id(),
@@ -260,7 +263,7 @@ class OrderController extends Controller
                     'product_id' => $item->product_id,
                     'productadd_id' => $item->productadd_id,
                     'quantity' => $item->quantity,
-                    
+
                 ]);
             }
 
@@ -274,10 +277,8 @@ class OrderController extends Controller
                 'message' => __('Produk berhasil dihapus dari keranjang'),
                 'data'    => $order->trx_code,
             ]);
-
         } catch (\Throwable $th) {
             throw new \ErrorException($th->getMessage());
         }
-        
     }
 }

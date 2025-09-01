@@ -105,6 +105,8 @@ var KTFileUploadAttach = (function () {
             let url = "";
             const attachmentId = $("#attachment-id").val();
 
+            console.log('test');
+            console.log(attachmentId);
 
             let formData = new FormData();
             // Tentukan URL dan method berdasarkan kondisi
@@ -119,8 +121,6 @@ var KTFileUploadAttach = (function () {
             // Tambahkan file dari Dropzone ke FormData jika ada
             if (dropzoneInstance && dropzoneInstance.files.length > 0) {
                 const file = dropzoneInstance.files[0]; // Ambil hanya file pertama
-
-                console.log(file);
                 formData.append("file", file);
             } else {
                 Swal.fire({

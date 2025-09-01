@@ -14,7 +14,7 @@ class OrderAttachmentController extends Controller
         $request->validate([
             'file' => 'required|mimes:pdf|max:2048', // max 2048 KB = 2 MB
         ]);
-        
+
         try {
             $order = Order::where('id', $id)
                 ->select('id', 'attachment_path')
@@ -47,15 +47,16 @@ class OrderAttachmentController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => $th->getMessage(),
-            ]   , 500);
+            ], 500);
         }
     }
 
 
-    public function storageDropzonePdf(Request $request) {
+    public function storageDropzonePdf(Request $request)
+    {
         $path = storage_path('app/public/pdf/po/tmp/');
 
-        
+
         if (!file_exists($path)) {
             mkdir($path, 0777, true);
         }
@@ -99,6 +100,4 @@ class OrderAttachmentController extends Controller
             ], 500);
         }
     }
-
-
 }
