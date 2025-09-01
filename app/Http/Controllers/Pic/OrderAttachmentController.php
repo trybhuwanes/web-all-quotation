@@ -54,8 +54,7 @@ class OrderAttachmentController extends Controller
 
     public function storageDropzonePdf(Request $request)
     {
-        $path = storage_path('app/public/pdf/po/tmp/');
-
+        $path = storage_path('app/public/pdf/attachment/tmp/');
 
         if (!file_exists($path)) {
             mkdir($path, 0777, true);
@@ -63,8 +62,6 @@ class OrderAttachmentController extends Controller
 
         $file = $request->file('file');
         $name = uniqid() . '_' . trim($file->getClientOriginalName());
-
-        // dd($name);
         $file->move($path, $name);
 
         return response()->json([
