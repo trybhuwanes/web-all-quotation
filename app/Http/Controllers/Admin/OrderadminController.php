@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class OrderadminController extends Controller
 {
@@ -21,10 +22,24 @@ class OrderadminController extends Controller
         $orderall = Order::with(['items.product', 'items.productadd', 'user', 'pic'])
             ->when($search, function ($query, $search) {
                 $query->where(function ($q) use ($search) {
+                    // Cari di nama customer (relasi user)
                     $q->whereHas('user', function ($q2) use ($search) {
                         $q2->where('name', 'like', "%{$search}%");
                     })
-                    ->orWhere('trx_code', 'like', "%{$search}%");
+                        // Cari di kode transaksi
+                        ->orWhere('trx_code', 'like', "%{$search}%")
+                        // Cari di status order
+                        ->orWhere('status', 'like', "%{$search}%")
+                        // Cari di tanggal order
+                        ->orWhereDate('created_at', 'like', "%{$search}%")
+                        // Cari di nama PIC (relasi pic)
+                        ->orWhereHas('pic', function ($q3) use ($search) {
+                            $q3->where('name', 'like', "%{$search}%");
+                        })
+                        // Cari di perusahaan (kalau perusahaan ada di relasi user)
+                        ->orWhereHas('user', function ($q4) use ($search) {
+                            $q4->where('company', 'like', "%{$search}%");
+                        });
                 });
             })
             ->when($picId, function ($query, $picId) {
@@ -37,13 +52,13 @@ class OrderadminController extends Controller
             ->paginate(10);
 
         $pics = $pics = User::where('role', 'pic')
-                ->whereIn('id', function ($query) {
-                    $query->select('pic_id')
-                        ->from('orders')
-                        ->whereNotNull('pic_id');
-                })->select('id', 'name')
-                ->orderBy('name')
-                ->get();
+            ->whereIn('id', function ($query) {
+                $query->select('pic_id')
+                    ->from('orders')
+                    ->whereNotNull('pic_id');
+            })->select('id', 'name')
+            ->orderBy('name')
+            ->get();
 
 
         return view('admin.order-admin.index', compact('orderall', 'pics'));
@@ -77,32 +92,31 @@ class OrderadminController extends Controller
             $product = $firstItem->product;
             $productId = $firstItem->product_id;
             $productTypeId = $firstItem->product_type;
-    
+
             // Daftar semua jenis spesifikasi yang mungkin
             $specificationTypes = [
                 'specificationFas',
                 'specificationFmp',
-                
+
             ];
-    
+
             $productMainSpecification = null;
-    
-            
+
+
             foreach ($specificationTypes as $type) {
                 if ($product->{$type}->isNotEmpty()) {
                     $productMainSpecification = $product->{$type}->where('id', $productTypeId)->first();
                     break;
                 }
             }
-    
+
             if (!$productMainSpecification) {
                 dd('Spesifikasi tidak ditemukan untuk produk ini.');
             }
 
             // dd($orderdetail);
-    
-            return view('admin.order-admin.show', compact('orderdetail', 'productMainSpecification'));
 
+            return view('admin.order-admin.show', compact('orderdetail', 'productMainSpecification'));
         } catch (\Throwable $th) {
             throw new \ErrorException($th->getMessage());
         }
@@ -136,7 +150,6 @@ class OrderadminController extends Controller
         } catch (\Throwable $th) {
             throw new \ErrorException($th->getMessage());
         }
-
     }
 
     /**
@@ -164,5 +177,4 @@ class OrderadminController extends Controller
 
         return redirect()->away("mailto:$userEmail");
     }
-
 }
