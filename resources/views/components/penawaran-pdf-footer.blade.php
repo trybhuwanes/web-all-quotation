@@ -9,7 +9,11 @@
     <div class="text-start text-uppercase">
         THIS DOCUMENT WAS PREPARED FOR THE EXCLUSIVE USE OF
         <span class="highlight text-uppercase">
-            {{$orderfind->shipping->company_destination}}
+            @if ($orderfind->shipping->company_destination)
+                <br>Shipping to: {{$orderfind->shipping->company_destination}}
+            @else
+                <br>Shipping to: {{$orderfind->user->company}}
+            @endif
         </span>
         AND<span> PT GUNA HIJAU INOVASI</span>
         PURSUANT TO THE EQUIPMENT MANUFACTURING. THIS DOCUMENT IS THE PROPERTY OF<span> PT GUNA HIJAU INOVASI</span> AND IS STRICTLY CONFIDENTIAL. ANY UNAUTHORIZED USE, REPRODUCTION, OR DISTRIBUTION OF THIS DOCUMENT, IN WHOLE OR IN PART, IS STRICTLY PROHIBITED WITHOUT PRIOR WRITTEN CONSENT FROM<span> PT GUNA HIJAU INOVASI</span>.

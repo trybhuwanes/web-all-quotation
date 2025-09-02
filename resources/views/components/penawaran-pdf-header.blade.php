@@ -26,8 +26,14 @@
         <tr>
             <td rowspan="2" colspan="2">
             Owner:
-            {{$orderfind->user->company}} <br>
-            Shipping to: {{$orderfind->shipping->company_destination}}
+            {{$orderfind->user->company}} 
+
+            @if ($orderfind->shipping->company_destination)
+                <br>Shipping to: {{$orderfind->shipping->company_destination}}
+            @else
+                <br>Shipping to: {{$orderfind->user->company}}
+            @endif
+
             </td>
             <td><strong>Page</strong></td>
             <td>{{ $page }} of <span> {{ $countpage }} </span></td>

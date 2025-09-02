@@ -18,17 +18,21 @@
     <!-- Cover page dengan gambar -->
     <div class="cover-page page-break" 
      style="background: url('file://{{ public_path('quot/fas/cover-fas.webp') }}') no-repeat center center; background-size: cover;">
-        <div class="cover-title">
-            <div class="cover-heading mb-0">
-                QUOTATION <br>
-                {{ $orderfind->items->first()->product->nama_produk }} - {{ $productMainSpecification->type_name }}
+        <div class="cover-heading">
+            <div class="cover-title mb-0">
+                QUOTATION
             </div>
-            
-            <div class="cover-subheading mt-0">
-                <br><span>Owner</span>
-                <br><span>{{ $orderfind->user->company }}</span>
-                <br><span>Shipping To</span>
-                <br><span>{{$orderfind->shipping->company_destination}}</span>
+            <div class="cover-subtitle mb-0">
+                {{ $orderfind->items->first()->product->nama_produk }} <br> 
+                Type: {{ $productMainSpecification->type_name }}
+            </div>
+            <div class="cover-subsubtitle mt-0">
+                <br><span>Owner: {{ $orderfind->user->company }}</span>
+                @if ($orderfind->shipping->company_destination)
+                    <br>Shipping to: {{$orderfind->shipping->company_destination}}
+                @else
+                    <br>Shipping to: {{$orderfind->user->company}}
+                @endif
             </div>
         </div>
     </div>
@@ -112,8 +116,11 @@
                     {{$orderfind->shipping->country_destination}} – Indonesia
                 </p><br><br>
                 <p>
-                    {{-- Up. Mr/Mrs. {{$orderfind->comp->name}} --}}
-                    To Whom It May Concern
+                    @if ($orderfind->shipping->company_destination)
+                        <br>To Whom It May Concern
+                    @else
+                        <br>Up Mr/Mrs {{$orderfind->user->name}}
+                    @endif
                 </p><br>
                 <p>
                     Subject:

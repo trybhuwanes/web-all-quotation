@@ -171,6 +171,7 @@ var KTUsersList = (function () {
                     .replace(" M3", "")
                     .trim();
 
+                const perusahaan = $("#desti_company").val().trim();
                 const provinsi = $("#desti_state").val();
                 const kota = $("#desti_city").val();
                 const alamatDetail = $("#desti_address").val().trim();
@@ -178,6 +179,7 @@ var KTUsersList = (function () {
                 const alamatComplete = `${alamatDetail}, ${kota}, ${provinsi}`;
                 payload.total_kg = totalKg;
                 payload.total_volume = totalVolume;
+                payload.perusahaan = perusahaan;
                 payload.provinsi = provinsi;
                 payload.kota = kota;
                 payload.address_destination = alamatComplete;

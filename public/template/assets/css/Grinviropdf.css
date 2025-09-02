@@ -3,8 +3,9 @@
     margin: 50px 40px;
 }
 
-@page:first {
-    margin: 0; /* halaman pertama (cover) tanpa margin */
+@page: first {
+    margin: 0;
+    /* halaman pertama (cover) tanpa margin */
 }
 
 body {
@@ -12,13 +13,15 @@ body {
     padding: 0 !important;
 }
 
-body, html {
+body,
+html {
     height: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     margin: 0 !important;
     padding: 0 !important;
-    font-family: "DejaVu Sans", sans-serif; /* pakai font bawaan dompdf */
+    font-family: "DejaVu Sans", sans-serif;
+    /* pakai font bawaan dompdf */
     font-size: 12px;
     line-height: 1.4;
 }
@@ -88,7 +91,7 @@ body, html {
     border: 1px solid black !important;
 }
 
-.table > :not(:last-child) > :last-child > * {
+.table> :not(:last-child)> :last-child>* {
     border: 1px solid black !important;
 }
 
@@ -110,7 +113,7 @@ body, html {
     border: 1;
 }
 
-.header-table td, 
+.header-table td,
 .header-table th {
     border: 1px solid #000;
     padding: 3px 5px;
@@ -163,11 +166,13 @@ body, html {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: block; /* biar gak ada gap bawah */
+    display: block;
+    /* biar gak ada gap bawah */
 }
 
 /* Heading & SubHeading di cover */
-.cover-title {
+.cover-heading {
+    width: 90%;
     position: absolute;
     top: 65%;
     left: 50%;
@@ -176,18 +181,20 @@ body, html {
     font-size: 28px;
     font-weight: bold;
     text-align: center;
-    font-weight: bold;
-    text-align: center;
-}
-.cover-heading {
-    font-size: 28px;
 }
 
-.cover-subheading {
-    padding-top: 0 !important;
-    font-size: 16px;
+.cover-title {
+    font-size: 34px;
 }
 
+.cover-subtitle {
+    font-size: 26px;
+    text-overflow: ellipsis;
+}
+
+.cover-subsubtitle {
+    font-size: 18px;
+}
 
 .page .content {
     flex: 1;
@@ -219,7 +226,8 @@ body, html {
 .daftar-isi h1 {
     font-weight: bold;
     margin-bottom: 20px;
-    text-transform: uppercase; /* Huruf kapital */
+    text-transform: uppercase;
+    /* Huruf kapital */
 }
 
 .toc {
@@ -227,7 +235,7 @@ body, html {
     border-collapse: collapse;
 }
 
-    
+
 .toc td {
     padding: 2px 4px;
     vertical-align: bottom;
@@ -259,7 +267,7 @@ body, html {
     padding: 15px 25px;
     border: none;
     border-radius: 40px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     cursor: pointer;
 }
 
@@ -267,12 +275,13 @@ body, html {
 
 /* Margin utilities */
 .mt-5 {
-  margin-top: 3rem !important;
+    margin-top: 3rem !important;
 }
 
 .mt-2 {
     margin-top: 2px !important;
 }
+
 .mt-1 {
     margin-top: 1px !important;
 }
@@ -286,98 +295,117 @@ body, html {
 }
 
 .mx-15 {
-  margin-left: 15px !important;
-  margin-right: 15px !important;
+    margin-left: 15px !important;
+    margin-right: 15px !important;
 }
 
 /* Text alignment */
 .text-center {
-  text-align: center !important;
+    text-align: center !important;
 }
+
 .text-end {
-  text-align: right !important;
+    text-align: right !important;
 }
+
 .text-start {
-  text-align: left !important;
+    text-align: left !important;
 }
 
 /* Font weight */
 .fw-bold {
-  font-weight: 700 !important;
+    font-weight: 700 !important;
 }
 
 /* Text transform */
 .text-uppercase {
-  text-transform: uppercase !important;
+    text-transform: uppercase !important;
 }
 
 /* Padding utilities */
 .p-5 {
-  padding: 3rem !important;
+    padding: 3rem !important;
 }
+
 .pe-6 {
-  padding-right: 3.75rem !important; /* sesuai scale bootstrap */
+    padding-right: 3.75rem !important;
+    /* sesuai scale bootstrap */
 }
 
 /* Row & column grid */
 .row {
-  --bs-gutter-x: 1.5rem;
-  --bs-gutter-y: 0;
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: calc(-1 * var(--bs-gutter-y));
-  margin-right: calc(-0.5 * var(--bs-gutter-x));
-  margin-left: calc(-0.5 * var(--bs-gutter-x));
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: calc(-1 * var(--bs-gutter-y));
+    margin-right: calc(-0.5 * var(--bs-gutter-x));
+    margin-left: calc(-0.5 * var(--bs-gutter-x));
 }
-.row > * {
-  flex-shrink: 0;
-  width: 100%;
-  max-width: 100%;
-  padding-right: calc(var(--bs-gutter-x) * 0.5);
-  padding-left: calc(var(--bs-gutter-x) * 0.5);
-  margin-top: var(--bs-gutter-y);
+
+.row>* {
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%;
+    padding-right: calc(var(--bs-gutter-x) * 0.5);
+    padding-left: calc(var(--bs-gutter-x) * 0.5);
+    margin-top: var(--bs-gutter-y);
 }
+
 .col-12 {
-  flex: 0 0 auto;
-  width: 100%;
+    flex: 0 0 auto;
+    width: 100%;
 }
 
 /* Text color utilities */
 .text-gray-900 {
-  color: #181C32 !important;
+    color: #181C32 !important;
 }
+
 .text-gray-800 {
-  color: #3F4254 !important;
+    color: #3F4254 !important;
 }
 
 /* Vertical align */
 .align-middle {
-  vertical-align: middle !important;
+    vertical-align: middle !important;
 }
 
 /* Image fluid */
 .img-fluid {
-  max-width: 100%;
-  height: auto;
+    max-width: 100%;
+    height: auto;
 }
 
 /* Font size small in header/footer */
 .h-30px {
-  height: 30px !important;
+    height: 30px !important;
 }
 
 .h-40px {
-  height: 40px !important;
+    height: 40px !important;
 }
 
 
 
-.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     color: var(--kt-headings-color);
     outline: 0;
 }
 
-.h5, h5 {
+.h5,
+h5 {
     font-size: 1.15rem;
 }
 
@@ -407,7 +435,8 @@ table {
 }
 
 /* Pastikan tidak ada border ganda */
-.table tr td, .table tr th {
+.table tr td,
+.table tr th {
     border: 1px solid #000;
 }
 
