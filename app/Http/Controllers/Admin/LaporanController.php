@@ -83,7 +83,7 @@ class LaporanController extends Controller
     public function exportExcel(Request $request)
     {
         $filter['filter_periode'] = null;
-        $data = Order::with(['items.product', 'items.productadd', 'user'])->get();
+        $data = Order::with(['items.product', 'items.productadd', 'user', 'shipping', 'pic'])->get();
         // dd($data);
         // $data = Order::whereHas('users')->with(['items.product', 'items.productadd', 'user'])->get();
         return Excel::download(new LaporanExport($data, $filter['filter_periode']), __('laporan-order') . '-' . now()->format('Ymd') . '.xlsx');

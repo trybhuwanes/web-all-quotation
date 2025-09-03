@@ -1,7 +1,7 @@
 <table style="width:100%;border:1px solid">
     <thead>
         <tr>
-            <th colspan="12" rowspan="2"
+            <th colspan="14" rowspan="2"
                 style="text-align:center;vertical-align: middle;width: 50%;margin: auto;">
                 <span>LAPORAN PESANAN</span>
             </th>
@@ -22,6 +22,8 @@
             <th style="font-weight: bold;background-color: green;">Jabatan</th>
             <th style="font-weight: bold;background-color: green;">Industry</th>
             <th style="font-weight: bold;background-color: green;">Lokasi Company</th>
+            <th style="font-weight: bold;background-color: green;">Company Tujuan</th>
+            <th style="font-weight: bold;background-color: green;">Alamat Pengiriman</th>
             <th style="font-weight: bold;background-color: green;">PIC</th>
             <th style="font-weight: bold;background-color: green;">Dibuat</th>
             <th style="font-weight: bold;background-color: green;">Product</th>
@@ -58,7 +60,17 @@
                         {{ $order->user->location_company }}
                     </td>
                     <td rowspan="{{ $order->items->count() }}">
-                        {{-- PIC logic here if necessary --}}
+                        @if ($order->shipping->company_destination)
+                            {{ $order->shipping->company_destination }}
+                        @else
+                            {{ $order->user->company }}
+                        @endif
+                    </td>
+                    <td rowspan="{{ $order->items->count() }}">
+                        {{ $order->shipping->country_destination }}, {{ $order->shipping->state_destination}}
+                    </td>
+                    <td rowspan="{{ $order->items->count() }}">
+                        {{ $order->pic?->name ?? '-' }}
                     </td>
                     <td rowspan="{{ $order->items->count() }}">
                         {{ App\Helpers\Helper::dateFormat($order->created_at, 'd F Y') }}

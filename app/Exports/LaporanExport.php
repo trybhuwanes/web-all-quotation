@@ -15,22 +15,22 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 class LaporanExport implements FromView, ShouldAutoSize, WithEvents, WithColumnFormatting
 {
     /**
-    * @return \Illuminate\Support\Collection
-    */
+     * @return \Illuminate\Support\Collection
+     */
     public function collection()
     {
         //
     }
 
     public $data;
-    
+
     public function __construct($data)
     {
         $this->data = $data;
         // dd($data);
     }
 
-    
+
     public function registerEvents(): array
     {
         return [
@@ -48,12 +48,14 @@ class LaporanExport implements FromView, ShouldAutoSize, WithEvents, WithColumnF
                 $event->sheet->getColumnDimension('J')->setAutoSize(true);
                 $event->sheet->getColumnDimension('K')->setAutoSize(true);
                 $event->sheet->getColumnDimension('L')->setAutoSize(true);
+                $event->sheet->getColumnDimension('M')->setAutoSize(true);
+                $event->sheet->getColumnDimension('N')->setAutoSize(true);
 
                 $workSheet = $event->sheet->getDelegate();
                 $last_row = ($workSheet->getHighestRow());
 
                 // APPLY ALL BORDER
-                $last_index = 'L';
+                $last_index = 'N';
                 $event->sheet->getStyle('A1:' . $last_index . $last_row)->applyFromArray([
                     'borders' => [
                         'allBorders' => [
@@ -81,6 +83,8 @@ class LaporanExport implements FromView, ShouldAutoSize, WithEvents, WithColumnF
             'J' => NumberFormat::FORMAT_TEXT,
             'K' => NumberFormat::FORMAT_TEXT,
             'L' => NumberFormat::FORMAT_TEXT,
+            'M' => NumberFormat::FORMAT_TEXT,
+            'N' => NumberFormat::FORMAT_TEXT,
         ];
     }
 
