@@ -40,7 +40,7 @@
     <!-- Halaman 2 -->
     <div class="page mx-15 page-break">
         <!-- Header -->
-        <x-penawaran-pdf-header :orderfind="$orderfind" :page=2 :countpage=12 />
+        <x-penawaran-pdf-header :orderfind="$orderfind" :page=2 :countpage=13 />
         <!-- End Header -->
 
         <!-- Konten Utama -->
@@ -98,39 +98,38 @@
     <!-- Halaman 3 -->
     <div class="page mx-15 page-break">
         <!-- Header -->
-        <x-penawaran-pdf-header :orderfind="$orderfind" :page=3 :countpage=12 />
+        <x-penawaran-pdf-header :orderfind="$orderfind" :page=3 :countpage=13 />
         <!-- End Header -->
 
         <!-- Konten Utama -->
         <div class="content">
 
             <div class="content">
-                <p>Tangerang, {{ App\Helpers\Helper::dateFormat(now(), 'd') }}<sup>th</sup>
+                <br><p>Tangerang, {{ App\Helpers\Helper::dateFormat(now(), 'd') }}<sup>th</sup>
                     {{ App\Helpers\Helper::dateFormat(now(), 'F Y') }}
-                </p><br><br><br>
+                </p><br>
 
                 <p>
                     @if ($orderfind->shipping->company_destination)
-                        <br>{{$orderfind->shipping->company_destination}}
+                        {{$orderfind->shipping->company_destination}}
                     @else
-                        <br>{{$orderfind->user->company}}
+                        {{$orderfind->user->company}}
                     @endif
                     <br>
                     {{$orderfind->shipping->country_destination}} – Indonesia
-                </p><br><br>
+                </p>
                 <p>
                     @if ($orderfind->shipping->company_destination)
                         <br>To Whom It May Concern
                     @else
                         <br>Up Mr/Mrs {{$orderfind->user->name}}
                     @endif
-                    
-                </p><br>
+                </p>
                 <p>
                     Subject:
                     <em>{{ $orderfind->items->first()->product->nama_produk }} -
                         {{ $productMainSpecification->type_name }} Quotation</em>
-                </p><br>
+                </p>
                 <p>
                     We thank you for your above-referenced inquiry and are pleased to submit our quotation for your
                     consideration. Please see the next page for a summary of our offer. Full details can be found in
@@ -140,12 +139,10 @@
                     We hope you find our quotation in line with your requirements. However, if you have any questions,
                     please do not hesitate to contact us.
                 </p>
-                <br><br>
-                <p> Sincerely, </p>
                 <br>
+                <p> Sincerely, </p><br><br>
                 <p class="mt-1">
                     {{ $orderfind->pic->name }}
-                    <br />
                     <span>{{ $orderfind->pic->job_title }}</span>
                     <br />
                     <span>PT GUNA HIJAU INOVASI</span><span> - GRINVIRO GLOBAL</span>
@@ -168,7 +165,7 @@
     <!-- Halaman 4 -->
     <div class="page mx-15 page-break">
         <!-- Header -->
-        <x-penawaran-pdf-header :orderfind="$orderfind" :page=4 :countpage=12 />
+        <x-penawaran-pdf-header :orderfind="$orderfind" :page=4 :countpage=13 />
         <!-- End Header -->
 
         <!-- Konten Utama -->
@@ -226,17 +223,17 @@
                     <tr>
                         <td class="title">F. Term And Condition</td>
                         <td class="dots"></td>
-                        <td class="page">10</td>
+                        <td class="page">11</td>
                     </tr>
                     <tr>
                         <td class="title">G. Drawing Of MPS</td>
                         <td class="dots"></td>
-                        <td class="page">11</td>
+                        <td class="page">12</td>
                     </tr>
                     <tr>
                         <td class="title">H. Project References</td>
                         <td class="dots"></td>
-                        <td class="page">12</td>
+                        <td class="page">13</td>
                     </tr>
                 </table>
             </div>
@@ -252,82 +249,49 @@
     <!-- Halaman 5 -->
     <div class="page mx-15 page-break">
         <!-- Header -->
-        <x-penawaran-pdf-header :orderfind="$orderfind" :page=5 :countpage=12 />
+        <x-penawaran-pdf-header :orderfind="$orderfind" :page=5 :countpage=13 />
         <!-- End Header -->
 
         <!-- Konten Utama -->
         <div class="content" style="font-size: 11px;">
-            <h4 class="mb-0">A. Equipment Overview</h4>
-            <p class="mt-0">
-                FLOWREX Multi Plate Screw Press is an innovative and highly efficient dewatering system designed
-                to meet the demands of modern wastewater treatment processes. Engineered with precision and advanced
-                technology, this equipment offers a reliable, cost-effective, and low-maintenance solution for sludge
-                dewatering across various industries, including municipal, industrial, and food processing sectors.
-            </p>
-
-            <table width="100%" cellspacing="0" cellpadding="5" style="border-collapse: collapse;" class="mb-0 mt-0">
-                <h4 class="mb-0">How It Works</h4>
-                <tr>
-                    <td width="75%" valign="top">
-                        <p class="mb-0">
-                            Multiplate Screw Press is composed of screw body, driving device, filtrate
-                            receiver, mixing system and frame. When the dewatering machine operates,
-                            sludge will be transported to the mixing tank by sludge feed pump, at the same
-                            time, the solid polymer has been added to the mixing tank quantitatively by
-                            the polymer feed pump. Mixing motor drives the whole mixing system to
-                            make the sludge and polymer fully mixed and then flocs will be produced.
-                            When the liquid level arrives at the superior level of the liquid level sensor, the
-                            liquid level sensor gets the signal to make the motor of screw body operates,
-                            then begins to press the sludge which has flows into the screw body. Sludge
-                            will be transported to the outlet step by step by the effect of screw shaft;
-                            filtrate will flow out by the space of fixed annular plates and moveable annular
-                            plates
-                        </p>
-                    </td>
-                    <td width="25%" valign="top" align="center">
-                        <img src="{{ public_path('/quot/mps/flowrex-mps.webp') }}" alt="Multiplate Screw Press"
-                            style="max-width:100%; height:auto;">
-                    </td>
-                </tr>
-            </table>
-
-            <p class="mt-0">
-                In general, Multiplate Screw Press which uses the screw extrusion principle is a new type of
-                solid-liquid separation device. It reaches the
-                goal of extrusion dewatering sludge by the powerful extrusion pressure of changing the screw diameter
-                and distance, and the tiny spacing
-                between moveable annular plates and fixed annular plates.
-            </p>
-
-            <h4 class="mt-0 mb-0">Key Features</h4>
-            <ul>
-                <li>Low Energy Consumption: This product is built for energy efficiency,
-                    requiring minimal power for operation. Its innovative design reduces overall energy consumption,
-                    resulting in significant cost savings over time.</li>
-                <li>Continuous and Automated Operation: The system is fully automated, allowing for 24/7 operation with
-                    minimal operator
-                    intervention. Its continuous dewatering process ensures consistent performance and reduced downtime,
-                    maximizing operational
-                    efficiency</li>
-                <li>Compact and Space-Saving Design: With a compact footprint, this product is
-                    ideal for installations
-                    where space is limited. Its modular structure enables easy integration into existing facilities.
-                </li>
-                <li>Clog-Free Performance: The unique multi-plate design prevents clogging and ensures smooth operation.
-                    The self-cleaning
-                    mechanism maintains consistent performance, reducing maintenance requirements and downtime</li>
-                <li>Low Noise and Vibration: Operating at low rotational speeds, the system minimizes noise and
-                    vibration levels, providing a quiet and
-                    user-friendly working environment.</li>
-                <li>High Solid Capture Rate: The advanced dewatering technology of the FLOWREX system ensures high solid
-                    capture rates, reducing
-                    sludge volume and disposal costs.
-                </li>
-                <li>Durable and Corrosion-Resistant Materials: Constructed with high-quality stainless steel and
-                    corrosion-resistant components, this product guarantees durability, longevity, and reliable performance even in
-                    harsh environments</li>
-            </ul>
-
+            <div class="mb-2">
+                <h5 class="mt-1 mb-2">A. Equipment Overview</h5>
+                <p>
+                    <b>FLOWREX Multi Plate Screw Press</b> is an innovative and highly efficient dewatering system designed
+                    to meet the demands of modern wastewater treatment processes. Engineered with precision and advanced
+                    technology, this equipment offers a reliable, cost-effective, and low-maintenance solution for sludge
+                    dewatering across various industries, including municipal, industrial, and food processing sectors.
+                </p>
+            </div>
+            
+            <div class="mb-2">
+                <h5 class="mt-1 mb-2">How It Works</h5>
+                <p>Multiplate Screw Press is composed of screw body, driving device, filtrate 
+                    receiver, mixing system and frame. When the dewatering machine operates,
+                    sludge will be transported to the mixing tank by sludge feed pump, at the same
+                    time, the solid polymer has been added to the mixing tank quantitatively by
+                    the polymer feed pump. Mixing motor drives the whole mixing system to
+                    make the sludge and polymer fully mixed and then flocs will be produced.
+                    When the liquid level arrives at the superior level of the liquid level sensor, the
+                    liquid level sensor gets the signal to make the motor of screw body operates,
+                    then begins to press the sludge which has flows into the screw body. Sludge
+                    will be transported to the outlet step by step by the effect of screw shaft;
+                    filtrate will flow out by the space of fixed annular plates and moveable annular
+                    plates. <br>
+                    In general, Multiplate Screw Press which uses the screw extrusion principle is a new type of
+                    solid-liquid separation device. It reaches the
+                    goal of extrusion dewatering sludge by the powerful extrusion pressure of changing the screw diameter
+                    and distance, and the tiny spacing
+                    between moveable annular plates and fixed annular plates.
+                </p>
+            </div>
+            
+            <h5 class="mt-1 mb-0">Key Features</h5>
+            <div style="text-align: center;">
+                <img src="{{ public_path('/quot/mps/mps-key-features.webp') }}" 
+                    alt="MPS Key Features" 
+                    style="width:80%; height:auto;">
+            </div>
         </div>
         <!-- End Konten Utama -->
 
@@ -341,7 +305,7 @@
     <!-- Halaman 6 -->
     <div class="page mx-15 page-break">
         <!-- Header -->
-        <x-penawaran-pdf-header :orderfind="$orderfind" :page=6 :countpage=12 />
+        <x-penawaran-pdf-header :orderfind="$orderfind" :page=6 :countpage=13 />
         <!-- End Header -->
 
         <!-- Konten Utama -->
@@ -463,13 +427,13 @@
     <!-- Halaman 7 -->
     <div class="page mx-15 page-break">
         <!-- Header -->
-        <x-penawaran-pdf-header :orderfind="$orderfind" :page=7 :countpage=12 />
+        <x-penawaran-pdf-header :orderfind="$orderfind" :page=7 :countpage=13 />
         <!-- End Header -->
 
         <!-- Konten Utama -->
         <div class="content">
-            <h5 class="mb-0 mt-1">C. Technical Data</h5>
-            <table class="table table-bordered table-mps">
+            <h5 class="mb-2 mt-1">C. Technical Data</h5>
+            <table class="table table-bordered">
                 <thead>
                     <tr class="highlight-header fw-bold">
                         <th class="text-center text-bold nopading" colspan="2">
@@ -603,13 +567,13 @@
     <!-- Halaman 8 -->
     <div class="page mx-15 page-break">
         <!-- Header -->
-        <x-penawaran-pdf-header :orderfind="$orderfind" :page=8 :countpage=12 />
+        <x-penawaran-pdf-header :orderfind="$orderfind" :page=8 :countpage=13 />
         <!-- End Header -->
 
         <!-- Konten Utama -->
         <div class="content">
-            <h5 class="mt-1 mb-0">D. Material and Mode of Main Parts</h5>
-            <table class="table table-bordered table-mps mt-0">
+            <h5 class="mt-1 mb-2">D. Material and Mode of Main Parts</h5>
+            <table class="table table-bordered mt-0">
                 <thead>
                     <tr class="highlight-header fw-bold">
                         <th class="text-center nopading">No</th>
@@ -620,97 +584,97 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="nopading">1</td>
+                        <td class="text-center nopading">1</td>
                         <td class="nopading">Fixed Annular Plate</td>
                         <td class="nopading">SS304</td>
                         <td class="nopading">FLOWREX</td>
                     </tr>
                     <tr>
-                        <td class="nopading">2</td>
+                        <td class="text-center nopading">2</td>
                         <td class="nopading">Moveable Annular Plate</td>
                         <td class="nopading">SS304</td>
                         <td class="nopading">FLOWREX</td>
                     </tr>
                     <tr>
-                        <td class="nopading">3</td>
+                        <td class="text-center nopading">3</td>
                         <td class="nopading">Screw Shaft</td>
                         <td class="nopading">SS304</td>
                         <td class="nopading">FLOWREX</td>
                     </tr>
                     <tr>
-                        <td class="nopading">4</td>
+                        <td class="text-center nopading">4</td>
                         <td class="nopading">Filtrate Receiver</td>
                         <td class="nopading">SS304</td>
                         <td class="nopading">FLOWREX</td>
                     </tr>
                     <tr>
-                        <td class="nopading">5</td>
+                        <td class="text-center nopading">5</td>
                         <td class="nopading">Mixing Tank</td>
                         <td class="nopading">SS304</td>
                         <td class="nopading">FLOWREX</td>
                     </tr>
                     <tr>
-                        <td class="nopading">6</td>
+                        <td class="text-center nopading">6</td>
                         <td class="nopading">Mixing Shaft and Blades</td>
                         <td class="nopading">SS304</td>
                         <td class="nopading">FLOWREX</td>
                     </tr>
                     <tr>
-                        <td class="nopading">7</td>
+                        <td class="text-center nopading">7</td>
                         <td class="nopading">Motor Brackets</td>
                         <td class="nopading">SS304</td>
                         <td class="nopading">FLOWREX</td>
                     </tr>
                     <tr>
-                        <td class="nopading">8</td>
+                        <td class="text-center nopading">8</td>
                         <td class="nopading">Sludge Inlet Pipe</td>
                         <td class="nopading">SS304</td>
                         <td class="nopading">FLOWREX</td>
                     </tr>
                     <tr>
-                        <td class="nopading">10</td>
+                        <td class="text-center nopading">10</td>
                         <td class="nopading">Flushing System</td>
                         <td class="nopading">SS304</td>
                         <td class="nopading">FLOWREX</td>
                     </tr>
                     <tr>
-                        <td class="nopading">11</td>
+                        <td class="text-center nopading">11</td>
                         <td class="nopading">Reducer for Screw Body</td>
                         <td class="nopading">Finished Product</td>
                         <td class="nopading">Chinese Brand WUMA/TONGLI</td>
                     </tr>
                     <tr>
-                        <td class="nopading">12</td>
+                        <td class="text-center nopading">12</td>
                         <td class="nopading">Reducer for Mixing Shaft</td>
                         <td class="nopading">Finished Product</td>
                         <td class="nopading">Chinese Brand WUMA/TONGLI</td>
                     </tr>
                     <tr>
-                        <td class="nopading">13</td>
+                        <td class="text-center nopading">13</td>
                         <td class="nopading">Liquid Level Switch</td>
                         <td class="nopading">Finished Product</td>
                         <td class="nopading">Omron</td>
                     </tr>
                     <tr>
-                        <td class="nopading">14</td>
+                        <td class="text-center nopading">14</td>
                         <td class="nopading">Solenoid Valve</td>
                         <td class="nopading">Finished Product</td>
                         <td class="nopading">ASCO/SMC</td>
                     </tr>
                     <tr>
-                        <td class="nopading">15</td>
+                        <td class="text-center nopading">15</td>
                         <td class="nopading">Frequency converter for screw body motor</td>
                         <td class="nopading">Finished Product</td>
                         <td class="nopading">Schneider/Fuji/Yaskawa</td>
                     </tr>
                     <tr>
-                        <td class="nopading">16</td>
+                        <td class="text-center nopading">16</td>
                         <td class="nopading">Frequency converter for mixing motor</td>
                         <td class="nopading">Finished Product</td>
                         <td class="nopading">Schneider/Fuji/Yaskawa</td>
                     </tr>
                     <tr>
-                        <td class="nopading">17</td>
+                        <td class="text-center nopading">17</td>
                         <td class="nopading">Electrical Cabinet</td>
                         <td class="nopading">SS304</td>
                         <td class="nopading">FLOWREX</td>
@@ -729,14 +693,14 @@
     <!-- Halaman 9 -->
     <div class="page mx-15 page-break">
         <!-- Header -->
-        <x-penawaran-pdf-header :orderfind="$orderfind" :page=9 :countpage=12 />
+        <x-penawaran-pdf-header :orderfind="$orderfind" :page=9 :countpage=13 />
         <!-- End Header -->
 
         <!-- Konten Utama -->
         <div class="content">
-            <h5 class="mt-2 mb-0">E. Scope of Supply</h5>
+            <h5 class="mt-2 mb-2">E. Scope of Supply</h5>
 
-            <table class="table table-bordered table-mps nopadding mt-0">
+            <table class="table table-bordered nopadding mt-0">
                 <thead>
                     <tr class="highlight-header text-center fw-bold">
                         <th>No</th>
@@ -750,7 +714,7 @@
 
                 <tbody>
                     <tr>
-                        <td rowspan="3">1</td>
+                        <td rowspan="3" class="text-center">1</td>
                         <td class="ps-0 fw-bold">{{ __('Equipment MPS') }}</td>
                         <td></td>
                         <td></td>
@@ -770,7 +734,7 @@
                     </tr>
 
                     <tr>
-                        <td rowspan="4">2</td>
+                        <td rowspan="4" class="text-center">2</td>
                         <td class="ps-0 fw-bold">{{ __('Chemical Dosing') }}</td>
                         <td></td>
                         <td></td>
@@ -807,7 +771,7 @@
                         <td class="p-0">For type 401-403</td>
                     </tr>
                     <tr>
-                        <td rowspan="4">3</td>
+                        <td rowspan="4" class="text-center">3</td>
                         <td class="ps-0 fw-bold">{{ __('Tank') }}</td>
                         <td></td>
                         <td></td>
@@ -845,7 +809,7 @@
                     </tr>
 
                     <tr>
-                        <td rowspan="3">4</td>
+                        <td rowspan="3" class="text-center">4</td>
                         <td class="ps-0 fw-bold">{{ __('Pump') }}</td>
                         <td></td>
                         <td></td>
@@ -873,7 +837,7 @@
                     </tr>
 
                     <tr>
-                        <td rowspan="5">5</td>
+                        <td rowspan="5" class="text-center">5</td>
                         <td class="ps-0 fw-bold">{{ __('Interconnection') }}</td>
                         <td></td>
                         <td></td>
@@ -921,7 +885,7 @@
                     </tr>
 
                     <tr>
-                        <td rowspan="4">6</td>
+                        <td rowspan="4" class="text-center">6</td>
                         <td class="ps-0 fw-bold">{{ __('Civil and Structural Works') }}</td>
                         <td></td>
                         <td></td>
@@ -958,7 +922,7 @@
                         <td class="p-0"></td>
                     </tr>
                     <tr>
-                        <td rowspan="4">7</td>
+                        <td rowspan="4" class="text-center">7</td>
                         <td class="ps-0 fw-bold">{{ __('Testing and commissioning') }}</td>
                         <td></td>
                         <td></td>
@@ -994,9 +958,40 @@
                         </td>
                         <td class="p-0"></td>
                     </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- End Konten Utama -->
 
+        <!-- Footer -->
+        <x-penawaran-pdf-footer :orderfind="$orderfind" :page=9 />
+        <!-- End Footer -->
+    </div>
+    <!-- End Halaman 9-->
+
+
+    <!-- Halaman 10 -->
+    <div class="page mx-15 page-break">
+        <!-- Header -->
+        <x-penawaran-pdf-header :orderfind="$orderfind" :page=10 :countpage=13 />
+        <!-- End Header -->
+
+        <!-- Konten Utama -->
+        <div class="content">
+            <table class="table table-bordered nopadding">
+                <thead>
+                    <tr class="highlight-header text-center fw-bold">
+                        <th>No</th>
+                        <th>Components</th>
+                        <th>Grinviro</th>
+                        <th>Client</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+
+                <tbody>
                     <tr>
-                        <td rowspan="3">8</td>
+                        <td rowspan="3" class="text-center">8</td>
                         <td class="ps-0 fw-bold">{{ __('Document') }}</td>
                         <td></td>
                         <td></td>
@@ -1022,41 +1017,9 @@
                         </td>
                         <td class="p-0"></td>
                     </tr>
-                </tbody>
 
-            </table>
-        </div>
-        <!-- End Konten Utama -->
-
-        <!-- Footer -->
-        <x-penawaran-pdf-footer :orderfind="$orderfind" :page=9 />
-        <!-- End Footer -->
-    </div>
-    <!-- End Halaman 9-->
-
-
-    <!-- Halaman 10 -->
-    <div class="page mx-15 page-break">
-        <!-- Header -->
-        <x-penawaran-pdf-header :orderfind="$orderfind" :page=10 :countpage=12 />
-        <!-- End Header -->
-
-        <!-- Konten Utama -->
-        <div class="content">
-            <table class="table table-bordered table-mps nopadding">
-                <thead>
-                    <tr class="highlight-header text-center fw-bold">
-                        <th>No</th>
-                        <th>Components</th>
-                        <th>Grinviro</th>
-                        <th>Client</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-
-                <tbody>
                     <tr>
-                        <td rowspan="2">9</td>
+                        <td rowspan="2" class="text-center">9</td>
                         <td class="ps-0 fw-bold">{{ __('Authority Submission') }}</td>
                         <td></td>
                         <td></td>
@@ -1071,7 +1034,7 @@
                     </tr>
 
                     <tr>
-                        <td rowspan="4">10</td>
+                        <td rowspan="4" class="text-center">10</td>
                         <td class="ps-0 fw-bold">{{ __('Others') }}</td>
                         <td></td>
                         <td></td>
@@ -1102,10 +1065,25 @@
                         <td class="p-0"></td>
                     </tr>
                 </tbody>
-
             </table>
+        </div>
+        <!-- End Konten Utama -->
 
-            <h5 class="mt-5 mb-0">F. Term and Condition</h5>
+        <!-- Footer -->
+        <x-penawaran-pdf-footer :orderfind="$orderfind" :page=10 />
+        <!-- End Footer -->
+    </div>
+    <!-- End Halaman 10-->
+
+    <!-- Halaman 11 -->
+    <div class="page mx-15 page-break">
+        <!-- Header -->
+        <x-penawaran-pdf-header :orderfind="$orderfind" :page=11 :countpage=13 />
+        <!-- End Header -->
+
+        <!-- Konten Utama -->
+        <div class="content">
+            <h5 class="mt-2 mb-2">F. Term and Condition</h5>
             <table class="table table-bordered mt-0">
                 <tbody>
                     <tr>
@@ -1182,15 +1160,15 @@
         <!-- End Konten Utama -->
 
         <!-- Footer -->
-        <x-penawaran-pdf-footer :orderfind="$orderfind" :page=10 />
+        <x-penawaran-pdf-footer :orderfind="$orderfind" :page=11 />
         <!-- End Footer -->
     </div>
-    <!-- End Halaman 10-->
+    <!-- End Halaman 11-->
 
-    <!-- Halaman 11 -->
+    <!-- Halaman 12 -->
     <div class="page mx-15 page-break">
         <!-- Header -->
-        <x-penawaran-pdf-header :orderfind="$orderfind" :page=11 :countpage=12 />
+        <x-penawaran-pdf-header :orderfind="$orderfind" :page=12 :countpage=13 />
         <!-- End Header -->
 
         <!-- Konten Utama -->
@@ -1209,15 +1187,15 @@
         <!-- End Konten Utama -->
 
         <!-- Footer -->
-        <x-penawaran-pdf-footer :orderfind="$orderfind" :page=11 />
+        <x-penawaran-pdf-footer :orderfind="$orderfind" :page=12 />
         <!-- End Footer -->
     </div>
-    <!-- End Halaman 11-->
+    <!-- End Halaman 12-->
 
-    <!-- Halaman 12 -->
+    <!-- Halaman 13 -->
     <div class="page mx-15">
         <!-- Header -->
-        <x-penawaran-pdf-header :orderfind="$orderfind" :page=12 :countpage=12 />
+        <x-penawaran-pdf-header :orderfind="$orderfind" :page=13 :countpage=13 />
         <!-- End Header -->
 
         <!-- Konten Utama -->
@@ -1259,10 +1237,10 @@
         <!-- End Konten Utama -->
 
         <!-- Footer -->
-        <x-penawaran-pdf-footer :orderfind="$orderfind" :page=12 />
+        <x-penawaran-pdf-footer :orderfind="$orderfind" :page=13 />
         <!-- End Footer -->
     </div>
-    <!-- End Halaman 12-->
+    <!-- End Halaman 13-->
 
 </body>
 

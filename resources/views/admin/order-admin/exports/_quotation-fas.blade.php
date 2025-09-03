@@ -41,7 +41,7 @@
     <!-- Halaman 2 -->
     <div class="page mx-15 page-break">
         <!-- Header -->
-        <x-penawaran-pdf-header :orderfind="$orderfind" :page=2 :countpage=10/>
+        <x-penawaran-pdf-header :orderfind="$orderfind" :page=2 :countpage=11/>
         <!-- End Header -->
 
         <!-- Konten Utama -->
@@ -99,33 +99,37 @@
     <!-- Halaman 3 -->
     <div class="page mx-15 page-break">
         <!-- Header -->
-        <x-penawaran-pdf-header :orderfind="$orderfind" :page=3 :countpage=10/>
+        <x-penawaran-pdf-header :orderfind="$orderfind" :page=3 :countpage=11/>
         <!-- End Header -->
 
         <!-- Konten Utama -->
         <div class="content">
 
             <div class="content">
-                <p>Tangerang, {{  App\Helpers\Helper::dateFormat(now(), 'd') }}<sup>th</sup>
+                <br><p>Tangerang, {{  App\Helpers\Helper::dateFormat(now(), 'd') }}<sup>th</sup>
                     {{  App\Helpers\Helper::dateFormat(now(), 'F Y') }}
-                </p><br><br><br><br>
+                </p><br>
 
                 <p>
-                    {{$orderfind->shipping->company_destination}}
-                    <br />
+                    @if ($orderfind->shipping->company_destination)
+                        {{$orderfind->shipping->company_destination}}
+                    @else
+                        {{$orderfind->user->company}}
+                    @endif
+                    <br>
                     {{$orderfind->shipping->country_destination}} – Indonesia
-                </p><br><br>
+                </p>
                 <p>
                     @if ($orderfind->shipping->company_destination)
                         <br>To Whom It May Concern
                     @else
                         <br>Up Mr/Mrs {{$orderfind->user->name}}
                     @endif
-                </p><br>
+                </p>
                 <p>
                     Subject:
                     <em>{{ $orderfind->items->first()->product->nama_produk }} - {{ $productMainSpecification->type_name}} Quotation</em>
-                </p><br><br><br>
+                </p>
                 <p>
                     We thank you for your above-referenced inquiry and are pleased to submit our quotation for your
                     consideration. Please see the next page for a summary of our offer. Full details can be found in
@@ -134,18 +138,15 @@
                 <p>
                     We hope you find our quotation in line with your requirements. However, if you have any questions,
                     please do not hesitate to contact us.
-                </p>
+                </p><br>
                 
-                <p> Sincerely, </p>
+                <p> Sincerely, </p><br><br>
                 
                 <p class="mt-1">
                     {{$orderfind->pic->name}}
-                    <br/>
-                    <span><u>{{$orderfind->pic->job_title}}</u></span>
+                    <span>{{$orderfind->pic->job_title}}</span>
                     <br/>
                     <span>Water Business Unit</span>
-
-                    <br/>
                     <br/>
                     <span>PT GUNA HIJAU INOVASI</span><span> - GRINVIRO GLOBAL</span>
                     <br/>
@@ -167,7 +168,7 @@
     <!-- Halaman 4 -->
     <div class="page mx-15 page-break">
         <!-- Header -->
-        <x-penawaran-pdf-header :orderfind="$orderfind" :page=4 :countpage=10/>
+        <x-penawaran-pdf-header :orderfind="$orderfind" :page=4 :countpage=11/>
         <!-- End Header -->
 
         <!-- Konten Utama -->
@@ -181,12 +182,13 @@
                     <tr><td class="title">Document Revision Record</td><td class="dots"></td><td class="page">2</td></tr>
                     <tr><td class="title">Cover Letter</td><td class="dots"></td><td class="page">3</td></tr>
                     <tr><td class="title">Daftar Isi</td><td class="dots"></td><td class="page">4</td></tr>
-                    <tr><td class="title">A. Quotation Summary</td><td class="dots"></td><td class="page">5</td></tr>
-                    <tr><td class="title">B. Aerator Dimension</td><td class="dots"></td><td class="page">6</td></tr>
-                    <tr><td class="title">C. Scope Of Supply</td><td class="dots"></td><td class="page">7</td></tr>
-                    <tr><td class="title">D. Technical Data Sheet</td><td class="dots"></td><td class="page">8</td></tr>
-                    <tr><td class="title">E. Term And Condition</td><td class="dots"></td><td class="page">9</td></tr>
-                    <tr><td class="title">F. Product</td><td class="dots"></td><td class="page">10</td></tr>
+                    <tr><td class="title">A. Equipment Overview</td><td class="dots"></td><td class="page">5</td></tr>
+                    <tr><td class="title">B. Quotation Summary</td><td class="dots"></td><td class="page">6</td></tr>
+                    <tr><td class="title">C. Aerator Dimension</td><td class="dots"></td><td class="page">7</td></tr>
+                    <tr><td class="title">D. Scope Of Supply</td><td class="dots"></td><td class="page">8</td></tr>
+                    <tr><td class="title">E. Technical Data Sheet</td><td class="dots"></td><td class="page">9</td></tr>
+                    <tr><td class="title">F. Term And Condition</td><td class="dots"></td><td class="page">10</td></tr>
+                    <tr><td class="title">G. Product</td><td class="dots"></td><td class="page">11</td></tr>
                 </table>
             </div>
         </div>
@@ -201,12 +203,48 @@
     <!-- Halaman 5 -->
     <div class="page mx-15 page-break">
         <!-- Header -->
-        <x-penawaran-pdf-header :orderfind="$orderfind" :page=5 :countpage=10/>
+        <x-penawaran-pdf-header :orderfind="$orderfind" :page=5 :countpage=11 />
         <!-- End Header -->
 
         <!-- Konten Utama -->
         <div class="content">
-            <h5 class="mt-1 mb-0">A. Quotation Summary</h5>
+            <h5 class="mt-1 mb-2">A. Equipment Overview</h5>
+            <p class="mt-0 mb-2">
+                <b>FLOWREX Surface Aerator</b> is a high-efficiency surface aeration unit designed to enhance oxygen transfer in wastewater treatment systems. 
+                Engineered for both municipal and industrial applications, 
+                including highly concentrated leachate, FLOWREX combines durable construction, 
+                energy efficiency, and ease of maintenance.
+            </p>
+
+            <h5 class="mb-2">How It Works</h5>
+            <p class="mt-0 mb-2">
+                The aerator utilizes a mechanical impeller system positioned at the water surface. 
+                            When operating, the impeller agitates and disperses water into the surrounding atmosphere, 
+                            creating strong turbulence and maximizing air–water contact. 
+                            This process accelerates oxygen dissolution into the wastewater, 
+                            ensuring effective aerobic treatment even under heavy organic loading.
+            </p>
+            
+            <h5 class="mb-2">Key Features</h5>
+            <img src="{{ public_path('/quot/fas/fas-key-features.webp') }}" alt="FAS Key Features" style="max-width:100%; height:auto;">
+        </div>
+        <!-- End Konten Utama -->
+
+        <!-- Footer -->
+        <x-penawaran-pdf-footer :orderfind="$orderfind" :page=5 />
+        <!-- End Footer -->
+    </div>
+    <!-- End Halaman 5-->
+
+    <!-- Halaman 6 -->
+    <div class="page mx-15 page-break">
+        <!-- Header -->
+        <x-penawaran-pdf-header :orderfind="$orderfind" :page=6 :countpage=11/>
+        <!-- End Header -->
+
+        <!-- Konten Utama -->
+        <div class="content">
+            <h5 class="mt-1 mb-2">B. Quotation Summary</h5>
 
             <p>The following is the price for <strong>{{ $orderfind->items->first()->product->nama_produk }} - {{ $productMainSpecification->type_name}}</strong>. Please see item specific pages for more details.</p>
             
@@ -310,20 +348,20 @@
         <!-- End Konten Utama -->
 
         <!-- Footer -->
-        <x-penawaran-pdf-footer :orderfind="$orderfind" :page=5/>
+        <x-penawaran-pdf-footer :orderfind="$orderfind" :page=6/>
         <!-- End Footer -->
     </div>
-    <!-- End Halaman 5-->
+    <!-- End Halaman 6-->
 
-    <!-- Halaman 6 -->
+    <!-- Halaman 7 -->
     <div class="page mx-15 page-break">
         <!-- Header -->
-        <x-penawaran-pdf-header :orderfind="$orderfind" :page=6 :countpage=10/>
+        <x-penawaran-pdf-header :orderfind="$orderfind" :page=7 :countpage=11/>
         <!-- End Header -->
 
         <!-- Konten Utama -->
         <div class="content">
-            <h5 class="mt-1 mb-0">B. Aerator Dimension</h5>
+            <h5 class="mt-1 mb-0">C. Aerator Dimension</h5>
             <div class="row text-center">
                 <div class="col-12 mb-3">
                     <img src="{{ public_path('/quot/fas/sketsa-dimensi-aerator.webp') }}" alt="Gambar 1" class="img-fluid" style="width: 45%;">
@@ -336,20 +374,20 @@
         <!-- End Konten Utama -->
 
         <!-- Footer -->
-        <x-penawaran-pdf-footer :orderfind="$orderfind" :page=6/>
+        <x-penawaran-pdf-footer :orderfind="$orderfind" :page=7/>
         <!-- End Footer -->
     </div>
-    <!-- End Halaman 6-->
+    <!-- End Halaman 7-->
 
-    <!-- Halaman 7 -->
+    <!-- Halaman 8 -->
     <div class="page mx-15 page-break">
         <!-- Header -->
-        <x-penawaran-pdf-header :orderfind="$orderfind" :page=7 :countpage=10/>
+        <x-penawaran-pdf-header :orderfind="$orderfind" :page=8 :countpage=11/>
         <!-- End Header -->
 
         <!-- Konten Utama -->
         <div class="content">
-            <h5 class="mt-1 mb-0">C. Scope of Supply</h5>
+            <h5 class="mt-1 mb-2">D. Scope of Supply</h5>
 
             <table class="table table-bordered">
                 <thead>
@@ -518,20 +556,20 @@
         <!-- End Konten Utama -->
 
         <!-- Footer -->
-        <x-penawaran-pdf-footer :orderfind="$orderfind" :page=7/>
+        <x-penawaran-pdf-footer :orderfind="$orderfind" :page=8/>
         <!-- End Footer -->
     </div>
-    <!-- End Halaman 7-->
+    <!-- End Halaman 8-->
 
-    <!-- Halaman 8 -->
+    <!-- Halaman 9 -->
     <div class="page mx-15 page-break">
         <!-- Header -->
-        <x-penawaran-pdf-header :orderfind="$orderfind" :page=8 :countpage=10/>
+        <x-penawaran-pdf-header :orderfind="$orderfind" :page=9 :countpage=11/>
         <!-- End Header -->
 
         <!-- Konten Utama -->
         <div class="content">
-            <h5 class="mt-1 mb-0">D. Technical Data Sheet</h5>     
+            <h5 class="mt-1 mb-2">E. Technical Data Sheet</h5>     
             <table class="header-table" cellspacing="0" cellpadding="6" >
                 <tr>
                     <td class="align-middle text-center no-border-right" rowspan="2" class="p-5" style="width: 10%;">
@@ -548,7 +586,7 @@
                             Water &amp; Wastewater Management
                         </div>
                     </td>
-                    <td colspan="4" class="align-middle no-border-bottom">Floating Surface Aerator</td>
+                    <td colspan="4" class="align-middle no-border-bottom">FLOWREX Surface Aerator</td>
                 </tr>
                 <tr>
                     <td colspan="4" class="align-middle no-border-top">Technical Specification Sheet</td>
@@ -685,20 +723,20 @@
         <!-- End Konten Utama -->
 
         <!-- Footer -->
-        <x-penawaran-pdf-footer :orderfind="$orderfind" :page=8/>
+        <x-penawaran-pdf-footer :orderfind="$orderfind" :page=9/>
         <!-- End Footer -->
     </div>
-    <!-- End Halaman 8-->
+    <!-- End Halaman 9-->
 
-    <!-- Halaman 9 -->
+    <!-- Halaman 10 -->
     <div class="page mx-15 page-break">
         <!-- Header -->
-        <x-penawaran-pdf-header :orderfind="$orderfind" :page=9 :countpage=10/>
+        <x-penawaran-pdf-header :orderfind="$orderfind" :page=10 :countpage=11/>
         <!-- End Header -->
 
         <!-- Konten Utama -->
         <div class="content">
-            <h5 class="mt-1 mb-0">E. Term and Condition</h5>
+            <h5 class="mt-1 mb-2">F. Term and Condition</h5>
             <table class="table table-bordered">
                 <tbody>
                     <tr>
@@ -775,20 +813,20 @@
         <!-- End Konten Utama -->
 
         <!-- Footer -->
-        <x-penawaran-pdf-footer :orderfind="$orderfind" :page=9/>
+        <x-penawaran-pdf-footer :orderfind="$orderfind" :page=10/>
         <!-- End Footer -->
     </div>
-    <!-- End Halaman 9-->
+    <!-- End Halaman 10-->
 
-    <!-- Halaman 10 -->
+    <!-- Halaman 11 -->
     <div class="page mx-15">
         <!-- Header -->
-        <x-penawaran-pdf-header :orderfind="$orderfind" :page=10 :countpage=10/>
+        <x-penawaran-pdf-header :orderfind="$orderfind" :page=11 :countpage=11/>
         <!-- End Header -->
 
        <!-- Konten Utama -->
-        <div class="content ">
-            <h5 class="mt-1 mb-0">F. Product</h5>
+        <div class="content">
+            <h5 class="mt-1">G. Product</h5>
             <div class="text-center">
                 <div class="col-12">
                     <img src="{{ public_path('./quot/fas/fas-surface-aerator.webp') }}" alt="Gambar-2"
@@ -807,10 +845,10 @@
        <!-- End Konten Utama -->
 
        <!-- Footer -->
-       <x-penawaran-pdf-footer :orderfind="$orderfind" :page=10/>
+       <x-penawaran-pdf-footer :orderfind="$orderfind" :page=11/>
        <!-- End Footer -->
    </div>
-   <!-- End Halaman 10-->
+   <!-- End Halaman 11-->
 </body>
 
 </html>

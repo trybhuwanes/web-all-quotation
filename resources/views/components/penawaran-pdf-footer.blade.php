@@ -6,13 +6,17 @@
     <div class="text-center">
         <span>ALL RIGHT RESERVED</span>
     </div>
-    <div class="text-start text-uppercase">
+    <div class="text-center text-uppercase">
         THIS DOCUMENT WAS PREPARED FOR THE EXCLUSIVE USE OF
         <span class="highlight text-uppercase">
             @if ($orderfind->shipping->company_destination)
-                <br>Shipping to: {{$orderfind->shipping->company_destination}}
+                @if ($orderfind->shipping->company_destination !== $orderfind->user->company)
+                    {{ $orderfind->user->company }}, {{ $orderfind->shipping->company_destination }},
+                @else
+                    {{ $orderfind->user->company }}
+                @endif
             @else
-                <br>Shipping to: {{$orderfind->user->company}}
+                {{ $orderfind->user->company }}
             @endif
         </span>
         AND<span> PT GUNA HIJAU INOVASI</span>
