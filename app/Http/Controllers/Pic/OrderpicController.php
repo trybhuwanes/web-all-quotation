@@ -20,7 +20,7 @@ class OrderpicController extends Controller
         $status = $request->status;
         $loggedInPicId = auth()->user()->id;
 
-        $orderall = Order::with(['items.product', 'items.productadd', 'user', 'revisiquotation',])
+        $orderall = Order::with(['items.product', 'items.productadd', 'user', 'revisiquotation', 'shipping'])
             ->where('pic_id', $loggedInPicId)
             ->when($search, function ($query, $search) {
                 $query->where(function ($q) use ($search) {
@@ -41,6 +41,18 @@ class OrderpicController extends Controller
                         // Cari di perusahaan (kalau perusahaan ada di relasi user)
                         ->orWhereHas('user', function ($q4) use ($search) {
                             $q4->where('company', 'like', "%{$search}%");
+                        })
+                        // Cari di perusahaan (kalau perusahaan ada di relasi shipping)
+                        ->orWhereHas('shipping', function ($q5) use ($search) {
+                            $q5->where('company_destination', 'like', "%{$search}%");
+                        })
+                        // Cari di perusahaan (kalau perusahaan ada di relasi shipping)
+                        ->orWhereHas('shipping', function ($q6) use ($search) {
+                            $q6->where('country_destination', 'like', "%{$search}%");
+                        })
+                        // Cari di perusahaan (kalau perusahaan ada di relasi shipping)
+                        ->orWhereHas('shipping', function ($q7) use ($search) {
+                            $q7->where('state_destination', 'like', "%{$search}%");
                         });
                 });
             })

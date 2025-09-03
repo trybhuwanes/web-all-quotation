@@ -19,7 +19,7 @@ class OrderadminController extends Controller
         $search = $request->q;
         $picId = $request->pic_id;
         $status = $request->status;
-        $orderall = Order::with(['items.product', 'items.productadd', 'user', 'pic'])
+        $orderall = Order::with(['items.product', 'items.productadd', 'user', 'pic', 'shipping'])
             ->when($search, function ($query, $search) {
                 $query->where(function ($q) use ($search) {
                     // Cari di nama customer (relasi user)
@@ -39,6 +39,18 @@ class OrderadminController extends Controller
                         // Cari di perusahaan (kalau perusahaan ada di relasi user)
                         ->orWhereHas('user', function ($q4) use ($search) {
                             $q4->where('company', 'like', "%{$search}%");
+                        })
+                        // Cari di perusahaan (kalau perusahaan ada di relasi shipping)
+                        ->orWhereHas('shipping', function ($q5) use ($search) {
+                            $q5->where('company_destination', 'like', "%{$search}%");
+                        })
+                        // Cari di perusahaan (kalau perusahaan ada di relasi shipping)
+                        ->orWhereHas('shipping', function ($q6) use ($search) {
+                            $q6->where('country_destination', 'like', "%{$search}%");
+                        })
+                        // Cari di perusahaan (kalau perusahaan ada di relasi shipping)
+                        ->orWhereHas('shipping', function ($q7) use ($search) {
+                            $q7->where('state_destination', 'like', "%{$search}%");
                         });
                 });
             })

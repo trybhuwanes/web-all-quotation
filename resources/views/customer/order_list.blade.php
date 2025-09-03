@@ -80,12 +80,13 @@
 
                                 <thead>
                                     <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0" role="row">
-                                        <th class="min-w-100px">Order ID</th>
-                                        <th class="text-end min-w-70px">Status</th>
-                                        <th class="text-end min-w-100px">Total</th>
-                                        <th class="text-end min-w-100px">Tanggal Dibuat</th>
-                                        <th class="text-end min-w-100px">Tanggal Diperbarui</th>
-                                        <th class="text-end min-w-100px">Aksi</th>
+                                        <th class="min-w-80px">Order ID</th>
+                                        <th class="text-center min-w-100px">Pengiriman</th>
+                                        <th class="text-center min-w-50px">Status</th>
+                                        <th class="text-center min-w-100px">Total</th>
+                                        <th class="text-center min-w-100px">Tanggal Dibuat</th>
+                                        <th class="text-center min-w-100px">Tanggal Diperbarui</th>
+                                        <th class="text-center min-w-100px">Aksi</th>
                                     </tr>
                                 </thead>
 
@@ -94,10 +95,22 @@
                                         <tr>
                                             <td class="text-start dt-type-numeric"
                                                 data-kt-ecommerce-order-filter="order_id">
-                                                <a href="{{ route('order.detail', $data->trx_code) }}" class="text-gray-800 text-hover-primary fw-bold">
+                                                <a href="{{ route('order.detail', $data->uuid) }}" class="text-gray-800 text-hover-primary fw-bold">
                                                 {{ $data->trx_code}}</a>
                                             </td>
-                                            
+                                            <td>                                                    
+                                                <!--begin::Company Destination-->
+                                                @if ($data->shipping->company_destination)
+                                                    <span class="text-gray-800 fs-7 fw-bold">{{$data->shipping->company_destination}}
+                                                        <p style="font-size: 11px">{{$data->shipping->country_destination}}, {{$data->shipping->state_destination}}</p>
+                                                    </span>
+                                                @else
+                                                    <span class="text-gray-800 fs-7 fw-bold">{{$data->user->company}}
+                                                        <p style="font-size: 11px">{{$data->shipping->country_destination}}, {{$data->shipping->state_destination}}</p>
+                                                    </span>
+                                                @endif
+                                                    <!--end::Company Destination-->
+                                            </td>
                                             <td class="text-end pe-0" data-order="Completed">
                                                 <!--begin::Badges-->
                                                 <div class="badge badge-light-success">{!! \App\Enums\OrderStatusEnum::badge($data->status) !!}</div>

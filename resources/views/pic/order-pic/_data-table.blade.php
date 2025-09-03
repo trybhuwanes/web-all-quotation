@@ -8,7 +8,8 @@
             <tr class="text-start fw-bold fs-7 text-uppercase gs-0">
                 <th class="w-10px pe-2 text-center">No.</th>
                 <th class="min-w-100px text-center">Order ID</th>
-                <th class="min-w-100px text-center">Perusahaan</th>
+                <th class="min-w-150px text-center">Perusahaan</th>
+                <th class="min-w-150px text-center">Pengiriman</th>
                 <th class="min-w-100px text-center">Customer</th>
                 <th class="min-w-50px text-center">Status</th>
                 <th class="min-w-50px text-center">Tgl Order</th>
@@ -49,6 +50,24 @@
                         </div>
                     </td>
                     <!--end::Contact-->
+
+                    <!--begin::Company Destination-->
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <!--begin::Title-->
+                            @if ($order->shipping->company_destination)
+                                <span class="text-gray-800 fs-7 fw-bold">{{$order->shipping->company_destination}}
+                                    <p style="font-size: 11px">{{$order->shipping->country_destination}}, {{$order->shipping->state_destination}}</p>
+                                </span>
+                            @else
+                                <span class="text-gray-800 fs-7 fw-bold">{{$order->user->company}}
+                                    <p style="font-size: 11px">{{$order->shipping->country_destination}}, {{$order->shipping->state_destination}}</p>
+                                </span>
+                            @endif
+                            <!--end::Title-->
+                        </div>
+                    </td>
+                    <!--end::Company Destination-->
 
                     <!--begin::Contact-->
                     <td>

@@ -148,7 +148,11 @@
                                     </td>
                                     <td class="fw-bold text-end">
                                         @if($orderfind->shipping)
-                                            {{$orderfind->shipping->company_destination}} <br>
+                                            @if ($orderfind->shipping->company_destination)
+                                                {{$orderfind->shipping->company_destination}} <br>
+                                            @else
+                                                {{$orderfind->user->company}} <br>
+                                            @endif
                                             {{$orderfind->shipping->address_destination}}
                                         @else
                                             -

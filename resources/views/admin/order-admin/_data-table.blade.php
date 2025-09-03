@@ -10,7 +10,8 @@
                 <th class="min-w-100px text-center">Order ID</th>
                 <th class="min-w-100px text-center">PIC</th>
                 <th class="min-w-100px text-center">Customer</th>
-                <th class="min-w-100px text-center">Perusahaan</th>
+                <th class="min-w-150px text-center">Perusahaan</th>
+                <th class="min-w-150px text-center">Pengiriman</th>
                 <th class="min-w-50px text-center">Status</th>
                 <th class="min-w-50px text-center">Tgl Order</th>
                 <th class="min-w-100px text-center">Aksi</th>
@@ -32,15 +33,15 @@
                     </td>
                     <!--end::Iteration-->
 
-                    <!--begin::Name-->
+                    <!--begin::Trx Code-->
                     <td>
                         <div class="d-flex justify-content-start flex-column">
                             <a href="#" class="text-gray-900 fw-bold mb-1 fs-7">{{ $order->trx_code}}</a>
                         </div>
                     </td>
-                    <!--end::Name-->
+                    <!--end::Trx Code-->
 
-                    <!--begin::Contact-->
+                    <!--begin::PIC-->
                     <td>
                         <div class="d-flex align-items-center">
                             <!--begin::Title-->
@@ -48,9 +49,9 @@
                             <!--end::Title-->
                         </div>
                     </td>
-                    <!--end::Contact-->
+                    <!--end::PIC-->
 
-                    <!--begin::Contact-->
+                    <!--begin::Customer Name-->
                     <td>
                         <div class="d-flex align-items-center">
                             <!--begin::Title-->
@@ -58,9 +59,9 @@
                             <!--end::Title-->
                         </div>
                     </td>
-                    <!--end::Contact-->
+                    <!--end::Customer Name-->
 
-                    <!--begin::Contact-->
+                    <!--begin::Company-->
                     <td>
                         <div class="d-flex align-items-center">
                             <!--begin::Title-->
@@ -68,24 +69,41 @@
                             <!--end::Title-->
                         </div>
                     </td>
-                    <!--end::Contact-->
-                    
+                    <!--end::Company-->
 
-                    <!--begin::Contact-->
+                    <!--begin::Company Destination-->
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <!--begin::Title-->
+                            @if ($order->shipping->company_destination)
+                                <span class="text-gray-800 fs-7 fw-bold">{{$order->shipping->company_destination}}
+                                    <p style="font-size: 11px">{{$order->shipping->country_destination}}, {{$order->shipping->state_destination}}</p>
+                                </span>
+                            @else
+                                <span class="text-gray-800 fs-7 fw-bold">{{$order->user->company}}
+                                    <p style="font-size: 11px">{{$order->shipping->country_destination}}, {{$order->shipping->state_destination}}</p>
+                                </span>
+                            @endif
+                            <!--end::Title-->
+                        </div>
+                    </td>
+                    <!--end::Company Destination-->
+
+                    <!--begin::Status-->
                     <td>
                         <div class="d-flex justify-content-start flex-column">
                             <span class="text-gray-800 fs-5 fw-bold">{!! \App\Enums\OrderStatusEnum::badge($order->status) !!}</span>
                         </div>
                     </td>
-                    <!--end::Contact-->
+                    <!--end::Status-->
 
-                    <!--begin::Contact-->
+                    <!--begin::Created At-->
                     <td>
                         <div class="d-flex justify-content-start flex-column">
                             <span class="text-gray-800 fs-7 fw-bold">{{  App\Helpers\Helper::dateFormat($order->created_at, 'd/m/Y') }}</span>
                         </div>
                     </td>
-                    <!--end::Contact-->
+                    <!--end::Created At-->
 
                     <!--begin::Button value-->
                     <td class="text-end">
