@@ -39,14 +39,14 @@ class UserService
     public function select2($filter): Builder
     {
         $data = $this->model()
-                       ->select([
-                           'id',
-                           DB::raw('name as text'),
-                       ])
-                       ->when(count($filter), function ($q) use ($filter){
-                            $q->where($filter);
-                       })
-                       ->limit(10);
+            ->select([
+                'id',
+                DB::raw('name as text'),
+            ])
+            ->when(count($filter), function ($q) use ($filter) {
+                $q->where($filter);
+            })
+            ->limit(10);
 
         return $data;
     }
@@ -54,15 +54,15 @@ class UserService
     public function select2pic($filter): Builder
     {
         $data = $this->model()
-                    ->select([
-                        'id',
-                        DB::raw('name as text'),
-                    ])
-                    ->when(count($filter), function ($q) use ($filter) {
-                            $q->where($filter);
-                    })
-                    ->where('role', 'pic')
-                    ->limit(10);
+            ->select([
+                'id',
+                DB::raw('name as text'),
+            ])
+            ->when(count($filter), function ($q) use ($filter) {
+                $q->where($filter);
+            })
+            ->where('role', 'pic')
+            ->limit(10);
 
         return $data;
     }
@@ -70,14 +70,20 @@ class UserService
     public function filtering(array $filter = []): Builder
     {
         $search     = $filter['search'];
+        $status = $filter['status'] ?? null;
+
         $users = $this->model->where('role', '!=', 'admin')
-                      ->when($search, function ($q) use ($search) {
-                         $q->where(function ($q) use ($search) {
-                            $q->where('name', 'LIKE', "%{$search}%")
-                                ->orWhere('company', 'LIKE', "%{$search}%")
-                                    ->orWhere('email', 'LIKE', "%{$search}%");
-                         });
-                      });
+            ->when($search, function ($q) use ($search) {
+                $q->where(function ($q) use ($search) {
+                    $q->where('name', 'LIKE', "%{$search}%")
+                        ->orWhere('company', 'LIKE', "%{$search}%")
+                        ->orWhere('email', 'LIKE', "%{$search}%")
+                        ->orWhere('status', 'like', "%{$search}%");
+                });
+            })
+            ->when($status, function ($q) use ($status) {
+                $q->where('status', $status);
+            });
 
         return $users;
     }
@@ -153,7 +159,7 @@ class UserService
             // $data['is_active'] = $data['is_active'] == 'true' ? true : false;
             // // update user
             // $userData = collect($data)->only(['name', 'email', 'is_active'])->toArray();
-            $userData = collect($data)->only(['name', 'email', 'job_title','company', 'field_company', 'detail_company', 'location_company', 'status',  ])->toArray();
+            $userData = collect($data)->only(['name', 'email', 'job_title', 'company', 'field_company', 'detail_company', 'location_company', 'status',])->toArray();
             $user->update($userData);
 
 
@@ -229,6 +235,4 @@ class UserService
             throw new \ErrorException($th->getMessage());
         }
     }
-
-
 }
