@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Mail;
 class UserController extends Controller
 {
     public $userService;
-    
+
     public function __construct(UserService $userService)
     {
         $this->userService = $userService;
@@ -24,11 +24,13 @@ class UserController extends Controller
     public function index(Request $request)
     {
         //
-        $filter['search']= $request->q;
+        $filter['search'] = $request->q;
+        $filter['status'] = $request->status;
+
         $alluser        = $this->userService
-                        ->filtering($filter)
-                        ->orderBy('created_at', 'desc')
-                        ->paginate(10);
+            ->filtering($filter)
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
         return view('admin.user-manage.index', compact('alluser'));
     }
 
@@ -72,11 +74,11 @@ class UserController extends Controller
     public function update(Request $request, string $id)
     {
         //
-        
+
         try {
             $user = User::where('id', $id)->select('id', 'email', 'name')->firstOrFail();
-            
-            
+
+
             $user = $this->userService->update($request->all(), $user);
             Mail::to($user['email'])->locale(app()->getLocale())->send(new ActiveStatusMail($user));
             Session()->flash('status', 'Data Pengguna Berhasil Update');
@@ -89,7 +91,6 @@ class UserController extends Controller
         } catch (\Throwable $th) {
             throw new \ErrorException($th->getMessage());
         }
-
     }
 
     /**
@@ -119,7 +120,5 @@ class UserController extends Controller
         } catch (\Throwable $th) {
             throw new \ErrorException($th->getMessage());
         }
-
     }
-
 }
