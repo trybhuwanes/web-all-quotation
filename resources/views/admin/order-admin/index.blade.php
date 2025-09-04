@@ -61,7 +61,7 @@
                         
                     @slot('customAddButton')
                         <!--begin::Filter PIC-->
-                        <div class="w-150px me-2">
+                        <div class="w-210px me-2">
                             <form method="GET" action="{{ route('order-admin.index') }}" id="filterForm">
                                 <select name="pic_id" id="picFilter" class="form-select form-select-solid"
                                     data-control="select2" data-hide-search="true" data-placeholder="Filter PIC">
@@ -75,6 +75,12 @@
                         </div>
                         <!--end::Filter PIC-->
 
+                        <div class="me-4">
+                            @if (request()->filled('pic_id'))
+                                    <a href="{{ route('order-admin.index', array_merge(request()->except('pic_id'))) }}" 
+                                    class="btn btn-danger">✖</a>
+                                @endif
+                        </div>
                         <!--begin::Filter Status-->
                         <div class="w-150px">
                             <select name="status" id="statusFilter" class="form-select form-select-solid"
@@ -90,12 +96,18 @@
                                 @endforeach
                                 
                             </select>
+                            </form>
                         </div>
-                        </form>
+                        
+                        <div class="ms-2">
+                            {{-- tombol reset filter Status --}}
+                            @if (request()->filled('status'))
+                                <a href="{{ route('order-admin.index', array_merge(request()->except('status'))) }}" 
+                                class="btn btn-danger">✖</a>
+                            @endif
+                        </div>
                         <!--end::Filter Status-->
                     @endSlot
-
-
                         
                         @slot('exportOptions')
                             @include('admin.order-admin._export')
@@ -146,6 +158,7 @@
                 });
             });
         </script>
+        
     @endpush
 </x-app-layout>
 

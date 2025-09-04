@@ -72,11 +72,16 @@
                                                 {{ ucfirst($status->value) }}
                                             </option>
                                         @endforeach
-                                        
                                     </select>
                                 </form>
                             </div>
-                            </form>
+                            <div class="ms-2">
+                                {{-- tombol reset filter Status --}}
+                                @if (request()->filled('status'))
+                                    <a href="{{ route('order-pic.index', array_merge(request()->except('status'))) }}" 
+                                    class="btn btn-danger">✖</a>
+                                @endif
+                            </div>
                             <!--end::Filter Status-->
                         @endSlot
 
