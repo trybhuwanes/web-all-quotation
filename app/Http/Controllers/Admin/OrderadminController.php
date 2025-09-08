@@ -16,6 +16,8 @@ class OrderadminController extends Controller
      */
     public function index(Request $request)
     {
+        $startDate = $request->start_date;
+        $endDate   = $request->end_date;
         $search = $request->q;
         $picId = $request->pic_id;
         $status = $request->status;
@@ -60,8 +62,12 @@ class OrderadminController extends Controller
             ->when($status, function ($query, $status) {
                 $query->where('status', $status);
             })
+            ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
+                $query->whereBetween('created_at', [$startDate, $endDate]);
+            })
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->paginate(10)
+            ->withQueryString();
 
         $pics = $pics = User::where('role', 'pic')
             ->whereIn('id', function ($query) {

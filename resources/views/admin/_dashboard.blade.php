@@ -32,7 +32,7 @@
 <!--end::Row-->
 
 
-<!--begin::Row-->
+<!--begin::Row Penjualan PIC-->
 <div class="row g-5 g-xl-8"> 
     <div class="col-xl-12">
         <!--begin::Charts Widget 2-->
@@ -45,30 +45,18 @@
 
                 <!--begin::Toolbar-->
                 <div class="d-flex align-items-center gap-2">
-                    <select id="picSelect" class="form-select fw-bold form-select-sm">
+                    <select id="picSelect" class="form-select fw-bold form-select-sm" data-placehoder="Pilih PIC">
+                        <option value="">Pilih PIC</option>
                         @foreach($piclist as $pic)
                             <option value="{{ $pic->id }}" {{ $pic->id == 4 ? 'selected' : '' }}>
                                 {{ $pic->name }}
                             </option>
                         @endforeach        
                     </select>
-
-                    <select id="yearSelect" class="form-select fw-bold form-select-sm">
-                        @php
-                            $currentYear = date('Y');
-                            $startYear = $currentYear - 5;
-                        @endphp
-                        @for($y = $startYear; $y <= $currentYear; $y++)
-                            <option value="{{ $y }}" {{ $y == $currentYear ? 'selected' : '' }}>
-                                {{ $y }}
-                            </option>
-                        @endfor
-                    </select>
                 </div>
                 <!--end::Toolbar-->
             </div>
             <!--end::Header-->
-
 
             <!--begin::Body-->
             <div class="card-body">
@@ -83,22 +71,24 @@
 </div>
 <!--end::Row-->
 
-
-
-
 @push('js')
 <!--begin::Vendors Javascript(used by this page)-->
 <script>
 "use strict";
-var KTChartsDashboard = function() {
+var KTChartsDashboard = function () {
     return {
-        init: function() {
+        init: function () {
             this.initOrderStatusChart();
-            this.initRevenueChart(); // default pic_id = 4, year = tahun sekarang
+            this.initRevenueChart(); // default load
+            this.bindEvents();
         },
 
-        initOrderStatusChart: function() {
-            let Url = route('admin.dashboard.getorderstatus');
+        // === Order Status Chart ===
+        initOrderStatusChart: function () {
+            let Url = route("admin.dashboard.getorderstatus", {
+                start_date: new URLSearchParams(window.location.search).get("start_date"),
+                end_date: new URLSearchParams(window.location.search).get("end_date"),
+            });
 
             axios.get(Url)
                 .then(response => {
@@ -121,24 +111,30 @@ var KTChartsDashboard = function() {
         },
 
         // === Revenue Chart ===
-        initRevenueChart: function(picId = 4, year = new Date().getFullYear()) {
-            let revenueUrl = route('admin.dashboard.getrevenuepic', { pic_id: picId, year: year });
+        initRevenueChart: function (picId = 4) {
+            let params = {
+                pic_id: picId,
+                start_date: new URLSearchParams(window.location.search).get("start_date"),
+                end_date: new URLSearchParams(window.location.search).get("end_date"),
+            };
+
+            let revenueUrl = route("admin.dashboard.getrevenuepic", params);
 
             axios.get(revenueUrl)
                 .then(response => {
-                    let targetData  = response.data.map(item => item.target);
+                    let targetData = response.data.map(item => item.target);
                     let prospekData = response.data.map(item => item.prospek);
-                    let goalData    = response.data.map(item => item.goal);
-                    let months      = response.data.map(item => item.month);
+                    let goalData = response.data.map(item => item.goal);
+                    let months = response.data.map(item => item.month);
 
                     this.renderRevenueChart(targetData, prospekData, goalData, months);
                 })
                 .catch(error => {
-                    console.error('Error fetching revenue data:', error);
+                    console.error("Error fetching revenue data:", error);
                 });
         },
 
-        renderRevenueChart: function(targetData, prospekData, goalData, months) {
+        renderRevenueChart: function (targetData, prospekData, goalData, months) {
             var chartElement = document.getElementById("kt_charts_pictotal_sales");
             if (chartElement) {
                 var chartOptions = {
@@ -158,35 +154,33 @@ var KTChartsDashboard = function() {
                             horizontal: false,
                             columnWidth: "30%",
                             borderRadius: 4,
-                            dataLabels: { position: 'top' }
+                            dataLabels: { position: "top" }
                         }
                     },
-                    colors: ["#FFC700D9", "#36A2EB", "#0B7A12"], 
+                    colors: ["#FFC700D9", "#36A2EB", "#0B7A12"],
                     xaxis: {
                         categories: months,
-                        title: { text: 'Bulan' }
+                        title: { text: "Bulan" }
                     },
                     yaxis: {
                         min: 0,
-                        title: { text: '' },
                         labels: {
-                            formatter: function(value) {
-                                return 'Rp ' + value.toLocaleString('id-ID');
+                            formatter: function (value) {
+                                return "Rp " + value.toLocaleString("id-ID");
                             }
                         }
                     },
                     dataLabels: {
                         enabled: true,
-                        formatter: function(value) {
-                            return 'Rp ' + value.toLocaleString('id-ID');
+                        formatter: function (value) {
+                            return "Rp " + value.toLocaleString("id-ID");
                         },
-                        style: { fontSize: '10px', colors: ["#000"] },
+                        style: { fontSize: "10px", colors: ["#000"] }
                     },
-                    fill: { opacity: 1 },
                     tooltip: {
                         y: {
-                            formatter: function(value) {
-                                return "Rp " + value.toLocaleString('id-ID');
+                            formatter: function (value) {
+                                return "Rp " + value.toLocaleString("id-ID");
                             }
                         }
                     },
@@ -202,8 +196,7 @@ var KTChartsDashboard = function() {
             }
         },
 
-        // === Order Status Chart ===
-        renderOrderStatusChart: function(orderData) {
+        renderOrderStatusChart: function (orderData) {
             if (!Array.isArray(orderData)) {
                 console.error("Order data bukan array:", orderData);
                 return;
@@ -213,11 +206,11 @@ var KTChartsDashboard = function() {
             if (chartElement) {
                 let chartOptions = {
                     series: [
-                        { name: "Pending",    data: orderData.map(item => item.pending) },
+                        { name: "Pending", data: orderData.map(item => item.pending) },
                         { name: "Submission", data: orderData.map(item => item.submission) },
                         { name: "Processing", data: orderData.map(item => item.processing) },
-                        { name: "Completed",  data: orderData.map(item => item.completed) },
-                        { name: "Cancelled",  data: orderData.map(item => item.cancelled) }
+                        { name: "Completed", data: orderData.map(item => item.completed) },
+                        { name: "Cancelled", data: orderData.map(item => item.cancelled) }
                     ],
                     chart: {
                         type: "bar",
@@ -246,33 +239,73 @@ var KTChartsDashboard = function() {
                 this.orderChartInstance = new ApexCharts(chartElement, chartOptions);
                 this.orderChartInstance.render();
             }
+        },
+
+        bindEvents: function () {
+            // Inisialisasi daterangepicker dengan nilai dari hidden input
+            let startVal = document.getElementById("start_date").value;
+            let endVal   = document.getElementById("end_date").value;
+
+            let start = startVal ? moment(startVal, "YYYY-MM-DD") : moment().startOf("month");
+            let end   = endVal ? moment(endVal, "YYYY-MM-DD")   : moment().endOf("month");
+
+            $('[data-kt-daterangepicker="true"]').daterangepicker({
+                startDate: start,
+                endDate: end,
+                opens: "left",
+                autoUpdateInput: true,
+                locale: {
+                    format: "DD/MM/YYYY",
+                    separator: " - ",
+                    applyLabel: "Apply",
+                    cancelLabel: "Cancel",
+                    customRangeLabel: "Custom Range",
+                    daysOfWeek: ["Mg", "Sn", "Sl", "Rb", "Km", "Jm", "Sb"],
+                    monthNames: [
+                        "Januari","Februari","Maret","April","Mei","Juni",
+                        "Juli","Agustus","September","Oktober","November","Desember"
+                    ]
+                },
+                ranges: {
+                    "Today": [moment(), moment()],
+                    "This Month": [moment().startOf("month"), moment().endOf("month")],
+                    "This Year": [moment().startOf("year"), moment().endOf("year")]
+                }
+            }, function (start, end) {
+                // Update hidden input
+                document.getElementById("start_date").value = start.format("YYYY-MM-DD");
+                document.getElementById("end_date").value   = end.format("YYYY-MM-DD");
+
+                // Update teks tampilan
+                document.querySelector('[data-kt-daterangepicker="true"] .text-gray-600').innerText =
+                    start.format("DD MMM YYYY") + " - " + end.format("DD MMM YYYY");
+
+                // Submit form
+                document.getElementById("filterForm").submit();
+            });
         }
     };
 }();
 
-// === DOM Ready ===
-document.addEventListener('DOMContentLoaded', function() {
-    // init default chart (pic_id = 4, year = sekarang)
+document.addEventListener("DOMContentLoaded", function () {
     KTChartsDashboard.init();
 
-    const picSelect  = document.getElementById('picSelect');
-    const yearSelect = document.getElementById('yearSelect');
-
-    function reloadRevenueChart() {
-        let selectedPicId = picSelect.value || 4;
-        let selectedYear  = yearSelect ? yearSelect.value : new Date().getFullYear();
-        KTChartsDashboard.initRevenueChart(selectedPicId, selectedYear);
+    let startVal = document.getElementById("start_date").value;
+    let endVal   = document.getElementById("end_date").value;
+    if (startVal && endVal) {
+        let start = moment(startVal, "YYYY-MM-DD").format("DD MMM YYYY");
+        let end   = moment(endVal, "YYYY-MM-DD").format("DD MMM YYYY");
+        document.querySelector('[data-kt-daterangepicker="true"] .text-gray-600').innerText =
+            start + " - " + end;
     }
 
+    const picSelect = document.getElementById("picSelect");
     if (picSelect) {
-        picSelect.addEventListener('change', reloadRevenueChart);
-    }
-
-    if (yearSelect) {
-        yearSelect.addEventListener('change', reloadRevenueChart);
+        picSelect.addEventListener("change", function () {
+            let selectedPicId = picSelect.value || 4;
+            KTChartsDashboard.initRevenueChart(selectedPicId);
+        });
     }
 });
 </script>
-
-    
 @endpush

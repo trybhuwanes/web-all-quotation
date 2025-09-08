@@ -9,8 +9,6 @@
         <div class="menu menu-column menu-rounded menu-sub-indention px-3" id="#kt_app_sidebar_menu" data-kt-menu="true"
             data-kt-menu-expand="false">
             <x-menu-item></x-menu-item>
-            
-
         </div>
         <!--end::Menu-->
     </div>

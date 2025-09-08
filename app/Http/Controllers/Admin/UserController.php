@@ -23,14 +23,20 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        //
+        $startDate = request('start_date');
+        $endDate   = request('end_date');
+
         $filter['search'] = $request->q;
         $filter['status'] = $request->status;
 
         $alluser        = $this->userService
             ->filtering($filter)
+            ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
+                $query->whereBetween('created_at', [$startDate, $endDate]);
+            })
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->paginate(10)
+            ->withQueryString();
         return view('admin.user-manage.index', compact('alluser'));
     }
 

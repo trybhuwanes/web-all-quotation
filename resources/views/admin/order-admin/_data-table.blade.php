@@ -13,7 +13,7 @@
                 <th class="min-w-150px text-center">Perusahaan</th>
                 <th class="min-w-150px text-center">Pengiriman</th>
                 <th class="min-w-50px text-center">Status</th>
-                <th class="min-w-50px text-center">Tgl Order</th>
+                <th class="max-w-50px text-center">Tgl Order</th>
                 <th class="min-w-100px text-center">Aksi</th>
             </tr>
             <!--end::Table row-->

@@ -271,79 +271,79 @@
             },
 
             renderChart: function(totalHandles) {
-    if (this.chartInstance) {
-        this.chartInstance.destroy();
-    }
-    
-    var chartElement = document.querySelector("#kt_charts_widget_1");
-    var self = this;
-
-    var chartOptions = {
-        series: [{
-            name: "Total Sales",
-            data: totalHandles.map(handle => handle.value)
-        }],
-        chart: {
-            fontFamily: "inherit",
-            type: "bar",
-            height: 350,
-            toolbar: { show: false },
-            events: {
-                dataPointSelection: function(event, chartContext, config) {
-                    let index = config.dataPointIndex; 
-                    let clickedDate = totalHandles[index].date;
-
-                    // ubah judul modal
-                    document.getElementById("modalDate").innerText = clickedDate;
-
-                    // loading state
-                    document.getElementById("ordersList").innerHTML = "Loading...";
-
-                    // ambil data via AJAX
-                    axios.get(route('orders.byDate', { date: clickedDate }))
-                        .then(response => {
-                            document.getElementById("ordersList").innerHTML = response.data.html;
-                            let modal = new bootstrap.Modal(document.getElementById('ordersModal'));
-                            modal.show();
-                        })
-                        .catch(error => {
-                            console.error(error);
-                            document.getElementById("ordersList").innerHTML = "<p class='text-danger'>Gagal memuat data</p>";
-                            let modal = new bootstrap.Modal(document.getElementById('ordersModal'));
-                            modal.show();
-                        });
+                if (this.chartInstance) {
+                    this.chartInstance.destroy();
                 }
-            }
+                
+                var chartElement = document.querySelector("#kt_charts_widget_1");
+                var self = this;
 
-        },
-        colors: ['#075E0C'],
-        xaxis: {
-            categories: totalHandles.map(handle => handle.date),
-            title: { text: 'Date' }
-        },
-        yaxis: {
-            title: { text: 'Jumlah' },
-            labels: {
-                formatter: function(value) {
-                    return 'Rp ' + value.toLocaleString('id-ID');
-                }
-            }
-        },
-        dataLabels: {
-            enabled: true,
-            formatter: function(value) {
-                return 'Rp ' + value.toLocaleString('id-ID');
-            }
-        },
-        title: {
-            text: 'Total Sales',
-            align: 'center'
-        }
-    };
+                var chartOptions = {
+                    series: [{
+                        name: "Total Sales",
+                        data: totalHandles.map(handle => handle.value)
+                    }],
+                    chart: {
+                        fontFamily: "inherit",
+                        type: "bar",
+                        height: 350,
+                        toolbar: { show: false },
+                        events: {
+                            dataPointSelection: function(event, chartContext, config) {
+                                let index = config.dataPointIndex; 
+                                let clickedDate = totalHandles[index].date;
 
-    this.chartInstance = new ApexCharts(chartElement, chartOptions);
-    this.chartInstance.render();
-},
+                                // ubah judul modal
+                                document.getElementById("modalDate").innerText = clickedDate;
+
+                                // loading state
+                                document.getElementById("ordersList").innerHTML = "Loading...";
+
+                                // ambil data via AJAX
+                                axios.get(route('orders.byDate', { date: clickedDate }))
+                                    .then(response => {
+                                        document.getElementById("ordersList").innerHTML = response.data.html;
+                                        let modal = new bootstrap.Modal(document.getElementById('ordersModal'));
+                                        modal.show();
+                                    })
+                                    .catch(error => {
+                                        console.error(error);
+                                        document.getElementById("ordersList").innerHTML = "<p class='text-danger'>Gagal memuat data</p>";
+                                        let modal = new bootstrap.Modal(document.getElementById('ordersModal'));
+                                        modal.show();
+                                    });
+                            }
+                        }
+
+                    },
+                    colors: ['#075E0C'],
+                    xaxis: {
+                        categories: totalHandles.map(handle => handle.date),
+                        title: { text: 'Date' }
+                    },
+                    yaxis: {
+                        title: { text: 'Jumlah' },
+                        labels: {
+                            formatter: function(value) {
+                                return 'Rp ' + value.toLocaleString('id-ID');
+                            }
+                        }
+                    },
+                    dataLabels: {
+                        enabled: true,
+                        formatter: function(value) {
+                            return 'Rp ' + value.toLocaleString('id-ID');
+                        }
+                    },
+                    title: {
+                        text: 'Total Sales',
+                        align: 'center'
+                    }
+                };
+
+                this.chartInstance = new ApexCharts(chartElement, chartOptions);
+                this.chartInstance.render();
+            },
 
             bindEvents: function() {
                 var self = this;

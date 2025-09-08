@@ -1,27 +1,55 @@
-<!--begin::Header-->
-<form method="GET" action="{{ route('admin.dashboard') }}" class="d-flex mb-5">
-    <div class="me-2">
-        <label for="start_month">Dari Bulan</label>
-        <input type="month" name="start_month" id="start_month"
-               value="{{ request('start_month') }}"
-               class="form-control form-control-sm" />
-    </div>
+<!--begin::Row Data Range-->
+    <div class="col-xl-8 mb-3 mb-xl-5">
+        <!--begin::Chart widget 32-->
+        <div class="card card-flush h-xl-100">
+            <!--begin::Header-->
+            <div class="card-header py-2">
+                <!--begin::Title-->
+                <h3 class="card-title align-items-start flex-column">
+                    <span class="card-label fw-bold text-gray-800">Filter Date</span>
+                </h3>
+                <!--end::Title-->
 
-    <div class="me-2">
-        <label for="end_month">Sampai Bulan</label>
-        <input type="month" name="end_month" id="end_month"
-               value="{{ request('end_month') }}"
-               class="form-control form-control-sm" />
-    </div>
+                <!--begin::Toolbar-->
+                <div class="card-toolbar mt-4">
+                    <!--begin::Form untuk filter date-->
+                    <form id="filterForm" method="GET" action="{{ route('admin.dashboard') }}">
+                        <input type="hidden" name="start_date" id="start_date" value="{{ request('start_date') }}">
+                        <input type="hidden" name="end_date" id="end_date" value="{{ request('end_date') }}">
 
-    <div class="align-self-end">
-        <button type="submit" class="btn btn-primary btn-sm">Filter</button>
-        <a href="{{ route('admin.dashboard') }}" class="btn btn-danger btn-sm">Reset</a>
+                        <!--begin::Daterangepicker-->
+                        <div data-kt-daterangepicker="true" data-kt-daterangepicker-opens="left"
+                            class="btn btn-sm btn-light d-flex align-items-center px-4">
+                            <!--begin::Display range-->
+                            <div class="text-gray-600 fw-bold">
+                                @if(request('start_date') && request('end_date'))
+                                    {{ \Carbon\Carbon::parse(request('start_date'))->format('d M Y') }}
+                                    -
+                                    {{ \Carbon\Carbon::parse(request('end_date'))->format('d M Y') }}
+                                @else
+                                    Pilih rentang tanggal...
+                                @endif
+                            </div>
+                            <!--end::Display range-->
+                            <i class="ki-duotone ki-calendar-8 text-gray-500 lh-0 fs-2 ms-2 me-0">
+                                <span class="path1"></span><span class="path2"></span>
+                                <span class="path3"></span><span class="path4"></span>
+                                <span class="path5"></span><span class="path6"></span>
+                            </i>
+                        </div>
+                        <!--end::Daterangepicker-->
+                    </form>
+                    <!--end::Form-->
+                </div>
+                <!--end::Toolbar-->
+            </div>
+            <!--end::Header-->
+        </div>
     </div>
-</form>
+<!--end::Row Data Range-->
 
-    <!-- Users Status -->
-    <div class="col-xl-6 mb-5 mb-xl-10">
+<!-- Begin:: Users Status -->
+    <div class="col-xl-6 mb-3 mb-xl-5">
         <div class="card card-flush h-xl-100">
             <div class="card-header pt-5">
                 <h3 class="card-title align-items-start flex-column">
@@ -48,13 +76,22 @@
                                 @endphp
                                 <tr>
                                     <td>
-                                        <a href="{{ route('alluser.index', ['status' => $status]) }}" class="text-primary fw-bold">
+                                        <a href="{{ route('alluser.index', [
+                                                'status' => $status,
+                                                'start_date' => request('start_date'),
+                                                'end_date'   => request('end_date')
+                                            ]) }}" 
+                                            class="text-primary fw-bold">
                                             {{ Str::ucfirst($status) }}
                                         </a>
                                     </td>
                                     <td class="d-flex align-items-center border-0">
                                         <span class="fw-bold text-gray-800 fs-6 me-3">{{ $jumlah }}</span>
-                                        <a href="{{ route('alluser.index', ['status' => $status]) }}">
+                                        <a href="{{ route('alluser.index', [
+                                                'status' => $status,
+                                                'start_date' => request('start_date'),
+                                                'end_date'   => request('end_date')
+                                            ]) }}">
                                             <div class="progress w-100px">
                                                 <div class="progress-bar bg-info" style="height:12px; width: {{ $width }}%"></div>
                                             </div>
@@ -68,9 +105,10 @@
             </div>
         </div>
     </div>
+<!-- End:: Users Status -->
 
-    <!-- Quotation Status -->
-    <div class="col-xl-6 mb-5 mb-xl-10">
+<!-- Begin:: Quotation Status -->
+    <div class="col-xl-6 mb-5 mb-xl-5">
         <div class="card card-flush h-xl-100">
             <div class="card-header pt-5">
                 <h3 class="card-title align-items-start flex-column">
@@ -97,14 +135,23 @@
                                 @endphp
                                 <tr>
                                     <td>
-                                        <a href="{{ route('order-admin.index', ['status' => $status]) }}" class="text-primary fw-bold">
+                                        <a href="{{ route('order-admin.index', [
+                                                'status' => $status,
+                                                'start_date' => request('start_date'),
+                                                'end_date'   => request('end_date')
+                                            ]) }}" 
+                                            class="text-primary fw-bold">
                                             {{ Str::ucfirst($status) }}
                                         </a>
                                     </td>
                                     {{-- <td>{{ Str::ucfirst($status) }}</td> --}}
                                     <td class="d-flex align-items-center border-0">
                                         <span class="fw-bold text-gray-800 fs-6 me-3">{{ $jumlah }}</span>
-                                        <a href="{{ route('order-admin.index', ['status' => $status]) }}">
+                                        <a href="{{ route('order-admin.index', [
+                                                'status' => $status,
+                                                'start_date' => request('start_date'),
+                                                'end_date'   => request('end_date')
+                                            ]) }}" >
                                             <div class="progress w-100px">
                                                 <div class="progress-bar bg-primary" style="height:12px; width: {{ $width }}%"></div>
                                             </div>
@@ -118,3 +165,4 @@
             </div>
         </div>
     </div>
+<!-- End:: Quotation Status -->

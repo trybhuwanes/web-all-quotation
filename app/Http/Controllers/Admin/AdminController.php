@@ -8,12 +8,13 @@ use App\Models\Target;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 class AdminController extends Controller
 {
     //
     // public $productService;
-    
+
     // public function __construct(ProductService $productService)
     // {
     //     $this->productService = $productService;
@@ -22,81 +23,81 @@ class AdminController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function dashboard()
+    public function dashboard(Request $request)
     {
-        //
-        
-        // $totalSalesPerPic = Order::with('pic:id,name') // Mengambil nama PIC
-        // ->select('pic_id', DB::raw('SUM(total_price - discount_amount) as total_sales'))
-        // ->where('status', 'completed')
-        // ->groupBy('pic_id')
-        // ->get();
+        $startDate = $request->start_date;
+        $endDate   = $request->end_date;
 
-        // Mengambil data total sales berdasarkan bulan dan tahun
+        $usersQuery  = User::query()->where('role', '!=', 'admin');
+        $ordersQuery = Order::query();
 
-        // === JUMLAH USER PER STATUS ===
-        $usersStatusCount = User::select('status', DB::raw('COUNT(*) as jumlah'))
+        if ($startDate && $endDate) {
+            $usersQuery->whereBetween('created_at', [$startDate, $endDate]);
+            $ordersQuery->whereBetween('created_at', [$startDate, $endDate]);
+        }
+
+        $usersStatusCount = $usersQuery->select('status', DB::raw('count(*) as total'))
             ->groupBy('status')
-            ->pluck('jumlah', 'status')
+            ->pluck('total', 'status')
             ->toArray();
 
         $totalUsers = array_sum($usersStatusCount);
 
-        // === JUMLAH QUOTATION PER STATUS ===
-        $rfqStatusCount = Order::select('status', DB::raw('COUNT(*) as jumlah'))
-                        ->groupBy('status')
-                        ->pluck('jumlah', 'status')
-                        ->toArray();
+        $rfqStatusCount = $ordersQuery->select('status', DB::raw('count(*) as total'))
+            ->groupBy('status')
+            ->pluck('total', 'status')
+            ->toArray();
 
         $totalRFQ = array_sum($rfqStatusCount);
 
         // === JUMLAH ORDER PER STATUS ===
-        $orderStatusCount = Order::select('status', DB::raw('COUNT(*) as jumlah'))
+        $orderStatusCount = (clone $ordersQuery)->select('status', DB::raw('COUNT(*) as jumlah'))
             ->groupBy('status')
             ->pluck('jumlah', 'status')
             ->toArray();
-
         $totalOrders = array_sum($orderStatusCount);
 
-        $totalSalesPerPic = Order::with('pic:id,name')
-            ->select('pic_id', 
-                    DB::raw('YEAR(created_at) as year'), 
-                    DB::raw('MONTH(created_at) as month'), 
-                    DB::raw('SUM(total_price) as total_sales'))
+        $totalSalesPerPic = (clone $ordersQuery)
+            ->with('pic:id,name')
+            ->select(
+                'pic_id',
+                DB::raw('YEAR(created_at) as year'),
+                DB::raw('MONTH(created_at) as month'),
+                DB::raw('SUM(total_price) as total_sales')
+            )
             ->where('status', 'completed')
             ->groupBy('pic_id', 'year', 'month')
             ->get();
-            
-            $piclist = User::select('id', 'name')
-                    ->where('role', 'pic')
-                    ->where('status', 'active')
-                    ->get();
 
+        $piclist = User::select('id', 'name')
+            ->where('role', 'pic')
+            ->where('status', 'active')
+            ->get();
 
-        
         return view('dashboard', compact(
             'usersStatusCount',
             'piclist',
             'totalUsers',
             'rfqStatusCount',
+            'rfqStatusCount',
             'totalRFQ',
             'orderStatusCount',
             'totalOrders',
-            'totalSalesPerPic'));
+            'totalSalesPerPic'
+        ));
     }
 
     public function getSales()
     {
         // Mengambil total penjualan per hari
         $totalSalesPerDay = Order::select(
-                DB::raw('DATE(created_at) as date'), 
-                DB::raw('SUM(total_price) as total_sales'))
-                ->where('status', 'completed')
-                ->groupBy('date')
-                ->orderBy('date', 'desc')
-                ->get();
-
-        
+            DB::raw('DATE(created_at) as date'),
+            DB::raw('SUM(total_price) as total_sales')
+        )
+            ->where('status', 'completed')
+            ->groupBy('date')
+            ->orderBy('date', 'desc')
+            ->get();
 
         // Format data sesuai kebutuhan
         $formattedSales = $totalSalesPerDay->map(function ($item) {
@@ -106,44 +107,54 @@ class AdminController extends Controller
             ];
         });
 
-
-
         // Mengembalikan response dalam format JSON
         return response()->json($formattedSales);
-                
     }
 
-
-    public function getSalesPic()
+    public function getSalesPic(Request $request)
     {
-        // Mengambil total penjualan per hari
-        $totalSalesPerPic = Order::with('pic:id,name') // Mengambil nama PIC
-                ->select('pic_id', DB::raw('SUM(total_price) as total_sales'))
-                ->where('status', 'completed')
-                ->groupBy('pic_id')
-                ->get();
+        $query = Order::with('pic:id,name')
+            ->select('pic_id', DB::raw('SUM(total_price) as total_sales'))
+            ->where('status', 'completed');
 
-        // Format data sesuai kebutuhan
+        // Filter bulan
+        if ($request->start_date && $request->end_date) {
+            $start = Carbon::parse($request->start_date)->startOfMonth();
+            $end   = Carbon::parse($request->end_date)->endOfMonth();
+            $query->whereBetween('created_at', [$start, $end]);
+        }
+
+        $totalSalesPerPic = $query->groupBy('pic_id')->get();
+
         $formatSales = $totalSalesPerPic->map(function ($item) {
             return [
-                'date' => $item->pic->name,
-                'value' => (int) $item->total_sales, // pastikan total_sales dalam format integer
+                'date'  => $item->pic->name,
+                'value' => (int) $item->total_sales,
             ];
         });
 
-        // Mengembalikan response dalam format JSON
         return response()->json($formatSales);
-                
     }
 
 
     public function getOrderStatus(Request $request)
     {
+        $startMonth = $request->input('start_date');
+        $endMonth   = $request->input('end_date');
 
-        // Ambil data jumlah order per produk & status
-        $orders = DB::table('orders')
+        $ordersQuery = DB::table('orders')
             ->join('detail_orders', 'orders.id', '=', 'detail_orders.order_id')
-            ->join('products', 'detail_orders.product_id', '=', 'products.id')
+            ->join('products', 'detail_orders.product_id', '=', 'products.id');
+
+        // Filter bulan kalau ada input
+        if ($startMonth && $endMonth) {
+            $start = \Carbon\Carbon::parse($startMonth)->startOfMonth();
+            $end   = \Carbon\Carbon::parse($endMonth)->endOfMonth();
+
+            $ordersQuery->whereBetween('orders.created_at', [$start, $end]);
+        }
+
+        $orders = $ordersQuery
             ->select(
                 'products.nama_produk as product',
                 'orders.status',
@@ -152,18 +163,16 @@ class AdminController extends Controller
             ->groupBy('products.nama_produk', 'orders.status')
             ->get();
 
-        // Definisikan status yang kamu gunakan
         $statuses = ['cancelled', 'pending', 'submission', 'processing', 'completed'];
 
-        // Susun hasil supaya rapi (product => status => total)
         $products = $orders->pluck('product')->unique();
 
-        $result = $products->map(function($product) use ($orders, $statuses) {
+        $result = $products->map(function ($product) use ($orders, $statuses) {
             $item = ['product' => $product];
             foreach ($statuses as $status) {
                 $item[$status] = $orders->where('product', $product)
-                                        ->where('status', $status)
-                                        ->sum('total');
+                    ->where('status', $status)
+                    ->sum('total');
             }
             return $item;
         });
@@ -171,46 +180,55 @@ class AdminController extends Controller
         return response()->json($result);
     }
 
-
-
     public function getRevenuePic(Request $request)
     {
-
-        // dd('test');
-        // PIC yang dipilih dari dropdown (kalau kosong, default ID PIC 4)
         $picId = $request->input('pic_id', 4);
         $year  = $request->input('year', now()->year);
 
+        $startMonth = $request->input('start_date');
+        $endMonth   = $request->input('end_date');
+
         $monthNames = [
-            1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April', 5 => 'Mei', 6 => 'Juni',
-            7 => 'Juli', 8 => 'Agustus', 9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember',
+            1 => 'Januari',
+            2 => 'Februari',
+            3 => 'Maret',
+            4 => 'April',
+            5 => 'Mei',
+            6 => 'Juni',
+            7 => 'Juli',
+            8 => 'Agustus',
+            9 => 'September',
+            10 => 'Oktober',
+            11 => 'November',
+            12 => 'Desember',
         ];
 
         // === Ambil Target ===
         $targets = Target::where('pic_id', $picId)
             ->where('year', $year)
-            ->pluck('target', 'month'); 
-            // hasil: [1 => 50000000, 2 => 60000000, ...]
+            ->pluck('target', 'month');
 
-        // === Ambil Prospek Omzet (semua order) ===
+        // === Ambil Prospek Omzet ===
         $prospek = Order::selectRaw('MONTH(created_at) as month, SUM(total_price) as total')
             ->where('pic_id', $picId)
             ->whereYear('created_at', $year)
             ->groupBy('month')
             ->pluck('total', 'month');
-            // hasil: [1 => 10000000, 2 => 20000000, ...]
 
-        // === Ambil Goal (hanya order complete) ===
+        // === Ambil Goal ===
         $goals = Order::selectRaw('MONTH(created_at) as month, SUM(total_price) as total')
             ->where('pic_id', $picId)
             ->whereYear('created_at', $year)
             ->where('status', 'completed')
             ->groupBy('month')
             ->pluck('total', 'month');
-            // hasil: [1 => 5000000, 2 => 15000000, ...]
 
-        // === Gabungkan per bulan ===
-        $result = collect(range(1, 12))->map(function($m) use ($monthNames, $targets, $prospek, $goals) {
+        // === Tentukan range bulan ===
+        $start = $startMonth ? (int) \Carbon\Carbon::parse($startMonth)->format('m') : 1;
+        $end   = $endMonth ? (int) \Carbon\Carbon::parse($endMonth)->format('m') : 12;
+
+        // === Gabungkan per bulan hanya di range ===
+        $result = collect(range($start, $end))->map(function ($m) use ($monthNames, $targets, $prospek, $goals) {
             return [
                 'month'   => $monthNames[$m],
                 'target'  => $targets[$m] ?? 0,
@@ -221,5 +239,4 @@ class AdminController extends Controller
 
         return response()->json($result);
     }
-
 }
