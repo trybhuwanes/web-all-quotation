@@ -8,13 +8,13 @@
             <tr class="text-start fw-bold fs-7 text-uppercase gs-0">
                 <th class="w-10px pe-2 text-center">No.</th>
                 <th class="min-w-100px text-center">Order ID</th>
-                <th class="min-w-100px text-center">PIC</th>
-                <th class="min-w-100px text-center">Customer</th>
-                <th class="min-w-150px text-center">Perusahaan</th>
+                <th class="min-w-80px text-center">PIC</th>
+                <th class="max-w-80px text-center">Customer</th>
+                <th class="min-w-100px text-center">Perusahaan</th>
                 <th class="min-w-150px text-center">Pengiriman</th>
                 <th class="min-w-50px text-center">Status</th>
                 <th class="max-w-50px text-center">Tgl Order</th>
-                <th class="min-w-100px text-center">Aksi</th>
+                <th class="max-w-50px text-center">Aksi</th>
             </tr>
             <!--end::Table row-->
         </thead>
@@ -115,11 +115,11 @@
                             data-kt-o-pname="{{ $order->pic_id ? $order->pic->name : '' }}"
                             data-kt-o-name="{{ $order->user->name }}"
                             data-kt-o-company="{{ $order->company }}" >
-                                {{ __('Tentukan PIC') }}
+                                {{ __('Pilih PIC') }}
                         </a>
                         {{-- @endif --}}
-
-                        <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                        <br>
+                        <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary me-2 mt-2" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                             Actions
                             <i class="fa-solid fa-caret-down fs-5 ms-1"></i>
                         </a>
