@@ -21,9 +21,22 @@ class ProjectController extends Controller
     /**
      * Display a listing of the project.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $projects = Project::with('product')->latest()->paginate(10);
+        $search = $request->q;
+        $projects = Project::with('product')
+            ->when($search, function ($query, $search) {
+                $query->where(function ($q) use ($search) {
+                    // Cari di produk
+                    $q->whereHas('product', function ($q2) use ($search) {
+                        $q2->where('nama_produk', 'like', "%{$search}%");
+                    })
+                        // Cari di kode transaksi
+                        ->orWhere('company_name', 'like', "%{$search}%");
+                });
+            })
+            ->latest()
+            ->paginate(10);
         return view('admin.projects.index', compact('projects'));
     }
 

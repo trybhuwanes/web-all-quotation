@@ -97,7 +97,7 @@
         <!--end::Vendors Javascript-->
         
         <!--begin::Cust Javascript-->
-        <script src="{{ url('pages/js/manage_order/data-table.js') }}"></script>
+        <script src="{{ url('pages/js/project/data-table.js') }}"></script>
         <!--end::Cust Javascript-->
 
         <script>
