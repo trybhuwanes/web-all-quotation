@@ -98,15 +98,6 @@ Route::middleware('auth')->group(function () {
         // Route Project
         Route::resource('projects', ProjectController::class);
 
-        // Route::prefix('projects')->name('admin.projects.')->group(function () {
-        //     Route::get('/', [ProjectController::class, 'index'])->name('index');
-        //     Route::get('/create', [ProjectController::class, 'create'])->name('create');
-        //     Route::post('/', [ProjectController::class, 'store'])->name('store');
-        //     Route::get('/{project}/edit', [ProjectController::class, 'edit'])->name('edit');
-        //     Route::put('/{project}', [ProjectController::class, 'update'])->name('update');
-        //     Route::delete('/{project}', [ProjectController::class, 'destroy'])->name('destroy');
-        // });
-
         // Route Profile
         Route::get('/profile', [ProfileController::class, 'edit'])->name('admin.profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('admin.profile.update');

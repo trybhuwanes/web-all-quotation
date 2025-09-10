@@ -176,6 +176,10 @@
                 class="{{ request()->routeIs('product-overview.detail') ? 'active bg-light' : '' }} btn btn-lg btn-color-gray-700 btn-active-color-primary text-uppercase fs-base ls-sm fw-bolder px-6 me-1">
                 {{__('Ringkasan')}}
             </a>
+            <a href="{{ route('product-overview.project', $productShow->slug) }}"
+                class="{{ request()->routeIs('product-overview.project') ? 'active bg-light' : '' }} btn btn-lg btn-color-gray-700 btn-active-color-primary text-uppercase fs-base ls-sm fw-bolder px-6 me-1">
+                {{__('Project Ref')}}
+            </a>
             <a href="{{ route('product-overview.specification', $productShow->slug) }}"
                 class="{{ request()->routeIs('product-overview.specification') ? 'active bg-light' : '' }} btn btn-lg btn-color-gray-700 btn-active-color-primary text-uppercase fs-base ls-sm fw-bolder px-6 me-1">
                 {{__('Spesifikasi')}}
@@ -207,9 +211,6 @@
                     {{__('Hitung')}}
                 </a>
             @endauth
-
-            
-
         </div>
 
         <div class="d-flex align-items-center flex-wrap my-2">
@@ -217,7 +218,7 @@
                 <div class="symbol symbol-30px me-5">
                     <img alt="Icon" src="/template/assets/media/svg/files/pdf.svg">
                     @if (auth()->check())
-                    <a href="{{ route('product-overview.brosur', $productShow->slug) }}" class="fs-6 ls-sm fw-bold my-3 me-10">{{__('Unduh Brosur')}}</a>
+                    <a href="{{ route('product-overview.brosur', $productShow->slug) }}" class="fs-6 ls-sm fw-bold my-3 me-18">{{__('Unduh Brosur')}}</a>
                     @else
                     <a href="{{ route('login') }}" class="fs-6 ls-sm fw-bold my-3 me-10">{{__('Unduh Brosur Setelah Login')}}</a>
                     @endif
