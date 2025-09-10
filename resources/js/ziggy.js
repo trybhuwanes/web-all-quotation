@@ -184,6 +184,32 @@ const Ziggy = {
             methods: ["DELETE"],
             parameters: ["product"],
         },
+        "projects.index": { uri: "admin/projects", methods: ["GET", "HEAD"] },
+        "projects.create": {
+            uri: "admin/projects/create",
+            methods: ["GET", "HEAD"],
+        },
+        "projects.store": { uri: "admin/projects", methods: ["POST"] },
+        "projects.show": {
+            uri: "admin/projects/{project}",
+            methods: ["GET", "HEAD"],
+            parameters: ["project"],
+        },
+        "projects.edit": {
+            uri: "admin/projects/{project}/edit",
+            methods: ["GET", "HEAD"],
+            parameters: ["project"],
+        },
+        "projects.update": {
+            uri: "admin/projects/{project}",
+            methods: ["PUT", "PATCH"],
+            parameters: ["project"],
+        },
+        "projects.destroy": {
+            uri: "admin/projects/{project}",
+            methods: ["DELETE"],
+            parameters: ["project"],
+        },
         "storage-dropzone-img": {
             uri: "admin/storage-dropzone-img",
             methods: ["POST"],

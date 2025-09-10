@@ -5,7 +5,7 @@
         <!--begin::Table head-->
         <thead>
             <!--begin::Table row-->
-            <tr class="text-start fw-bold fs-7 text-uppercase gs-0">
+            <tr class="text-start fw-bold fs-8 text-uppercase gs-0">
                 <th class="w-10px pe-2 text-center">No.</th>
                 <th class="min-w-100px text-center">Nama & Perusahaan</th>
                 <th class="min-w-100px text-center">Peran</th>

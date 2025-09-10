@@ -193,6 +193,7 @@
     from {
         transform: rotate(0deg);
     }
+
     to {
         transform: rotate(360deg);
     }
@@ -289,6 +290,6 @@
 .flex-equal-search {
     display: flex;
     align-items: center;
-    justify-content: flex-end; 
-    gap: 10px; 
+    justify-content: flex-end;
+    gap: 10px;
 }

@@ -12,7 +12,7 @@ class Product extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
 
-     /**
+    /**
      * The primary key associated with the table.
      *
      * @var string
@@ -171,5 +171,8 @@ class Product extends Model implements HasMedia
         return $this->hasMany(Product_specification_wte::class);
     }
 
-    
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
 }

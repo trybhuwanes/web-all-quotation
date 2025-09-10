@@ -5,7 +5,7 @@
         <!--begin::Table head-->
         <thead>
             <!--begin::Table row-->
-            <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
+            <tr class="text-start text-muted fw-bold fs-8 text-uppercase gs-0">
                 <th class="w-10px pe-2">No.</th>
                 <th class="min-w-100px">Asal Institusi</th>
                 <th class="min-w-100px">PIC</th>

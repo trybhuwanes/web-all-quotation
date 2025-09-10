@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Pic\OrderAttachmentController;
+use App\Http\Controllers\Admin\ProjectController;
 
 
 /*
@@ -66,8 +67,6 @@ Route::middleware('auth')->group(function () {
         Route::resource('product-additional', App\Http\Controllers\Admin\AdditionalproductController::class);
         Route::post('storage-dropzone-img', [App\Http\Controllers\Admin\ProductController::class, 'storageDropzoneImg'])->name('storage-dropzone-img');
 
-
-
         // Order
         Route::resource('order-admin', App\Http\Controllers\Admin\OrderadminController::class)->only(['index', 'show', 'edit', 'update']);
         Route::get('/order-admin/{id}/send-email', [App\Http\Controllers\Admin\OrderadminController::class, 'sendEmailAndRedirect'])->name('admin.sendEmailAndRedirect');
@@ -96,6 +95,19 @@ Route::middleware('auth')->group(function () {
         Route::post('storage-attachment-dropzone-pdf', [App\Http\Controllers\Pic\OrderAttachmentController::class, 'storageDropzonePdf'])->name('storage-attachment-dropzone-pdf');
         Route::delete('/order/{id}/attachment', [OrderAttachmentController::class, 'destroy'])->name('order-attachment.destroy');
 
+        // Route Project
+        Route::resource('projects', ProjectController::class);
+
+        // Route::prefix('projects')->name('admin.projects.')->group(function () {
+        //     Route::get('/', [ProjectController::class, 'index'])->name('index');
+        //     Route::get('/create', [ProjectController::class, 'create'])->name('create');
+        //     Route::post('/', [ProjectController::class, 'store'])->name('store');
+        //     Route::get('/{project}/edit', [ProjectController::class, 'edit'])->name('edit');
+        //     Route::put('/{project}', [ProjectController::class, 'update'])->name('update');
+        //     Route::delete('/{project}', [ProjectController::class, 'destroy'])->name('destroy');
+        // });
+
+        // Route Profile
         Route::get('/profile', [ProfileController::class, 'edit'])->name('admin.profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('admin.profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('admin.profile.destroy');
@@ -191,6 +203,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 // Produk
 Route::get('product-overview', [App\Http\Controllers\ProductsController::class, 'index'])->name('product-overview.index');
 Route::get('product-overview/{slug}', [App\Http\Controllers\ProductsController::class, 'detail'])->name('product-overview.detail');
+Route::get('product-overview/{slug}/project', [App\Http\Controllers\ProductsController::class, 'project'])->name('product-overview.project');
 Route::post('contact-us', [App\Http\Controllers\ContactusController::class, 'sendMail'])->name('contact-us-send');
 Route::get('product-industry/{industry}', [App\Http\Controllers\ProductsController::class, 'industry'])->name('product.industry');
 Route::get('/search', [App\Http\Controllers\SearchController::class, 'search'])->name('search.global');

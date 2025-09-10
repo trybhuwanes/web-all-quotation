@@ -106,9 +106,13 @@ class ProductService
     {
         // dd($uuid);
         return $this->model->where('slug', $slug)
-                    ->with(['categoryProducts', 'additionalProducts', 
-                    'specificationFas', 
-                    'specificationFmp'])->first();
+            ->with([
+                'categoryProducts',
+                'additionalProducts',
+                'specificationFas',
+                'specificationFmp',
+                'projects.media'
+            ])->first();
     }
 
     // Show By UUID
@@ -116,9 +120,12 @@ class ProductService
     {
         // dd($uuid);
         return $this->model->where('uuid', $uuid)
-                    ->with(['categoryProducts', 'additionalProducts', 
-                    'specificationFas', 
-                    'specificationFmp'])->first();
+            ->with([
+                'categoryProducts',
+                'additionalProducts',
+                'specificationFas',
+                'specificationFmp'
+            ])->first();
     }
 
     // Update

@@ -1,6 +1,6 @@
   <?php
 
-return [
+  return [
 
     /*
     |--------------------------------------------------------------------------
@@ -264,4 +264,4 @@ return [
     'forgot_password' => 'Lupa Kata Sandi?',
     'already_have_an_account' => 'Sudah memiliki akun?',
     'enter_your_email_to_reset_password' => 'Masukkan email Anda untuk mengatur ulang kata sandi.',
-];
+  ];

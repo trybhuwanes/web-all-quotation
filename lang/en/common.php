@@ -247,7 +247,7 @@ return [
     'btn_upgrade_paket' => 'Upgrade Package',
     'btn_cancel_subscription' => 'Cancel Subscription',
 
-    
+
     'please_register_an_account' => 'Please Register an Account',
     'please_login' => 'Please Login',
     'already_have_an_account' => 'Already Have an Account?',

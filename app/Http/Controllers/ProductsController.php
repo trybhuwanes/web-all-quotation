@@ -14,7 +14,7 @@ class ProductsController extends Controller
 {
 
     public $productService;
-    
+
     public function __construct(ProductService $productService)
     {
         $this->productService = $productService;
@@ -24,8 +24,6 @@ class ProductsController extends Controller
      */
     public function index(Request $request)
     {
-       
-
         $filters['search'] = $request->q;
         $filters['scope'] = $request->input('filter_scope', []);
 
@@ -33,7 +31,6 @@ class ProductsController extends Controller
         $scopes = Category_product::all();
         $products = $this->productService->filtering($filters)->paginate(12);
         return view('products', compact('scopes', 'products', 'query'));
-
     }
 
     /**
@@ -46,15 +43,30 @@ class ProductsController extends Controller
 
         // Periksa spesifikasi mana yang tidak null
         if ($productShow->specificationFas->isNotEmpty()) {
-                $productType = $productShow->specificationFas;
+            $productType = $productShow->specificationFas;
         } elseif ($productShow->specificationFmp->isNotEmpty()) {
             $productType = $productShow->specificationFmp;
         } else {
             $productType = null;
         }
         return view('products-detail', compact('productShow', 'productType'));
+    }
 
-        
+    public function project(string $slug)
+    {
+        $productShow = $this->productService->findBySlug($slug);
+
+        $productShow->load(['projects.media']); // load project + media
+
+        if ($productShow->specificationFas->isNotEmpty()) {
+            $productType = $productShow->specificationFas;
+        } elseif ($productShow->specificationFmp->isNotEmpty()) {
+            $productType = $productShow->specificationFmp;
+        } else {
+            $productType = null;
+        }
+
+        return view('products-project', compact('productShow', 'productType'));
     }
 
     /**
@@ -67,9 +79,9 @@ class ProductsController extends Controller
 
         // Periksa spesifikasi mana yang tidak null
         if ($productShow->specificationFas->isNotEmpty()) {
-                $productType = $productShow->specificationFas;
+            $productType = $productShow->specificationFas;
         } elseif ($productShow->specificationFmp->isNotEmpty()) {
-                $productType = $productShow->specificationFmp;
+            $productType = $productShow->specificationFmp;
         } else {
             $productType = null;
         }
@@ -78,12 +90,12 @@ class ProductsController extends Controller
 
     public function downloadBrosur(string $slug)
     {
-       // Cek apakah user sudah login
+        // Cek apakah user sudah login
         if (!Auth::check()) {
             return Redirect::route('login')->with('error', 'Anda harus login untuk mendownload brosur.');
         }
 
-        
+
         $productFind = $this->productService->findBySlug($slug);
         if ($productFind->slug === "flowrex-surface-aerator") {
             $file = public_path('brosur/flowrex-surface-aerator-brosur.pdf');
@@ -92,10 +104,9 @@ class ProductsController extends Controller
         } else {
             $file = null;
         }
-        
+
         // Download file brosur
         return Response::download($file);
-
     }
 
 
@@ -104,13 +115,12 @@ class ProductsController extends Controller
      */
     public function  industry($industry)
     {
-        $validIndustries = [ 'mining', 'foodandbeverange', 'agroindustry', 'palmoil', 'textile', 'hospitality'];
+        $validIndustries = ['mining', 'foodandbeverange', 'agroindustry', 'palmoil', 'textile', 'hospitality'];
 
         if (in_array($industry, $validIndustries)) {
             return view("industries.$industry");
         }
-  
+
         abort(404, 'Industry not found');
     }
-
 }

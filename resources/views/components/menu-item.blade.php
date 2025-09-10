@@ -103,6 +103,21 @@
     <!--begin:Menu Item-->
     <div class="menu-item">
         <!--begin:Menu link-->
+        <a class="menu-link {{ $currentRouteName == 'projects.index' ? 'active' : '' }}"
+            href="{{ route('projects.index') }}">
+            <span class="menu-icon">
+                <i class="ki-solid ki-wrench fs-1"></i><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span>
+                </i>
+            </span>
+            <span class="menu-title"><b>Projek</b></span>
+        </a>
+        <!--end:Menu link-->
+    </div>
+    <!--end:Menu item-->
+
+    <!--begin:Menu Item-->
+    <div class="menu-item">
+        <!--begin:Menu link-->
         <a class="menu-link {{ $currentRouteName == 'order-admin.index' ? 'active' : '' }}"
             href="{{ route('order-admin.index') }}">
             <span class="menu-icon">
