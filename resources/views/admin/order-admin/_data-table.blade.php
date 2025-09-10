@@ -161,7 +161,7 @@
 
                             <!--begin::Menu item PDF-->
                             <div class="menu-item px-3 text-center">
-                                <a href="{{ route('order-admin.export-quot-pdf', $order->id) }}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+                                <a href="{{ route('order-admin.export-quot-pdf', $order->id) }}" target="_blank" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
                                     <i class="fa-solid fa-file-pdf fs-2"> </i> Quotation
                                 </a>
                             </div>
