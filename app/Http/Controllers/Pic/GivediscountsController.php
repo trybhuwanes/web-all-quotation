@@ -17,43 +17,41 @@ class GivediscountsController extends Controller
     {
         $this->priceService = $priceService;
     }
-    
+
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
-        // dd($request->all());
+        $request->validate([
+            'discount_type'   => 'required|in:fixed,percentage',
+            'discount_amount' => 'required|numeric|min:0',
+        ]);
+
         try {
             DB::beginTransaction();
-            $order = Order::where('id', $id)->firstOrFail();
-            // Update the status
 
-            if ($order) {
-                // Update nilai diskon dan jenis diskon
-                $order->discount_amount = $request->input('discount_amount');
+            $order = Order::with('items', 'shipping')->findOrFail($id);
 
-                // Hitung ulang total harga berdasarkan biaya pengiriman dan diskon
-                $order->total_price = $this->priceService->recalculateTotalPrice($order);
-                $order->save();
-                DB::commit();
-                Session()->flash('status', 'Diskon berhasil diperbarui.');
+            // Simpan tipe dan nilai diskon
+            $order->discount_type = $request->input('discount_type');
+            $order->discount_amount = $request->input('discount_amount');
 
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Diskon berhasil diperbarui.',
-                    'data'    => $order,
-                ]);
-        
-            }
-            return response()->json(['message' => 'Order Tidak Ditemukan.']);
-            
+            // Recalculate total
+            $order->total_price = $this->priceService->recalculateTotalPrice($order);
+            $order->save();
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Diskon berhasil diperbarui.',
+                'data'    => $order,
+            ]);
         } catch (\Throwable $th) {
             DB::rollBack();
             throw new \ErrorException($th->getMessage());
         }
-
     }
 }

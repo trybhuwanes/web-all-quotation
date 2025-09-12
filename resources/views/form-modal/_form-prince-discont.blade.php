@@ -45,12 +45,21 @@
 
                         <!--begin::Bid options-->
                         <input id="o-id" type="hidden" name="id">
-                        <div class="d-flex flex-stack gap-5 mb-3">
+                        <!-- Pilih Jenis Diskon -->
+                        <select id="discount_type" name="discount_type" class="form-select mb-3">
+                            <option value="fixed" selected>Nominal (Rp)</option>
+                            <option value="percentage">Persen (%)</option>
+                        </select>
+
+                        <!-- Opsi Alternatif Diskon -->
+                        <div id="discount-options" class="d-flex flex-stack gap-5 mb-3">
+                            <!-- Default isi (nominal) -->
                             <button type="button" class="btn btn-light-primary w-100" data-kt-modal-discount="option">1.000.000</button>
                             <button type="button" class="btn btn-light-primary w-100" data-kt-modal-discount="option">2.000.000</button>
                             <button type="button" class="btn btn-light-primary w-100" data-kt-modal-discount="option">3.000.000</button>
                         </div>
-                        <!--begin::Bid options-->
+
+                        <!-- Input Diskon Manual -->
                         <input id="discount" type="number" class="form-control form-control-solid" placeholder="Masukan diskon" name="discount_amount" />
                     </div>
                     <!--end::Input group-->

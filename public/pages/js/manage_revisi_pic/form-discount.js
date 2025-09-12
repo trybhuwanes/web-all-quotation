@@ -44,6 +44,46 @@ var KTDicountAdd = (function () {
                     ).value = discAmount;
                 });
             });
+
+            const discOptionWrapper = modalElement.querySelector("#discount-options");
+            const discTypeSelect = modalElement.querySelector("#discount_type");
+
+            // Default event untuk tombol opsi
+            const bindOptionEvents = () => {
+                const buttons = discOptionWrapper.querySelectorAll('[data-kt-modal-discount="option"]');
+                buttons.forEach((button) => {
+                    button.addEventListener("click", function () {
+                        let value = this.textContent.replace(/\./g, "").replace("%", "").trim();
+                        formElement.querySelector('input[name="discount_amount"]').value = value;
+                    });
+                });
+            };
+
+            // Inisialisasi pertama
+            bindOptionEvents();
+
+            // Ubah opsi tombol saat discount_type diganti
+            discTypeSelect.addEventListener("change", function () {
+                let type = this.value;
+                let html = "";
+
+                if (type === "fixed") {
+                    html = `
+                        <button type="button" class="btn btn-light-primary w-100" data-kt-modal-discount="option">1.000.000</button>
+                        <button type="button" class="btn btn-light-primary w-100" data-kt-modal-discount="option">2.000.000</button>
+                        <button type="button" class="btn btn-light-primary w-100" data-kt-modal-discount="option">3.000.000</button>
+                    `;
+                } else if (type === "percentage") {
+                    html = `
+                        <button type="button" class="btn btn-light-primary w-100" data-kt-modal-discount="option">5%</button>
+                        <button type="button" class="btn btn-light-primary w-100" data-kt-modal-discount="option">10%</button>
+                        <button type="button" class="btn btn-light-primary w-100" data-kt-modal-discount="option">25%</button>
+                    `;
+                }
+
+                discOptionWrapper.innerHTML = html;
+                bindOptionEvents(); // re-bind event ke tombol baru
+            });
         },
 
         edit: function (data) {
@@ -69,7 +109,8 @@ var KTDicountAdd = (function () {
             let url = "";
             const oId = $("#o-id").val();
             const discountP = $("#discount").val();
-
+            const discountType = $("#discount_type").val(); // ambil jenis diskon
+            
             let formData = new FormData();
 
             // Check if editing or adding dataw
@@ -79,7 +120,8 @@ var KTDicountAdd = (function () {
                 formData.append("id", oId);
             }
             formData.append("discount_amount", discountP);
-
+            formData.append("discount_type", discountType); // kirim discount type ke server
+            
             // Send data using axios
             axios
                 .post(url, formData)
