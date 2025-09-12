@@ -371,6 +371,11 @@ const Ziggy = {
             methods: ["PUT", "PATCH"],
             parameters: ["shipping"],
         },
+        "shipping.updateWeight": {
+            uri: "admin/shipping/{shipping}",
+            methods: ["PUT", "PATCH"],
+            parameters: ["shipping"],
+        },
         "term-payment.store": { uri: "admin/term-payment", methods: ["POST"] },
         "term-payment.show": {
             uri: "admin/term-payment/{term_payment}",
@@ -609,6 +614,10 @@ const Ziggy = {
         "pic.cart.addAdditionalProduct": {
             uri: "pic/cart/add-additional-product",
             methods: ["POST"],
+        },
+        "pic.cart.updateAdditionalProductPrice": {
+            uri: "/cart/update-additional-product/{id}",
+            methods: ["PUT"],
         },
         "order-pic.export-quot-pdf": {
             uri: "pic/exportquot-pdf/order-pic/{laporan}",

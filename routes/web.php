@@ -84,6 +84,7 @@ Route::middleware('auth')->group(function () {
 
         Route::resource('revision-document', App\Http\Controllers\Admin\RevisionquotationController::class)->only(['store', 'show', 'edit', 'update']);
         Route::resource('shipping', App\Http\Controllers\Admin\ShippingController::class)->only(['store', 'show', 'edit', 'update']);
+        Route::put('/shipping/{id}/update-weight', [App\Http\Controllers\Admin\ShippingController::class, 'updateWeight'])->name('shipping.updateWeight');
         Route::resource('term-payment', App\Http\Controllers\Admin\TermpaymentController::class)->only(['store', 'show', 'edit', 'update']);
         Route::put('/give-discount/{id}', [App\Http\Controllers\Admin\GivediscountController::class, 'update'])->name('give-discount.update');
 
@@ -143,6 +144,7 @@ Route::middleware('auth')->group(function () {
         // 
         Route::delete('/cart/del/{id}', [App\Http\Controllers\Pic\CartpicController::class, 'deleteFromCart'])->name('pic.cart.delete');
         Route::post('/cart/add-additional-product', [App\Http\Controllers\Pic\CartpicController::class, 'addAdditionalProductToCart'])->name('pic.cart.addAdditionalProduct');
+        Route::put('/cart/update-additional-product/{id}', [App\Http\Controllers\Pic\CartpicController::class, 'updateAdditionalProductPrice'])->name('pic.cart.updateAdditionalProductPrice');
 
         // PDF Export Quot
         Route::get('/exportquot-pdf/order-pic/{laporan}', [App\Http\Controllers\Pic\QuotationController::class, 'exportQoutationpdf'])->name('order-pic.export-quot-pdf');

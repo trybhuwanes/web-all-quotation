@@ -246,7 +246,7 @@
                                                     </div>
                                                 </td>
                                                 <td class="fw-bold text-end">
-                                                    {{$orderdetail->shipping->weight_kg}}Kg, {{$orderdetail->shipping->volume_m3}}M3
+                                                    {{$orderdetail->shipping->weight_kg}} kg, {{$orderdetail->shipping->volume_m3}} m<sup>3</sup>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -273,7 +273,7 @@
                                                     data-kt-shipping-id="{{ $orderdetail->shipping->id }}"
                                                     data-kt-shipping-p="{{ $orderdetail->shipping->shipping_cost }}">
                                                     <i class="ki-duotone ki-pencil fs-2"><span class="path1"></span><span class="path2"></span></i>
-                                                    {{__('Harga Produk & Pengiriman')}}
+                                                    {{__('Biaya Pengiriman')}}
                                                 </a>
                                             @endif
                                         </div>
@@ -291,7 +291,7 @@
                 {{-- DAFTAR ORDER CONTENT --}}
                 @include('form-modal._form-prince-discont')
                 @include('form-modal._form-additional-product')
-                
+                @include('form-modal._form-edit-additional-product')
 
                 {{-- ATTACHMENT --}}
                 <!--Begin::Attachment-->
@@ -402,7 +402,7 @@
                                                         if ($item->product) {
                                                             $harga = $productMainSpecification->harga;
                                                         } elseif ($item->productadd) {
-                                                            $harga = $item->productadd->harga_produk_tambahan;
+                                                            $harga = $item->custom_price ?? $item->productadd->harga_produk_tambahan;
                                                         }
         
                                                         // Calculate subtotal
@@ -446,63 +446,92 @@
                                                         </td>
                                                         <td class="text-end">
                                                             @if ($item->productadd)
-                                                                -
+                                                                <div class="d-flex justify-content-end align-items-center">
+                                                                    <button type="button" 
+                                                                        class="btn btn-sm btn-icon btn-light-primary edit-additional-price me-2"
+                                                                        data-bs-toggle="modal" 
+                                                                        data-bs-target="#kt_modal_edit_additional_price"
+                                                                        data-id="{{ $item->id }}"
+                                                                        data-price="{{ $item->custom_price ?? $item->productadd->harga_produk_tambahan }}">
+                                                                        <i class="ki-duotone ki-pencil fs-3"> <span class="path1"></span><span class="path2"></span></i>
+                                                                    </button>
+                                                                    <div class="fw-bold text-gray-800 me-2">
+                                                                        @idr($item->custom_price ?? $item->productadd->harga_produk_tambahan)
+                                                                    </div>
+                                                                </div>
                                                             @else
                                                                 <div class="fw-bold text-gray-800">@idr($productMainSpecification->harga)</div>
                                                             @endif
+
                                                         </td>
                                                         <td class="text-end">
-                                                            @if ($item->productadd)
-                                                                -
-                                                            @else
-                                                                @idr($subtotal)
-                                                            @endif
-                                                            
+                                                            @idr($subtotal)
                                                         </td>
                                                     </tr>
                                                 @endforeach
                                                 
-                                                
-                                                
-                                                {{-- Biasaya pengiriman --}}
+                                                {{-- begin::SubTotal --}}
                                                 <tr>
                                                     <td colspan="3" class="fs-6 text-gray-900 text-end">
-                                                        <span class="text-gray-900 fw-bold d-block fs-5">Biaya Pengiriman & Produk Tambahan</span>
-                                                        <span class="text-muted fs-7">(Harga sudah termasuk biaya produk tambahan dan pengiriman)</span>
+                                                        <span class="text-gray-900 fw-bold d-block fs-5">Sub Total</span>
                                                     </td>
                                                     <td class="fs-6 text-end">
-                                                        @if($orderdetail->shipping)
+                                                        @idr($orderdetail->subtotal)
+                                                        {{-- @if ($orderdetail->subtotal)
+                                                            @idr($orderdetail->subtotal)
+                                                        @else
+                                                            @idr($orderdetail->total_price)
+                                                        @endif --}}
+                                                    </td>
+                                                </tr>
+                                                {{-- end::SubTotal --}}
+
+                                                {{-- begin::Biaya pengiriman --}}
+                                                <tr>
+                                                    <td colspan="3" class="fs-6 text-gray-900 text-end">
+                                                        <span class="text-gray-900 fw-bold d-block fs-5">Perkiraan Biaya Pengiriman</span>
+                                                        <span class="text-muted fs-7">(Masih dalam Proses Konfirmasi)</span>
+                                                    </td>
+                                                    <td class="fs-6 text-end">
+                                                        @if($orderdetail->shipping->shipping_cost)
                                                             @idr($orderdetail->shipping->shipping_cost)
                                                         @else
-                                                            Rp. 0
+                                                            Belum diinput
                                                         @endif
                                                     </td>
                                                 </tr>
+                                                {{-- end::Biaya pengiriman --}}
                                                 
-                                                {{-- Diskon --}}
+                                                {{-- begin::Diskon --}}
                                                 <tr>
                                                     <td colspan="3" class="fs-6 text-gray-900 text-end">
                                                         <span class="text-gray-900 fw-bold d-block fs-5">Diskon</span>
                                                         <span class="text-muted fs-7"></span>
                                                     </td>
                                                     <td class="fs-6 text-end">
-                                                        -@idr($orderdetail->discount_amount)
+                                                        @if ($orderdetail->discount_type === 'fixed')
+                                                            -@idr($orderdetail->discount_amount)
+                                                        @else
+                                                            ({{(int)$orderdetail->discount_amount}}%) -@idr(($orderdetail->discount_amount)/100 * ($orderdetail->subtotal))
+                                                        @endif
                                                     </td>
                                                 </tr>
+                                                {{-- end::Diskon --}}
 
+                                                {{-- begin::Total Harga --}}
                                                 <tr>
                                                     <td colspan="3" class="fs-3 text-gray-900 text-end">
                                                         Total Harga
                                                     </td>
                                                     <td class="text-gray-900 fs-3 fw-bolder text-end">
-                                                        @idr($orderdetail->total_price)
-                                                        {{-- @if($orderdetail->shipping)
+                                                        @if ($orderdetail->shipping->shipping_cost)
                                                             @idr($orderdetail->total_price + $orderdetail->shipping->shipping_cost)
                                                         @else
                                                             @idr($orderdetail->total_price)
-                                                        @endif --}}
+                                                        @endif
                                                     </td>
                                                 </tr>
+                                                {{-- end::Total Harga --}}
                                             </tbody>
                                         </table>
                                         <!--end::Table-->
@@ -518,7 +547,6 @@
                 </div>
                 <!--end::Product Order Tab content-->
 
-                {{--  --}}
                 <!--begin::Term Tab content-->
                 <div class="tab-content mb-5" id="kt_modal_term">
                     <div class="card mb-5 mb-xl-8">
@@ -577,7 +605,6 @@
 
                 </div>
                 <!--end::Term Tab content-->
-                {{--  --}}
 
                 {{-- REVISION CONTENT --}}
                 @include('form-modal._form-create-revisi')
@@ -639,7 +666,7 @@
                                                 </div>
                                             </td>
                                             <td class="d-flex justify-content-end flex-shrink-0">
-                                                <span class="fw-bold d-block fs-7">{{  App\Helpers\Helper::dateFormat($item->created_at, 'd/m/Y - H:i') }}</span>
+                                                <span class="fw-bold d-block fs-7 me-4 pt-3">{{  App\Helpers\Helper::dateFormat($item->created_at, 'd/m/Y - H:i') }}</span>
 
                                                 @if ($loop->last)
                                                 <a href="{{ route('pic.sendEmailAndRedirect', ['id' => $orderdetail->id]) }}" class="btn btn-sm btn-light-primary">
@@ -782,7 +809,7 @@
 <script src="{{ url('pages/js/manage_revisi_pic/form-po.js') }}"></script>
 <script src="{{ url('pages/js/manage_revisi_pic/form-add.js') }}"></script>
 <script src="{{ url('pages/js/manage_revisi_pic/form-attachment.js') }}"></script>
-
+<script src="{{ url('pages/js/manage_revisi_pic/form-edit-additional.js') }}"></script>
 
 @endpush
 </x-app-layout>
