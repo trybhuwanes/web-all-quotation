@@ -28,7 +28,6 @@ class OrderController extends Controller
     // 
     public function checkout(Request $request)
     {
-        // dd($request->all());
         try {
             // Cek apakah user memiliki order dengan status pending
             $existingPendingOrder = Order::where('user_id', auth()->id())
@@ -84,15 +83,15 @@ class OrderController extends Controller
                 });
 
                 // Hitung biaya pengiriman jika dipilih shipping_to_onsite
-                $shippingCost = 0;
+                // $shippingCost = 0;
                 if ($request->boolean('use_shipping_to_onsite')) {
-                    // $shippingCost = $this->calculateShippingCost($request->input('total_volume'), $request->input('total_kg'));
-                    $totalPrice += $shippingCost;
+                    $totalPrice = $totalPrice;
                 }
 
                 // Create order
                 $order = Order::create([
                     'user_id' => auth()->id(),
+                    'subtotal' => $totalPrice,
                     'total_price' => $totalPrice,
                     'status' => OrderStatusEnum::pending,
                 ]);
@@ -119,7 +118,7 @@ class OrderController extends Controller
                         'state_destination' => $request->input('provinsi'),
                         'country_destination' => $request->input('kota'),
                         'address_destination' => $request->input('address_destination'),
-                        'shipping_cost' => 0,
+                        'shipping_cost' => null,
                         // 'destination address' => auth()->user()->location_company,
                     ]);
                 }

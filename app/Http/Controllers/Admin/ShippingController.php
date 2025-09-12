@@ -67,12 +67,12 @@ class ShippingController extends Controller
             $request->validate([
                 'shipping_cost' => 'required|numeric|min:0',
             ]);
-    
+
             DB::beginTransaction();
             $shipping = Shipping::where('id', $id)->select('id', 'order_id', 'shipping_cost')->firstOrFail();
             $shipping->shipping_cost = $request->input('shipping_cost');
             $shipping->save();
-    
+
             $order = Order::where('id', $shipping->order_id)->with(['items'])->firstOrFail();
             // Hitung ulang total harga berdasarkan biaya pengiriman dan diskon
             $order->total_price = $this->priceService->recalculateTotalPrice($order);
@@ -81,16 +81,45 @@ class ShippingController extends Controller
             //     $oldShippingCost = $order->shipping->shipping_cost;
             //     // $order->total_price = max(0, $order->total_price - $oldShippingCost + $shipping->shipping_cost);
             // }
-            
+
             $order->save();
-    
+
             DB::commit();
-    
+
             Session()->flash('status', 'Biaya pengiriman berhasil diperbarui.');
-    
+
             return response()->json([
                 'success' => true,
                 'message' => 'Biaya pengiriman berhasil diperbarui.',
+                'data'    => $shipping,
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw new \ErrorException($th->getMessage());
+        }
+    }
+
+    public function updateWeight(Request $request, string $id)
+    {
+        try {
+            $request->validate([
+                'weight_kg' => 'required|numeric|min:0',
+                'volume_m3' => 'required|numeric|min:0',
+            ]);
+
+            DB::beginTransaction();
+            $shipping = Shipping::where('id', $id)->select('id', 'order_id', 'weight_kg', 'volume_m3')->firstOrFail();
+            $shipping->weight_kg = $request->input('weight_kg');
+            $shipping->volume_m3 = $request->input('volume_m3');
+            $shipping->save();
+
+            DB::commit();
+
+            Session()->flash('status', 'Berat dan volume berhasil diperbarui.');
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Berat dan volume berhasil diperbarui.',
                 'data'    => $shipping,
             ]);
         } catch (\Throwable $th) {
@@ -106,5 +135,4 @@ class ShippingController extends Controller
     {
         //
     }
-    
 }
