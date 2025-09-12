@@ -87,15 +87,11 @@ class QuotationController extends Controller
 
 
                 // === Generate nama file dinamis ===
-                $customerName = $orderfind->user->company ?? 'customer';
+                $customerName = $orderfind->shipping->company_destination;
                 $dateExport   = now()->format('Ymd');
-
-                // amanin spasi/karakter khusus
-                $customerName = preg_replace('/[^A-Za-z0-9_\-]/', '_', $customerName);
 
                 $generatedPath = $tempPath . "/quotation_{$orderfind->id}.pdf";
                 $pdf->save($generatedPath);
-
 
                 // === 2. Siapkan file untuk merge ===
                 $filesToMerge = [$generatedPath];
@@ -120,11 +116,12 @@ class QuotationController extends Controller
 
                 // === 3. Merge file PDF ===
                 $mergedPath = $tempPath . "/merged_quotation_{$orderfind->id}.pdf";
+                $filename = "Quotation_{$customerName}_{$dateExport}.pdf";
                 $this->mergePdfs($filesToMerge, $mergedPath);
 
                 return response()->file($mergedPath, [
                     'Content-Type' => 'application/pdf',
-                    'Content-Disposition' => 'inline; filename="Quotation_' . $customerName . '_' . $dateExport . '.pdf"',
+                    'Content-Disposition' => 'inline; filename="' . $filename . '"',
                 ]);
             } else {
                 abort(404, 'Tidak ada items dalam pesanan.');

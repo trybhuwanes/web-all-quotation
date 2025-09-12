@@ -170,7 +170,7 @@
 
                             <!--begin::Menu item PDF-->
                             <div class="menu-item px-3">
-                                <a href="{{ route('order-pic.export-quot-pdf', $order->id) }}" target="_blank" class="menu-link px-3">
+                                <a href="{{ route('order-pic.export-quot-pdf', ['laporan' => $order->id, 'filename' => 'Quotation_' . $order->shipping->company_destination . '_' . now()->format('Ymd') . '.pdf']) }}" target="_blank" class="menu-link px-3">
                                     {{ __('Download Quot') }}
                                 </a>
                             </div>
