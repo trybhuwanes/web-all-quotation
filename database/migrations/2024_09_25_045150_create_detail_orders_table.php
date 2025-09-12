@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('product_id')->nullable();
-            $table->unsignedBigInteger('product_type')->nullable(); 
+            $table->unsignedBigInteger('product_type')->nullable();
             $table->unsignedBigInteger('productadd_id')->nullable();
             $table->integer('quantity')->default(1);
+            $table->decimal('custom_price', 20, 2)->nullable();
             $table->timestamps();
 
             // Foreign key constraints

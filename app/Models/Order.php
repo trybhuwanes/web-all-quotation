@@ -24,7 +24,7 @@ class Order extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'pic_id', 'uuid', 'po_path', 'attachment_path', 'status', 'discount_amount', 'discount_type', 'trx_code', 'total_price',];
+    protected $fillable = ['user_id', 'pic_id', 'uuid', 'po_path', 'attachment_path', 'status', 'discount_amount', 'discount_type', 'trx_code', 'total_price', 'subtotal'];
 
     /**
      * Generate Transaction Code.

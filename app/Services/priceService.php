@@ -14,7 +14,7 @@ class priceService
     public function recalculateTotalPrice(Order $order)
     {
         // Hitung total harga dari order
-        $originalTotalPrice = $order->items->sum(function($item) {
+        $originalTotalPrice = $order->items->sum(function ($item) {
             $product = $item->product;
             $productTypeId = $item->product_type;
 
@@ -43,24 +43,30 @@ class priceService
             }
 
             if ($item->productadd) {
-                return $item->productadd->harga_produk_tambahan * $item->quantity;
+                $price = $item->custom_price ?? $item->productadd->harga_produk_tambahan;
+                return $price * $item->quantity;
             }
 
             return 0;
         });
 
-        // Tambahkan biaya pengiriman jika ada
-        $totalPrice = $originalTotalPrice + ($order->shipping->shipping_cost ?? 0);
+        // Simpan subtotal ke order
+        $order->subtotal = $originalTotalPrice;
 
-        // Kurangi nilai diskon jika ada
+        // Hitung diskon
+        $discountValue = 0;
         if ($order->discount_type == 'fixed') {
-            $totalPrice = max(0, $totalPrice - $order->discount_amount);
+            $discountValue = $order->discount_amount;
         } elseif ($order->discount_type == 'percentage') {
-            $discountValue = $totalPrice * ($order->discount_amount / 100);
-            $totalPrice = max(0, $totalPrice - $discountValue);
+            $discountValue = $originalTotalPrice * ($order->discount_amount / 100);
         }
+
+        // Total akhir
+        $totalPrice = max(0, $originalTotalPrice - $discountValue + $order->shipping_cost);
+
+        // Simpan total akhir ke order
+        $order->total_price = $totalPrice;
 
         return $totalPrice;
     }
-
 }

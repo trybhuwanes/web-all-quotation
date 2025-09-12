@@ -17,7 +17,7 @@ class CartpicController extends Controller
     //
     protected $priceService;
     public $additionalproductService;
-    
+
     public function __construct(AdditionalproductService $additionalproductService, priceService $priceService)
     {
         $this->additionalproductService = $additionalproductService;
@@ -28,13 +28,13 @@ class CartpicController extends Controller
      */
     public function index(Request $request)
     {
-        //
-        // dd('test');
-        $filter['search']= $request->q;
+        $filter['search'] = $request->q;
         $carts = Cart::where('user_id', auth()->id())
-                ->with(['items.product.specificationFas', 
-                    'items.product.specificationFmp',      
-                    'items.productadd'])->get();
+            ->with([
+                'items.product.specificationFas',
+                'items.product.specificationFmp',
+                'items.productadd'
+            ])->get();
 
         // dd($carts);
         // Memastikan ada item di dalam keranjang
@@ -46,7 +46,7 @@ class CartpicController extends Controller
             $productId = $firstItem->product_id;
             // Mengambil product_type dari item tersebut
             $productTypeId = $firstItem->product_type;
-            
+
             // Cek apakah produk menggunakan relasi specificationFas atau specificationFmp
             if ($product->specificationFas->isNotEmpty()) {
                 // Menggunakan spesifikasi FAS berdasarkan product_type_id
@@ -59,32 +59,10 @@ class CartpicController extends Controller
                 dd('Produk Tidak Di Temukan');
             }
 
-            // Harga 
-
-
-
-            // dd($specification->dimensi_p * $specification->dimensi_l * $specification->dimensi_t); weight_M3
-            // $B3 = 220; // Contoh nilai B3
-            // $C3 = 230; // Contoh nilai C3
-            // $D3 = 50;  // Contoh nilai D3
-
-            // // Hitung sesuai dengan rumus
-            // $result = ($B3 * $C3 * $D3) / 1000000;
-
-            // dd($firstItem->quantity);
-            // dd(($specification->motor_kg + $specification->floater_kg));
-            // dd(($specification->dimensi_p * $specification->dimensi_l * $specification->dimensi_t)/4000);
-            // Melakukan query untuk mendapatkan produk tambahan yang terkait
-
-            // motor_kubikasi
-            // floater_kg
-            // floater_kubikasi
-            // motor_kg
-            
             $totalVolume = $this->totalM3($specification) * $firstItem->quantity;
             $totalKg = $this->totalKg($specification) * $firstItem->quantity;
             // dd($totalVolume);
-            
+
             if ($totalVolume > 28) {
                 # code...
                 // dd('40 FT');
@@ -92,13 +70,13 @@ class CartpicController extends Controller
                 # code...
                 // dd('20 FT');
             }
-            
+
             // dd();
             $additionalproducts = $this->additionalproductService
-                                    ->filtering($filter)
-                                    ->where('product_id', $productId)
-                                    ->orderBy('created_at', 'asc')
-                                    ->paginate(9);
+                ->filtering($filter)
+                ->where('product_id', $productId)
+                ->orderBy('created_at', 'asc')
+                ->paginate(9);
 
             // Debugging informasi
         } else {
@@ -115,14 +93,14 @@ class CartpicController extends Controller
     public function destroy(string $id)
     {
         //
-        
+
         try {
             // $cart = Cart::where('user_id', auth()->id())->with('items')->first();
-            
+
             $cart = Cart::where('user_id', auth()->id())
-                        ->where('id', $id) // Mengambil cart berdasarkan user_id dan id cart
-                        ->with('items')
-                        ->first();
+                ->where('id', $id) // Mengambil cart berdasarkan user_id dan id cart
+                ->with('items')
+                ->first();
             $cart->items()->delete();
             $cart->delete();
             // $kategori = Category_product::findOrFail($id);
@@ -177,20 +155,20 @@ class CartpicController extends Controller
         try {
             // Temukan item dalam keranjang berdasarkan ID
             $itemCart = Detail_order::findOrFail($id);
-    
+
             if ($itemCart) {
                 // Ambil order terkait item yang dihapus
                 $order = $itemCart->order;
-    
+
                 // Hapus item dari keranjang
                 $itemCart->delete();
-    
+
                 // Hitung ulang total harga
                 if ($order) {
                     $order->total_price = $this->priceService->recalculateTotalPrice($order);
                     $order->save(); // Simpan perubahan total harga ke database
                 }
-    
+
                 // Kirim respons sukses
                 Session()->flash('status', __('Produk berhasil dihapus dari keranjang'));
                 return response()->json([
@@ -219,15 +197,15 @@ class CartpicController extends Controller
         $orderId = $request->input('o_id');
         $quantity = $request->quantity ? $request->quantity : 1;
         // dd($orderId);
-    
+
         // Mendapatkan cart berdasarkan user_id atau membuat yang baru jika belum ada
         // $order = Order::where('user_id', auth()->id())->first();
         // Check if the product already exists in the user's cart
         $existingCartItem = Detail_order::where('order_id', $orderId)
-                                    ->where('productadd_id', $productId)
-                                    ->first();
+            ->where('productadd_id', $productId)
+            ->first();
         // dd($existingCartItem);
-    
+
         if ($existingCartItem) {
             // If it exists, update the quantity
             $existingCartItem->quantity += 1;
@@ -249,10 +227,28 @@ class CartpicController extends Controller
             $order->total_price = $this->priceService->recalculateTotalPrice($order);
             $order->save(); // Simpan perubahan total harga ke database
         }
-    
+
         return redirect()->back()->with('success', 'Product added to cart successfully!');
     }
-    
+
+    public function updateAdditionalProductPrice(Request $request, $id)
+    {
+        $request->validate([
+            'custom_price' => 'required|numeric|min:0',
+        ]);
+
+        $item = Detail_order::findOrFail($id);
+        $item->custom_price = $request->custom_price;
+        $item->save();
+
+        $order = $item->order;
+        if ($order) {
+            $order->total_price = $this->priceService->recalculateTotalPrice($order);
+            $order->save();
+        }
+
+        return redirect()->back()->with('success', 'Harga produk tambahan berhasil diperbarui!');
+    }
 
     public function updateQuantity(Request $request)
     {
@@ -260,7 +256,7 @@ class CartpicController extends Controller
         try {
             $itemId = $request->input('id');
             $action = $request->input('action');
-            
+
             // Ambil item dari cart berdasarkan id
             $cartItem = Detail_cart::find($itemId);
 
@@ -284,35 +280,39 @@ class CartpicController extends Controller
         }
     }
 
-    
+
 
 
     // Ngitung 
-    function beratKg($specification) {
+    function beratKg($specification)
+    {
         if (isset($specification->dimens_p, $specification->dimens_l, $specification->dimens_t)) {
             return ($specification->dimens_p * $specification->dimens_l * $specification->dimens_t) / 4000;
         }
-        
+
         return null; // Return null jika salah satu nilai tidak tersedia
     }
 
     // Ngitung 
-    function beratVolume($specification) {
+    function beratVolume($specification)
+    {
         if (isset($specification->dimens_p, $specification->dimens_l, $specification->dimens_t)) {
             return ($specification->dimens_p * $specification->dimens_l * $specification->dimens_t) / 1000000;
         }
-        
+
         return null; // Return null jika salah satu nilai tidak tersedia
     }
 
-    function totalM3($specification) {
+    function totalM3($specification)
+    {
         if (isset($specification->floater_kubikasi, $specification->motor_kubikasi)) {
             return $specification->floater_kubikasi + $specification->motor_kubikasi;
         }
         return null;
     }
 
-    function totalKg($specification) {
+    function totalKg($specification)
+    {
         if (isset($specification->floater_kg, $specification->motor_kg)) {
             return $specification->floater_kg + $specification->motor_kg;
         }

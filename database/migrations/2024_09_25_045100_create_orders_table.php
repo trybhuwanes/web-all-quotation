@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('trx_code')->unique()->nullable();
             $table->unsignedBigInteger('user_id'); // ID customer
             $table->unsignedBigInteger('pic_id')->nullable(); // ID PIC
-            $table->decimal('total_price', 20, 2);
+            $table->decimal('subtotal', 20, 2); // subtotal produk utama dan tambahan
+            $table->decimal('total_price', 20, 2); // grand total setelah perhitungan diskon dan pengiriman
             $table->decimal('discount_amount', 20, 2)->default(0); // Nilai diskon
             $table->enum('discount_type', ['percentage', 'fixed'])->default('fixed'); // Jenis diskon (persentase atau nominal)
             $table->enum('status', ['cancelled', 'pending', 'submission', 'processing', 'completed'])->default('pending');
