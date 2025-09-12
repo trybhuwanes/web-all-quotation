@@ -403,7 +403,9 @@ html {
     height: 40px !important;
 }
 
-
+.h-630px {
+    height: 630px !important;
+}
 
 .h1,
 .h2,
@@ -482,4 +484,16 @@ table {
     padding-top: 5px;
     margin-left: 40px;
     margin-right: 40px;
+}
+
+/* ==== Watermark ==== */
+#watermark {
+    position: fixed;
+    top: 23%;
+    width: 100%;
+    text-align: center;
+    opacity: .25;
+    /* transform: rotate(10deg); */
+    transform-origin: 50% 50%;
+    z-index: -1000;
 }

@@ -44,4 +44,8 @@
         </tr>
     </table>
 </div>
+
+<div id="watermark">
+    <img alt="Logo-Guna-Hijau" src="{{ public_path('./template/assets/media/logos/logo-ghi.webp') }}" class="h-630px" style="margin-right: 35px;">
+</div>
 <!-- End Header -->

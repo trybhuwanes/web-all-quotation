@@ -226,7 +226,7 @@
             </p>
             
             <h5 class="mb-2">Key Features</h5>
-            <img src="{{ public_path('/quot/fas/fas-key-features.webp') }}" alt="FAS Key Features" style="max-width:100%; height:auto;">
+            <img src="{{ public_path('/quot/fas/key-features-fas.webp') }}" alt="FAS Key Features" style="max-width:100%; height:auto;">
         </div>
         <!-- End Konten Utama -->
 
@@ -268,7 +268,7 @@
                             if ($item->product) {
                                 $harga = $productMainSpecification->harga;
                             } elseif ($item->productadd) {
-                                $harga = $item->productadd->harga_produk_tambahan;
+                                $harga = $item->custom_price ?? $item->productadd->harga_produk_tambahan;
                             }
                             // Calculate subtotal
                             $subtotal = $harga * ($item->quantity ?? 0);
@@ -285,7 +285,7 @@
                             </td>
                             <td>
                                 @if ($item->productadd)
-                                    - 
+                                    @idr($item->custom_price ?? $item->productadd->harga_produk_tambahan)
                                 @else
                                     <div class="fw-bold text-gray-800">@idr($productMainSpecification->harga)</div>
                                 @endif
@@ -293,18 +293,24 @@
                             <td><span>{{ $item->quantity }} unit</span></td>
                             <td>
                                 @if ($item->productadd)
-                                    - 
+                                    @idr($item->custom_price ?? $item->productadd->harga_produk_tambahan)
                                 @else
                                     @idr($subtotal)
                                 @endif
                             </td>
                         </tr>
                     @endforeach
+
+                        <tr>
+                            <td colspan="4" class="text-end"><strong>Sub Total</strong></td>
+                            <td>@idr($orderfind->subtotal)</td>
+                        </tr>
+
                         @if($orderfind->shipping)
                         <tr>
-                            <td colspan="4" class="text-end"><strong>Harga Produk Tambahan & Biaya Pengiriman *</strong></td>
+                            <td colspan="4" class="text-end"><strong>Biaya Pengiriman *</strong></td>
                             <td>
-                                @if($orderfind->shipping->shipping_cost != 0)
+                                @if(!is_null($orderfind->shipping->shipping_cost))
                                     @idr($orderfind->shipping->shipping_cost)
                                 @else
                                     Harga pengiriman belum diinput
@@ -312,18 +318,29 @@
                             </td>
                         </tr>
                         @endif
-                        @if($orderfind->discount_amount != 0)
-                        <tr>
-                            <td colspan="4" class="text-end"><strong>Diskon</strong></td>
-                            <td>
-                                -@idr($orderfind->discount_amount)
-                            </td>
-                        </tr>
+                        
+                        @if ($orderfind->discount_amount != 0)
+                            <tr>
+                                <td colspan="4" class="text-end"><strong>Diskon</strong></td>
+                                <td>
+                                    @if ($orderfind->discount_type === 'fixed')
+                                        -@idr($orderfind->discount_amount)
+                                    @else
+                                        -@idr(($orderfind->discount_amount)/100 * ($orderfind->subtotal)) ({{ (int)$orderfind->discount_amount }}%)
+                                    @endif
+                                </td>
+                            </tr>
                         @endif
                         
                         <tr>
-                            <td colspan="4" class="text-end"><strong>Grand Total (Exclude PPN) **</strong></td>
-                            <td>@idr($orderfind->total_price)</td>
+                            <td colspan="4" class="text-end"><strong>Grand Total (Exclude PPN)</strong></td>
+                            <td>
+                                @if ($orderfind->shipping->shipping_cost)
+                                    @idr($orderfind->total_price + $orderfind->shipping->shipping_cost)
+                                @else
+                                    @idr($orderfind->total_price)
+                                @endif
+                            </td>
                         </tr>
                     @else
                         <tr>
