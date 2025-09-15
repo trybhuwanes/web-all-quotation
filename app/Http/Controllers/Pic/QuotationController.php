@@ -11,7 +11,7 @@ use App\Models\Order;
 
 class QuotationController extends Controller
 {
-    public function exportQoutationpdf(Request $request, $id)
+    public function exportQoutationpdf(Request $request, $id, $typeQuot)
     {
         try {
             $orderfind = Order::where('id', $id)->with([
@@ -71,11 +71,25 @@ class QuotationController extends Controller
                 $remainingRows = 17 - $orderfind->revisiquotation->count();
                 $remainingRows = max($remainingRows, 0);
 
+                // Menentukan kata pengantar berdasarkan type
+                // dd($typeQuot);
+                if ($typeQuot == 'shipping') {
+                    $companyName = $orderfind->shipping->company_destination ?? $orderfind->user->company;
+                    $companyAddress = $orderfind->shipping->country_destination;
+                    $typeQuot = 'Shipping';
+                } elseif ($typeQuot == 'owner') {
+                    $companyName = $orderfind->user->company ?? 'Customer';
+                    $companyAddress = $orderfind->user->location_company;
+                    $typeQuot = 'Owner';
+                }
+
                 // === 1. Generate PDF dari Blade ===
                 $pdf = Pdf::loadView($quotName, [
                     'orderfind' => $orderfind,
                     'productMainSpecification' => $productMainSpecification,
                     'remainingRows' => $remainingRows,
+                    'companyName' => $companyName,
+                    'companyAddress' => $companyAddress,
                 ]);
 
                 $pdf->setPaper('A4', 'potrait');
@@ -87,7 +101,6 @@ class QuotationController extends Controller
 
 
                 // === Generate nama file dinamis ===
-                $customerName = $orderfind->shipping->company_destination;
                 $dateExport   = now()->format('Ymd');
 
                 $generatedPath = $tempPath . "/quotation_{$orderfind->id}.pdf";
@@ -116,7 +129,7 @@ class QuotationController extends Controller
 
                 // === 3. Merge file PDF ===
                 $mergedPath = $tempPath . "/merged_quotation_{$orderfind->id}.pdf";
-                $filename = "Quotation_{$customerName}_{$dateExport}.pdf";
+                $filename = "Quotation_{$typeQuot}_{$companyName}_{$dateExport}.pdf";
                 $this->mergePdfs($filesToMerge, $mergedPath);
 
                 return response()->file($mergedPath, [

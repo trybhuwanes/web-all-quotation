@@ -74,7 +74,7 @@ Route::middleware('auth')->group(function () {
         // Penentuan PIC
         Route::resource('deterimine-pic', App\Http\Controllers\Admin\DeterminepicController::class)->only(['index', 'show', 'update']);
         // PDF Export Quot
-        Route::get('/exportquot-pdf/order-admin/{laporan}/{filename?}', [App\Http\Controllers\Admin\LaporanController::class, 'exportQoutationpdf'])->name('order-admin.export-quot-pdf');
+        Route::get('/exportquot-pdf/order-admin/{laporan}/{type}/{filename?}', [App\Http\Controllers\Admin\LaporanController::class, 'exportQoutationpdf'])->name('order-admin.export-quot-pdf');
         // PDF Order Detail
         Route::get('/export-pdf/order-admin/{laporan}', [App\Http\Controllers\Admin\LaporanController::class, 'exportPdf'])->name('order-admin.export-pdf');
 
@@ -147,7 +147,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/cart/update-additional-product/{id}', [App\Http\Controllers\Pic\CartpicController::class, 'updateAdditionalProductPrice'])->name('pic.cart.updateAdditionalProductPrice');
 
         // PDF Export Quot
-        Route::get('/exportquot-pdf/order-pic/{laporan}/{filename?}', [App\Http\Controllers\Pic\QuotationController::class, 'exportQoutationpdf'])->name('order-pic.export-quot-pdf');
+        Route::get('/exportquot-pdf/order-pic/{laporan}/{type}/{filename?}', [App\Http\Controllers\Pic\QuotationController::class, 'exportQoutationpdf'])->name('order-pic.export-quot-pdf');
 
         // Route Attachment
         Route::put('orders-attachment/{id}', [App\Http\Controllers\Pic\OrderAttachmentController::class, 'store'])->name('orders-attachment');

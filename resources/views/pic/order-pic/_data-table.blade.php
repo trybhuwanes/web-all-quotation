@@ -167,14 +167,21 @@
                             </div> --}}
                             <!--begin::Menu item PDF-->
 
-
-                            <!--begin::Menu item PDF-->
-                            <div class="menu-item px-3">
-                                <a href="{{ route('order-pic.export-quot-pdf', ['laporan' => $order->id, 'filename' => 'Quotation_' . $order->shipping->company_destination . '_' . now()->format('Ymd') . '.pdf']) }}" target="_blank" class="menu-link px-3">
-                                    {{ __('Download Quot') }}
+                            <!--begin::Menu item PDF Owner-->
+                            <div class="menu-item px-3 text-start">
+                                <a href="{{ route('order-pic.export-quot-pdf', ['laporan' => $order->id, 'type' => 'owner', 'filename' => 'Quotation_Owner_' . $order->user->company . '_' . now()->format('Ymd') . '.pdf']) }}"  target="_blank" class="detail menu-link px-3">
+                                    <i class="fa-solid fa-file-pdf fs-3 me-1"></i> {{ __('Owner') }}
                                 </a>
                             </div>
-                            <!--begin::Menu item PDF-->
+                            <!--begin::Menu item PDF Owner-->
+
+                            <!--begin::Menu item PDF Shipping-->
+                            <div class="menu-item px-3 text-start">
+                                <a href="{{ route('order-pic.export-quot-pdf', ['laporan' => $order->id, 'type' => 'shipping', 'filename' => 'Quotation_Shipping_' . ($order->shipping->company_destination ?? $order->user->company) . '_' . now()->format('Ymd') . '.pdf']) }}"  target="_blank" class="detail menu-link px-3">
+                                    <i class="fa-solid fa-file-pdf fs-3 me-1"></i> {{ __('Shipping') }}
+                                </a>
+                            </div>
+                            <!--begin::Menu item PDF Shipping-->
                             <!--begin::Menu item Button Edit-->
                             
                             <!--begin::Menu item Button Delete-->

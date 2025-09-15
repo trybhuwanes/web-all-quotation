@@ -110,13 +110,9 @@
                 </p><br>
 
                 <p>
-                    @if ($orderfind->shipping->company_destination)
-                        {{$orderfind->shipping->company_destination}}
-                    @else
-                        {{$orderfind->user->company}}
-                    @endif
+                    {{ $companyName }}
                     <br>
-                    {{$orderfind->shipping->country_destination}} – Indonesia
+                    {{ $companyAddress }} – Indonesia
                 </p>
                 <p>
                     @if ($orderfind->shipping->company_destination)

@@ -124,7 +124,7 @@
                             <i class="fa-solid fa-caret-down fs-5 ms-1"></i>
                         </a>
                         <!--begin::Menu-->
-                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
+                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-150px py-4" data-kt-menu="true">
                             <!--begin::Menu item Button Edit-->
                             <div class="menu-item px-3">
                                 <a href="javascript:;" class="edit menu-link px-3" 
@@ -158,15 +158,21 @@
                             </a> --}}
                             <!--begin::Menu item PDF-->
 
-
-                            <!--begin::Menu item PDF-->
-                            <div class="menu-item px-3 text-center">
-                                <a href="{{ route('order-admin.export-quot-pdf', ['laporan' => $order->id, 'filename' => 'Quotation_' . $order->shipping->company_destination . '_' . now()->format('Ymd') . '.pdf']) }}"  target="_blank" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
-                                    <i class="fa-solid fa-file-pdf fs-2"> </i> Quotation
+                            <!--begin::Menu item PDF Owner-->
+                            <div class="menu-item px-3 text-start">
+                                <a href="{{ route('order-admin.export-quot-pdf', ['laporan' => $order->id, 'type' => 'owner', 'filename' => 'Quotation_Owner_' . $order->user->company . '_' . now()->format('Ymd') . '.pdf']) }}"  target="_blank" class="detail menu-link px-3">
+                                    <i class="fa-solid fa-file-pdf fs-3 me-1"></i> {{ __('Owner') }}
                                 </a>
                             </div>
-                            <!--begin::Menu item PDF-->
-                            <!--begin::Menu item Button Edit-->
+                            <!--begin::Menu item PDF Owner-->
+
+                            <!--begin::Menu item PDF Shipping-->
+                            <div class="menu-item px-3 text-start">
+                                <a href="{{ route('order-admin.export-quot-pdf', ['laporan' => $order->id, 'type' => 'shipping', 'filename' => 'Quotation_Shipping_' . ($order->shipping->company_destination ?? $order->user->company) . '_' . now()->format('Ymd') . '.pdf']) }}"  target="_blank" class="detail menu-link px-3">
+                                    <i class="fa-solid fa-file-pdf fs-3 me-1"></i> {{ __('Shipping') }}
+                                </a>
+                            </div>
+                            <!--begin::Menu item PDF Shipping-->
                             
                             <!--begin::Menu item Button Delete-->
                             {{-- <div class="menu-item px-3">
