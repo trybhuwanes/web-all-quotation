@@ -32,6 +32,21 @@
     <!--begin:Menu Item-->
     <div class="menu-item">
         <!--begin:Menu link-->
+        <a class="menu-link {{ $currentRouteName == 'order-admin.index' ? 'active' : '' }}"
+            href="{{ route('order-admin.index') }}">
+            <span class="menu-icon">
+                <i class="ki-duotone ki-purchase fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span>
+                </i>
+            </span>
+            <span class="menu-title"><b>Pesanan</b></span>
+        </a>
+        <!--end:Menu link-->
+    </div>
+    <!--end:Menu item-->
+
+    <!--begin:Menu Item-->
+    <div class="menu-item">
+        <!--begin:Menu link-->
         <a class="menu-link {{ $currentRouteName == 'targets.index' ? 'active' : '' }}"
             href="{{ route('targets.index') }}">
             <span class="menu-icon">
@@ -84,7 +99,6 @@
         <!--end:Menu sub-->
     </div>
 
-
     <!--begin:Menu Item-->
     <div class="menu-item">
         <!--begin:Menu link-->
@@ -109,27 +123,11 @@
                 <i class="ki-solid ki-wrench fs-1"></i><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span>
                 </i>
             </span>
-            <span class="menu-title"><b>Projek</b></span>
+            <span class="menu-title"><b>Project References</b></span>
         </a>
         <!--end:Menu link-->
     </div>
     <!--end:Menu item-->
-
-    <!--begin:Menu Item-->
-    <div class="menu-item">
-        <!--begin:Menu link-->
-        <a class="menu-link {{ $currentRouteName == 'order-admin.index' ? 'active' : '' }}"
-            href="{{ route('order-admin.index') }}">
-            <span class="menu-icon">
-                <i class="ki-duotone ki-purchase fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span>
-                </i>
-            </span>
-            <span class="menu-title"><b>Pesanan</b></span>
-        </a>
-        <!--end:Menu link-->
-    </div>
-    <!--end:Menu item-->
-
 
     <!--begin:Menu Item-->
     <div class="menu-item">
@@ -167,6 +165,21 @@
     <!--begin:Menu Item-->
     <div class="menu-item">
         <!--begin:Menu link-->
+        <a class="menu-link {{ $currentRouteName == 'order-pic.index' ? 'active' : '' }}"
+            href="{{ route('order-pic.index') }}">
+            <span class="menu-icon">
+                <i class="ki-duotone ki-purchase fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span>
+                </i>
+            </span>
+            <span class="menu-title"><b>Pesanan</b></span>
+        </a>
+        <!--end:Menu link-->
+    </div>
+    <!--end:Menu item-->
+
+    <!--begin:Menu Item-->
+    <div class="menu-item">
+        <!--begin:Menu link-->
         <a class="menu-link {{ $currentRouteName == 'picproduct.index' ? 'active' : '' }}"
             href="{{ route('picproduct.index') }}">
             <span class="menu-icon">
@@ -188,21 +201,6 @@
                 </i>
             </span>
             <span class="menu-title"><b>Produk Tambahan</b></span>
-        </a>
-        <!--end:Menu link-->
-    </div>
-    <!--end:Menu item-->
-
-    <!--begin:Menu Item-->
-    <div class="menu-item">
-        <!--begin:Menu link-->
-        <a class="menu-link {{ $currentRouteName == 'order-pic.index' ? 'active' : '' }}"
-            href="{{ route('order-pic.index') }}">
-            <span class="menu-icon">
-                <i class="ki-duotone ki-purchase fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span>
-                </i>
-            </span>
-            <span class="menu-title"><b>Pesanan</b></span>
         </a>
         <!--end:Menu link-->
     </div>
