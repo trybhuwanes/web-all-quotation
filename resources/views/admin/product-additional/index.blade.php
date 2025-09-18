@@ -103,6 +103,9 @@
                         @endslot --}}
 
                         @slot('data')
+                            <h3 class="d-none d-lg-block text-black fs-3 fw-bolder text-center mb-7"> 
+                                {{__('common.table-product-add')}}
+                            </h3> 
                             @include('admin.product-additional._data-table')
                         @endslot
                     </x-data-table-card>

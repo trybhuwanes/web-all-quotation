@@ -293,3 +293,7 @@
     justify-content: flex-end;
     gap: 10px;
 }
+
+thead {
+    background-color: rgba(46, 130, 50, 0.25);
+}

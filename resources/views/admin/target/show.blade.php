@@ -11,12 +11,21 @@
         <div id="kt_app_toolbar" class="app-toolbar pb-3 pt-8">
             <!--begin::Toolbar container-->
             <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex align-items-stretch">
+                <!--begin::Back Button-->
+                    <a href="{{ route('targets.index') }}" class="btn btn-icon btn-light btn-active-light-primary me-3">
+                        <i class="ki-duotone ki-left-square fs-3x">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                    </a>
+                <!--end::Back Button-->
+                
                 <!--begin::Toolbar wrapper-->
                 <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
                     <!--begin::Page title-->
                     <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
                         <!--begin::Title-->
-                        <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Daftar Target PIC</h1>
+                        <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Daftar Target Omzet PIC</h1>
                         <!--end::Title-->
 
                          <!--begin::Breadcrumb-->
@@ -33,7 +42,7 @@
                                 <!--end::Item-->
                                 <!--begin::Item-->
                                 <li class="breadcrumb-item text-muted">
-                                    Target PIC
+                                    Target Omzet PIC
                                 </li>
                                 <!--end::Item--> 
                                 <!--begin::Item-->
@@ -43,7 +52,7 @@
                                 <!--end::Item-->
                                 <!--begin::Item-->
                                 <li class="breadcrumb-item text-muted">
-                                    Detail Target
+                                    Daftar Target Omzet PIC
                                 </li>
                                 <!--end::Item-->           
                             </ul>
@@ -63,18 +72,18 @@
         <div id="kt_app_content" class="app-content flex-column-fluid">
         
             <!--begin::Content container-->
-            <div id="kt_app_content_container" class="app-container  container-xxl">
+            <div id="kt_app_content_container" class="app-container container-xxl">
 
                 {{-- CONTEN --}}
                 <!--begin::Layout-->
                 <!--begin::Order summary-->
                 <div class="d-flex flex-column flex-xl-row gap-7 gap-lg-10 mb-5">
                     <!--begin::Order details-->
-                    <div class="card card-flush py-4 flex-row-fluid">
+                    <div class="card card-flush py-4 flex-row-fluid bg-primary">
                         <!--begin::Card header-->
                         <div class="card-header">
                             <div class="card-title">
-                                <h2>Data PIC</h2>
+                                <h2 class="text-white">Data PIC</h2>
                             </div>
                         </div>
                         <!--end::Card header-->
@@ -87,45 +96,54 @@
                                     <tbody class="fw-semibold text-gray-600">
                                         <tr>
                                             <td class="text-muted">
-                                                <div class="d-flex align-items-center">
-                                                    <i class="ki-duotone ki-profile-circle fs-2 me-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                                <div class="d-flex align-items-center text-white">
+                                                    <i class="ki-duotone ki-profile-circle fs-2 me-2 text-white"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
                                                     Nama PIC
                                                 </div>
                                             </td>
 
                                             <td class="fw-bold text-end">
-                                                <div class="d-flex align-items-center justify-content-end">
-                                        
-                                                    <!--begin::Name-->
-                                                    <span class="text-gray-600">
-                                                        {{ $detailuser->name}}
-                                                    </span>
-                                                    <!--end::Name-->
+                                                <div class="d-flex align-items-center justify-content-end text-white">
+                                                    {{ $detailuser->name}}
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="text-muted">
-                                                <div class="d-flex align-items-center">
-                                                    <i class="ki-duotone ki-sms fs-2 me-2"><span class="path1"></span><span class="path2"></span></i>                                Email
+                                                <div class="d-flex align-items-center text-white">
+                                                    <i class="ki-duotone ki-sms fs-2 me-2 text-white"><span class="path1"></span><span class="path2"></span></i>Email
                                                 </div>
                                             </td>
-                                            <td class="fw-bold text-end">
-                                                <a href="mailto:{{ $detailuser->email}}" class="text-gray-600 text-hover-primary">
+                                            <td class="fw-bold text-end text-white">
+                                                <a href="mailto:{{ $detailuser->email}}" class="text-white text-hover-secondary">
                                                     {{ $detailuser->email}}
                                                 </a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="text-muted">
-                                                <div class="d-flex align-items-center">
-                                                    <i class="ki-duotone ki-phone fs-2 me-2"><span class="path1"></span><span class="path2"></span></i>                                Phone
+                                                <div class="d-flex align-items-center text-white">
+                                                    <i class="ki-duotone ki-phone fs-2 me-2 text-white"><span class="path1"></span><span class="path2"></span></i>Phone
                                                 </div>
                                             </td>
-                                            <td class="fw-bold text-end">{{ $detailuser->phone}}</td>
+                                            <td class="fw-bold text-end text-white">{{ $detailuser->phone}}</td>
                                         </tr>
-                                        
-                                        
+
+                                        <tr>
+                                            <td class="text-muted">
+                                                <div class="d-flex align-items-center text-white">
+                                                    <i class="ki-duotone ki-phone fs-2 me-2 text-white"><span class="path1"></span><span class="path2"></span></i>
+                                                    Jabatan
+                                                </div>
+                                            </td>
+                                            <td class="fw-bold text-end text-white">
+                                                @if (!$detailuser->job_title)
+                                                    Jabatan Kosong
+                                                @else
+                                                    {{ $detailuser->job_title}}
+                                                @endif
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                                 <!--end::Table-->
@@ -134,7 +152,7 @@
                         <!--end::Card body-->
                     </div>
                     <!--end::Order details-->
-
+{{-- 
                     <!--begin::Customer details-->
                     <div class="card  bg-primary card-flush py-4  flex-row-fluid" data-bs-theme="light" >
                         <!--begin::Engage widget 3-->
@@ -157,20 +175,6 @@
                                     <!--end::Illustration-->
                                 </div>
                                 <!--end::Heading-->
-
-                                <!--begin::Links-->
-                                <div class="text-center"> 
-                                    <!--begin::Link-->
-                                    {{-- <a class="btn btn-sm bg-white btn-color-gray-800 me-2"  data-bs-target="#kt_modal_bidding" data-bs-toggle="modal" >
-                                        Show
-                                    </a> --}}
-                                    <!--end::Link-->
-
-                                    <!--begin::Link-->
-                                    {{-- <a class="btn btn-sm bg-white btn-color-white bg-opacity-20"  href="" >
-                                        Edit
-                                    </a> --}}
-                                    <!--end::Link-->
                                 </div>
                                 <!--end::Links-->
                             </div>
@@ -179,7 +183,7 @@
                         <!--end::Engage widget 3--> 
                     </div>
                     <!--end::Customer details-->
-                    
+                     --}}
                 </div>
                 <!--end::Order summary-->
 

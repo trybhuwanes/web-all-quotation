@@ -1,7 +1,7 @@
 <x-app-layout>
     
     @slot('title')
-        {{ __('Target PIC') }}
+        {{ __('Target Omzet PIC') }}
     @endslot
     <!--begin::Main-->
     <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
@@ -17,7 +17,7 @@
                         <!--begin::Page title-->
                         <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
                             <!--begin::Title-->
-                            <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Target PIC</h1>
+                            <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">Target Omzet PIC</h1>
                             <!--end::Title-->
 
                              <!--begin::Breadcrumb-->
@@ -34,7 +34,7 @@
                                     <!--end::Item-->
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        Target PIC
+                                        Target Omzet PIC
                                     </li>
                                     <!--end::Item-->          
                                 </ul>
@@ -55,8 +55,6 @@
                 <!--begin::Content container-->
                 <div id="kt_app_content_container" class="app-container container-fluid">
                     <x-auth-session-status :status="session('status')" />
-
-                    {{-- <a class="fw-bold" href="{{ route('admin.laporan.export') }}">export</a> --}}
                     <x-data-table-card>
                         
 
@@ -65,8 +63,11 @@
                             {{-- @include('admin.target._show-data') --}}
                         @endslot
 
-
+                        
                         @slot('data')
+                            <h3 class="d-none d-lg-block text-black fs-3 fw-bolder text-center mb-7"> 
+                                {{__('common.table-target-pic')}}
+                            </h3>  
                             @include('admin.target._data-table')
                         @endslot
                     </x-data-table-card>

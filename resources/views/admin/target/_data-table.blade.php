@@ -5,11 +5,11 @@
         <!--begin::Table head-->
         <thead>
             <!--begin::Table row-->
-            <tr class="text-start fw-bold fs-7 text-uppercase gs-0">
-                <th class="w-10px pe-2 text-center">No.</th>
-                <th class="min-w-100px text-center">PIC</th>
-                <th class="min-w-100px text-center">Target Bulan Ini</th>
-                <th class="min-w-100px text-center">Aksi</th>
+            <tr class="text-center fw-bold fs-7 text-uppercase">
+                <th class="w-10px ps-2">No.</th>
+                <th class="min-w-100px">PIC</th>
+                <th class="min-w-100px">Target Omzet 1 Tahun</th>
+                <th class="min-w-100px">Aksi</th>
             </tr>
             <!--end::Table row-->
         </thead>
@@ -21,28 +21,31 @@
                 <tr id="row-{{ str_replace(' ', '-', $target->key) }}">
 
                     <!--begin::Iteration-->
-                    <td>
-                        <span class="text-gray-800 text-hover-primary mb-1">
-                            {{ $loop->iteration }}.
-                        </span>
+                    <td class="text-center">
+                        <div class="text-center">
+                            <span class="text-gray-800 text-hover-primary mb-1 text-center">
+                                {{ $loop->iteration }}.
+                            </span>
+                        </div>
+                        
                     </td>
                     <!--end::Iteration-->
 
-                    <!--begin::Name kategori-->
+                    <!--begin::Nama-->
                     <td>
                         <div class="d-flex justify-content-start flex-column"> 
                             <a href="#" class="text-gray-900 fw-bold mb-1 fs-6">{{ $target->name}}</a>
                         </div>
                     </td>
-                    <!--end::Name kategori-->
+                    <!--end::Nama-->
 
-                    <!--begin::Logo-->
+                    <!--begin::Target-->
                     <td>
                         <div class="text-center"> 
-                            <div class="fw-bold text-gray-800">@idr($target->targets->first()->target)</div> 
+                            <div class="fw-bold text-gray-800">@idr($target->targets->sum('target'))</div> 
                         </div>
                     </td>
-                    <!--end::Logo-->
+                    <!--end::Target-->
 
                     <!--begin::Button value-->
                     <td class="text-center">
@@ -55,7 +58,7 @@
                     </td>
                     <!--end::Button value-->
                 </tr>
-            @endforeach
+            @endforeach 
             <!--end::Table row-->
         </tbody>
         <!--end::Table body-->

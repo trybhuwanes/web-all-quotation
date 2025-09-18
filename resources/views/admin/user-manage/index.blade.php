@@ -70,6 +70,9 @@
 
 
                         @slot('data')
+                            <h3 class="d-none d-lg-block text-black fs-3 fw-bolder text-center mb-7"> 
+                                {{__('common.table-user')}}
+                            </h3> 
                             @include('admin.user-manage._data-table')
                         @endslot
                     </x-data-table-card>

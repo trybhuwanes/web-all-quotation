@@ -62,7 +62,7 @@
             <div class="card-body py-3">
                 <div class="table-responsive">
                     <table class="table table-row-dashed gs-0 gy-4">
-                        <thead>
+                        <thead style="background-color: white">
                             <tr class="fs-7 fw-bold text-gray-500">
                                 <th>Status</th>
                                 <th>Jumlah</th>
@@ -121,7 +121,7 @@
             <div class="card-body py-3">
                 <div class="table-responsive">
                     <table class="table table-row-dashed gs-0 gy-4">
-                        <thead>
+                        <thead style="background-color: white">
                             <tr class="fs-7 fw-bold text-gray-500">
                                 <th>Status</th>
                                 <th>Jumlah</th>

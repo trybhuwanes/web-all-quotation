@@ -52,7 +52,7 @@
             <span class="menu-icon">
                 <i class="ki-duotone ki-address-book fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
             </span>
-            <span class="menu-title"><b>Target PIC</b></span>
+            <span class="menu-title"><b>Target Omzet PIC</b></span>
         </a>
         <!--end:Menu link-->
     </div>

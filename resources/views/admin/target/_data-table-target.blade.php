@@ -5,12 +5,12 @@
         <!--begin::Table head-->
         <thead>
             <!--begin::Table row-->
-            <tr class="text-start fw-bold fs-7 text-uppercase gs-0">
-                <th class="w-10px pe-2 text-center">No.</th>
-                <th class="min-w-100px text-center">Bulan</th>
-                <th class="min-w-100px text-center">Tahun</th>
-                <th class="min-w-100px text-center">Target</th>
-                <th class="min-w-100px text-center">Aksi</th>
+            <tr class="text-center fw-bold fs-7 text-uppercase gs-0">
+                <th class="w-10px ps-2">No.</th>
+                <th class="min-w-100px">Bulan</th>
+                <th class="min-w-100px">Tahun</th>
+                <th class="min-w-100px">Target</th>
+                <th class="min-w-100px">Aksi</th>
             </tr>
             <!--end::Table row-->
         </thead>
@@ -23,9 +23,11 @@
 
                     <!--begin::Iteration-->
                     <td>
-                        <span class="text-gray-800 text-hover-primary mb-1">
-                            {{ $loop->iteration }}.
-                        </span>
+                        <div class="text-center ms-2">
+                            <span class="text-gray-800 text-hover-primary mb-1">
+                                {{ $loop->iteration }}.
+                            </span>
+                        </div>
                     </td>
                     <!--end::Iteration-->
 
