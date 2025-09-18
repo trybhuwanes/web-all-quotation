@@ -260,8 +260,16 @@
 
     'i_accept_the_terms' => 'Saya setuju persyaratannya.',
     'please_register_an_account' => 'Silahkan Daftar Akun.',
-    'please_login' => 'Silahkan Masuk.',
+    'please_login' => 'Masuk untuk Memproses Produk Anda',
     'forgot_password' => 'Lupa Kata Sandi?',
     'already_have_an_account' => 'Sudah memiliki akun?',
     'enter_your_email_to_reset_password' => 'Masukkan email Anda untuk mengatur ulang kata sandi.',
+
+    'table-target-pic' => 'Tabel Target Omzet PIC',
+    'table-user' => 'Tabel Pengguna',
+    'table-product' => 'Tabel Produk',
+    'table-product-add' => 'Tabel Produk Tambahan',
+    'table-project' => 'Tabel Referensi Projek',
+    'table-category' => 'Tabel Kategori Produk',
+    'table-order' => 'Tabel Pesanan'
   ];

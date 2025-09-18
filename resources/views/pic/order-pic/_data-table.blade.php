@@ -5,8 +5,8 @@
         <!--begin::Table head-->
         <thead>
             <!--begin::Table row-->
-            <tr class="text-start fw-bold fs-7 text-uppercase gs-0">
-                <th class="w-10px pe-2 text-center">No.</th>
+            <tr class="text-center fw-bold fs-7 text-uppercase gs-0">
+                <th class="w-10px ps-2 text-center">No.</th>
                 <th class="min-w-100px text-center">Order ID</th>
                 <th class="min-w-150px text-center">Perusahaan</th>
                 <th class="min-w-150px text-center">Pengiriman</th>
@@ -27,9 +27,11 @@
 
                     <!--begin::Iteration-->
                     <td>
-                        <span class="text-gray-800 text-hover-primary mb-1">
-                            {{ $loop->iteration }}.
-                        </span>
+                        <div class="text-center ms-2">
+                            <span class="text-gray-800 text-hover-primary mb-1">
+                                {{ $loop->iteration }}.
+                            </span>
+                        </div>
                     </td>
                     <!--end::Iteration-->
 

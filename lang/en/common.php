@@ -249,9 +249,17 @@ return [
 
 
     'please_register_an_account' => 'Please Register an Account',
-    'please_login' => 'Please Login',
+    'please_login' => 'Log In to Process your Product',
     'already_have_an_account' => 'Already Have an Account?',
     'forgot_password' => 'Forgot Password?',
     'i_accept_the_terms' => 'I accept The terms.',
     'enter_your_email_to_reset_password' => 'Enter your email to reset password.',
+
+    'table-target-pic' => 'PIC Turnover Target Table',
+    'table-user' => 'User Table',
+    'table-product' => 'Product Table',
+    'table-product-add' => 'Product Additional Table',
+    'table-project' => 'Project References Table',
+    'table-category' => 'Category Product Table',
+    'table-order' => 'Order Table'
 ];
