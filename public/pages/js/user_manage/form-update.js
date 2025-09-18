@@ -26,6 +26,7 @@ var KTProductsAddProduct = (function () {
             const telpon = $("#notelpon").val();
             const job_title = $("#job_title").val();
             const company = $("#company").val();
+            const location_company = $("#location_company").val();
             const field_company = $("#field_company").val();
             const detail_company = $("#detail_company").val();
             let formData = new FormData();
@@ -41,6 +42,7 @@ var KTProductsAddProduct = (function () {
             formData.append("phone", telpon);
             formData.append("job_title", job_title);
             formData.append("company", company);
+            formData.append("location_company", location_company);
             formData.append("field_company", field_company);
             formData.append("detail_company", detail_company);
             // formData.append("location_company", termContent);

@@ -1,7 +1,7 @@
 <x-app-layout>
     
     @slot('title')
-        {{ __('Kategori Produk') }}
+        {{ __('Edit Pengguna') }}
     @endslot
     <!--begin::Main-->
     <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
@@ -14,10 +14,17 @@
                 <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex align-items-stretch">
                     <!--begin::Toolbar wrapper-->
                     <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
+                        <!--begin::Back Button-->
+                        <a href="{{ route('alluser.index') }}" class="btn btn-icon btn-light btn-active-light-primary">
+                            <i class="ki-duotone ki-left-square fs-3x">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>
+                        </a>
+                        <!--end::Back Button-->
+
                         <!--begin::Page title-->
                         <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
-                            
-
                         </div>
                         <!--end::Page title-->
                     </div>
@@ -187,6 +194,20 @@
                                                         <div class="col-lg-9 fv-row">
                                                             <input type="text" id="company" name="company" class="form-control form-control-sm form-control-solid" placeholder="Masukan perusahaan" value="{{$us->company}}" />
                                                             <span id="company-error" class="fv-plugins-message-container invalid-feedback invalid-feedback"></span>
+                                                        </div>
+                                                        <!--end::Col-->
+                                                    </div>
+                                                    <!--end::Input group-->
+
+                                                    <!--begin::Input group-->
+                                                    <div class="row mb-1">
+                                                        <!--begin::Label-->
+                                                        <label class="required col-lg-3 col-form-label fw-semibold fs-6">Lokasi Perusahaan</label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Col-->
+                                                        <div class="col-lg-9 fv-row">
+                                                            <input type="text" id="location_company" name="location_company" class="form-control form-control-sm form-control-solid" placeholder="Masukan lokasi perusahaan" value="{{$us->location_company}}" />
+                                                            <span id="location-company-error" class="fv-plugins-message-container invalid-feedback invalid-feedback"></span>
                                                         </div>
                                                         <!--end::Col-->
                                                     </div>

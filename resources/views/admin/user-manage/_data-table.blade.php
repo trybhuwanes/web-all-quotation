@@ -5,11 +5,10 @@
         <!--begin::Table head-->
         <thead>
             <!--begin::Table row-->
-            <tr class="text-start fw-bold fs-8 text-uppercase gs-0">
+            <tr class="text-start fw-bold fs-7 text-uppercase gs-0">
                 <th class="w-10px pe-2 text-center">No.</th>
                 <th class="min-w-100px text-center">Nama & Perusahaan</th>
                 <th class="min-w-100px text-center">Peran</th>
-                <th class="min-w-100px text-center">Kontak</th>
                 <th class="min-w-100px text-center">Tgl Masuk</th>
                 <th class="min-w-100px text-center">Status Akun</th>
                 <th class="min-w-100px text-center">Aksi</th>
@@ -25,7 +24,7 @@
 
                     <!--begin::Iteration-->
                     <td>
-                        <span class="text-gray-800 text-hover-primary mb-1">
+                        <span class="text-gray-800 text-hover-primary mb-1 text-center">
                             {{ $loop->iteration }}.
                         </span>
                     </td>
@@ -34,7 +33,7 @@
                     <!--begin::Name-->
                     <td>
                         <div class="d-flex justify-content-start flex-column">
-                            <span class="text-gray-900 fw-bold mb-1 fs-6">{{ $user->name}}</span>
+                            <span class="text-gray-900 fw-bold mb-1 fs-7">{{ $user->name}}</span>
                             <span class="text-muted fw-semibold text-muted d-block fs-7">
                                 <span class="text-gray-900">Perusahaan</span>: {{ $user->company }}
                             </span>
@@ -42,24 +41,13 @@
                     </td>
                     <!--end::Name-->
 
-                    <td>
+                    <td class="text-center fs-7">
                         <span class="text-gray-800 text-uppercase">
                             {{ $user->role }}
                         </span>
                     </td>
 
-                    <!--begin::Contact-->
-                    <td>
-                        <div class="d-flex justify-content-start flex-column">
-                            <a href="mailto:{{$user->email}}" class="text-gray-900 fw-bold mb-1 fs-6">{{ $user->email}}</a>
-                            <span class="text-muted fw-semibold text-muted d-block fs-7">
-                                <span class="text-gray-900">Telp</span>: {{ $user->phone }}
-                            </span>
-                        </div>
-                    </td>
-                    <!--end::Contact-->
-
-                    <td>
+                    <td class="text-center fs-7">
                         <span class="text-gray-800">
                             {{  App\Helpers\Helper::dateFormat($user->created_at, 'd/m/Y') }}
                         </span>
@@ -67,7 +55,7 @@
 
 
                     <!--begin::Contact-->
-                    <td>
+                    <td class="text-center">
                         {!! \App\Enums\AccountStatusEnum::badge($user->status) !!}
                     </td>
                     <!--end::Contact-->
@@ -79,8 +67,8 @@
                             <i class="fa-solid fa-caret-down fs-5 ms-1"></i>
                         </a>
                         <!--begin::Menu-->
-                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
-                            <!--begin::Menu item Button Edit-->
+                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-150px py-4" data-kt-menu="true">
+                            <!--begin::Menu item Button Ubah Status-->
                             <div class="menu-item px-3">
                                 <a href="javascript:;" class="edit menu-link px-3" 
                                 data-kt-user-id="{{ $user->id }}"
@@ -98,9 +86,29 @@
                                     {{ __('common.btn_edit') }} Status
                                 </a>
                             </div>
-                            <!--begin::Menu item Button Edit-->
+                            <!--begin::Menu item Button Ubah Status-->
 
+                            <!--begin::Menu item Button Tampilkan Data-->
+                            <div class="menu-item px-3">
+                                <a href="{{ route('alluser.show', $user->id) }}" class="menu-link px-3" 
+                                data-kt-user-id="{{ $user->id }}"
+                                data-kt-user-photo="{{ $user->photo }}" 
+                                data-kt-user-name="{{ $user->name }}" 
+                                data-kt-user-email="{{ $user->email }}" 
+                                data-kt-user-phone="{{ $user->phone }}" 
+                                data-kt-user-status="{{ $user->status }}" 
+                                data-kt-user-job_title="{{ $user->job_title }}" 
+                                data-kt-user-company="{{ $user->company }}" 
+                                data-kt-user-location_company="{{ $user->location_company }}" 
+                                data-kt-user-field_company="{{ $user->field_company }}" 
+                                {{-- data-kt-user-deskripsi="{{ $user->deskripsi }}"> --}}
+                                data-kt-user-detail_company="{{ $user->detail_company }}" >
+                                    {{ __('common.btn_show') }} Data
+                                </a>
+                            </div>
+                            <!--end::Menu item Button Tampilkan Data-->
 
+                            <!--begin::Menu item Button Ubah Data-->
                             <div class="menu-item px-3">
                                 <a href="{{ route('alluser.edit', $user->id) }}" class="menu-link px-3" 
                                 data-kt-user-id="{{ $user->id }}"
@@ -118,6 +126,7 @@
                                     {{ __('common.btn_edit') }} Data
                                 </a>
                             </div>
+                            <!--end::Menu item Button Ubah Data-->
                             
                             <!--begin::Menu item Button Delete-->
                             {{-- <div class="menu-item px-3">

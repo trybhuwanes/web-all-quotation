@@ -61,7 +61,8 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $us = User::where('id', $id)->first();
+        return view('admin.user-manage.show_user', compact('us'));
     }
 
     /**
