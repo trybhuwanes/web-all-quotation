@@ -41,6 +41,16 @@
                     @if($productShow->projects->isNotEmpty())
                         @php $firstProject = $productShow->projects->first(); @endphp
 
+                        <!-- Company Name -->
+                        <div class="text-center fs-2 fw-bold" id="company-name">
+                            {{ $firstProject->company_name }}
+                        </div>
+
+                        <!-- Deskripsi -->
+                        <div class="fs-6 text-gray-700 text-center" id="project-description">
+                            {!! $firstProject->description ?? 'Deskripsi proyek belum tersedia.' !!}
+                        </div>
+
                         <!-- Galeri -->
                         <div class="row g-5 mb-5" id="gallery-wrapper">
                             @foreach($firstProject->getMedia('project-gallery') as $gallery)
@@ -54,11 +64,6 @@
                                     </a>
                                 </div>
                             @endforeach
-                        </div>
-
-                        <!-- Deskripsi -->
-                        <div class="fs-6 text-gray-700\" id="project-description" style="text-align: justify;">
-                            {!! $firstProject->description ?? 'Deskripsi proyek belum tersedia.' !!}
                         </div>
                     @endif
                 </div>
@@ -117,7 +122,13 @@
                     `;
                 });
 
-                // Update deskripsi
+                // Update company name
+                const compEl = document.getElementById('company-name');
+                compEl.innerHTML = project.company_name && project.company_name.trim() !== ""
+                    ? project.company_name
+                    : 'Nama perusahaan belum tersedia.';
+
+                // Update description
                 const descEl = document.getElementById('project-description');
                 descEl.innerHTML = project.description && project.description.trim() !== ""
                     ? project.description
