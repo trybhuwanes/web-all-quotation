@@ -1,10 +1,26 @@
 <x-guest-layout>
     <!--begin::Header-->
     @include('layouts.guest.header')
+
+    <style>
+        .text-bg-linear {
+            background: linear-gradient(to right, #2e8232 0%, #ffd54c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
     <!--end::Header-->
 
+    {{-- Banner Section --}}
+    <section class="banner-wrapper">
+        <img src="{{ asset('images/banner-dummy.jpg') }}" 
+            alt="Banner Pemesanan" 
+            class="w-100 img-fluid" 
+            style="max-height: 250px; object-fit: cover;">
+    </section>
+
     <section class="bg-light">
-        <div class="app-container container-xxl position-relative d-flex align-items-center flex-wrap pt-lg-18">
+        <div class="app-container container-xxl position-relative d-flex align-items-center flex-wrap pt-14">
             {{-- <section class="mt-5"> --}}
             <ol class="breadcrumb breadcrumb-dot text-muted fs-6 fw-semibold">
                 <li class="breadcrumb-item"><a href="/" class="">{{ __('Home') }}</a></li>
@@ -17,9 +33,9 @@
     </section>
 
     <!--begin::Content-->
-    <div id="kt_app_content" class="app-content flex-column-fluid pt-10 mb-5 mb-lg-10">
+    <div id="kt_app_content" class="app-content flex-column-fluid mb-5 mb-lg-10">
         <!--begin::Content container-->
-        <div id="kt_app_content_container" class="app-container  container-xxl pt-10 mb-5 mb-lg-10">
+        <div id="kt_app_content_container" class="app-container  container-xxl mb-5 mb-lg-10">
             <!--begin::Products-->
             <div class="card shadow-sm card-flush">
                 <!--begin::Card header-->
@@ -48,7 +64,7 @@
                         <!--end::Flatpickr-->
             
                         <!--begin::Select Status-->
-                        <div class="w-100 mw-150px">
+                        <div class="d-flex align-items-center gap-2 w-100 mw-250px">
                             <select class="form-select form-select-solid" data-control="select2" data-hide-search="true"
                                 data-placeholder="Status" data-kt-ecommerce-order-filter="status">
                                 <option></option>
@@ -57,6 +73,12 @@
                                     <option value="{{ $status }}">{{ ucfirst($status) }}</option>
                                 @endforeach
                             </select>
+
+                            <!-- Tombol clear -->
+                            <button type="button" id="clearStatusFilter" 
+                                    class="btn btn-sm btn-light-danger btn-active-danger py-4" 
+                                    style="display:none;">✖
+                            </button>
                         </div>
                         <!--end::Select Status-->
                         
@@ -75,9 +97,7 @@
 
                     <div id="kt_ecommerce_sales_table_wrapper" class="dt-container dt-bootstrap5 dt-empty-footer">
                         <div id="" class="table-responsive">
-                            <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable" id="kt_ecommerce_sales_table" style="width: 100%;">
-                                
-
+                            <table class="table align-middle table-row-dashed fs-7 gy-5 dataTable" id="kt_ecommerce_sales_table" style="width: 100%;">
                                 <thead>
                                     <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0" role="row">
                                         <th class="min-w-80px">Order ID</th>
@@ -164,19 +184,18 @@
                     <!--begin::Subtitle-->
                     <h3 class="d-flex text-gray-900 fs-2hx fw-bolder mb-10 letter-spacing">
                         <span class="ms-3 d-inline-flex position-relative">
-                            <span class="px-1">One Scalable</span>
+                            <span class="px-1">Our</span>
                             <img class="w-100 position-absolute bottom-0 mb-n2" src="/metronic/assets/media/misc/frameworks-title-underline.svg" alt=""/>
                         </span>
                         <span class="text-bg-linear">
-
-                            Foundation
+                            Tested Product
                         </span>
                     </h3>
                     <!--end::Subtitle-->
 
                     <!--begin::Description-->
                     <div class="text-gray-700 text-center fs-4 fw-semibold opacity-75">
-                        Dapatkan Penawaran Product Lainnya dari Kami!
+                        Dapatkan Penawaran Produk Lainnya dari Kami!
                     </div>
                     <!--end::Description-->
                     
@@ -185,11 +204,11 @@
                 
 
                 <!--begin::Row-->
-                <div class="row g-10">
+                <div class="row g-10 justify-content-center">
                     @foreach ($products as $item)
                         <!--begin::Col-->
-                        <div class="col-md-4">
-                            <div class="card shadow-sm card-hover">
+                        <div class="col-md-4 d-flex">
+                            <div class="card shadow-sm card-hover flex-fill">
                                 <div class="card-body p-8">
                                     <a class="d-block card-rounded bg-gray-100 border border-gray-200 overflow-hidden mb-6" target="_blank" href="{{ route('product-overview.detail', $item->slug) }}">
                                         <img class="w-100" src="{{ $item->getFirstMediaUrl('product-thumbnail') }}"/>
@@ -255,13 +274,25 @@
                 }
             });
 
-            $('[data-kt-ecommerce-order-filter="status"]').on('change', function() {
+            var $statusSelect = $('[data-kt-ecommerce-order-filter="status"]');
+            var $clearBtn = $('#clearStatusFilter');
+
+            $statusSelect.on('change', function() {
                 var status = $(this).val();
                 if (status) {
-                    table.column(1).search(status, true, false).draw();
+                    table.column(2).search(status, true, false).draw();
+                    $clearBtn.show();
                 } else {
-                    table.column(1).search('').draw();
+                    table.column(2).search('').draw();
+                    $clearBtn.hide();
                 }
+            });
+
+            // Event tombol clear
+            $clearBtn.on('click', function() {
+                $statusSelect.val(null).trigger('change'); // reset select2
+                table.column(2).search('').draw(); // reset filter
+                $clearBtn.hide();
             });
 
             $('[data-kt-ecommerce-order-filter="search"]').on('keyup', function() {

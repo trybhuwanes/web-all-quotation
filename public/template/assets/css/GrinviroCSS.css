@@ -107,7 +107,7 @@
 }
 
 .text-bg-linear {
-    background: linear-gradient(to right, #ce1212 0%, #6218ff 100%);
+    background: linear-gradient(to right, #2e8232 0%, #ffd54c 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
