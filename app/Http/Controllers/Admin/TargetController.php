@@ -10,28 +10,26 @@ use Illuminate\Http\Request;
 class TargetController extends Controller
 {
     //
-     /**
+    /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
         //
-        $filter['search']= $request->q;
+        $filter['search'] = $request->q;
         $currentMonth = now()->month;
         $currentYear  = now()->year;
 
         $targets = User::select('id', 'name')
             ->where('role', 'pic')
             ->where('status', 'active')
-            ->with(['targets' => function($q) use ($currentMonth, $currentYear) {
-                $q->where('month', $currentMonth)
-                ->where('year', $currentYear);
+            ->with(['targets' => function ($q) use ($currentYear) {
+                $q->where('year', $currentYear); // ambil semua bulan di tahun ini
             }])
             ->orderBy('id')
             ->get();
 
-        return view('admin.target.index', compact('targets', 'currentMonth', 'currentYear'));
-
+        return view('admin.target.index', compact('targets', 'currentYear'));
     }
 
     /**
@@ -60,7 +58,6 @@ class TargetController extends Controller
                 'message' => 'Target successfully created.',
                 'data'    => $target,
             ]);
-
         } catch (\Throwable $th) {
             return response()->json([
                 'success' => false,
@@ -78,9 +75,9 @@ class TargetController extends Controller
         try {
             $detailuser = User::findOrFail($id);
             $targets = $detailuser->targets()
-                    ->orderBy('year', 'desc')
-                    ->orderBy('month', 'asc')
-                    ->paginate(12);
+                ->orderBy('year', 'desc')
+                ->orderBy('month', 'asc')
+                ->paginate(12);
 
             $lastTarget = $detailuser->targets()
                 ->orderBy('year', 'desc')
@@ -88,7 +85,6 @@ class TargetController extends Controller
                 ->first();
 
             return view('admin.target.show', compact('detailuser', 'targets', 'lastTarget'));
-
         } catch (\Throwable $th) {
             throw new \ErrorException($th->getMessage());
         }
@@ -100,7 +96,7 @@ class TargetController extends Controller
     public function edit(string $id)
     {
         //
-        
+
     }
 
 
@@ -123,7 +119,6 @@ class TargetController extends Controller
                 'message' => 'Target updated.',
                 'data'    => $target,
             ]);
-
         } catch (\Throwable $th) {
             return response()->json([
                 'success' => false,
