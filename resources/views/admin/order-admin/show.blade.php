@@ -2,6 +2,13 @@
     @slot('title')
     {{ __('Detail Laporan Diskusi') }}
 @endslot
+<header>
+    <style>
+        .bg-primarylight {
+            background-color: rgba(46, 130, 50);
+        }
+    </style>
+</header>
 <!--begin::Main-->
 <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
     <!--begin::Content wrapper-->
@@ -70,11 +77,11 @@
                 <!--begin::Order summary-->
                 <div class="d-flex flex-column flex-xl-row gap-7 gap-lg-10 mb-5">
                     <!--begin::Order details-->
-                    <div class="card card-flush py-4 flex-row-fluid">
+                    <div class="card card-flush py-4 flex-row-fluid bg-primarylight">
                         <!--begin::Card header-->
                         <div class="card-header">
                             <div class="card-title">
-                                <h2>Nomer Pemesanan (#{{ $orderdetail->trx_code}})</h2>
+                                <h2 class="text-white">Nomor Pemesanan (#{{ $orderdetail->trx_code}})</h2>
                             </div>
                         </div>
                         <!--end::Card header-->
@@ -87,54 +94,53 @@
                                     <tbody class="fw-semibold text-gray-600">
                                         <tr>
                                             <td class="text-muted">
-                                                <div class="d-flex align-items-center">
-                                                    <i class="ki-duotone ki-delivery-3 fs-2 me-2"><span class="path1"></span><span
+                                                <div class="d-flex align-items-center text-white">
+                                                    <i class="ki-duotone ki-delivery-3 fs-2 me-2 text-white"><span class="path1"></span><span
                                                             class="path2"></span><span class="path3"></span><span
                                                             class="path4"></span><span class="path5"></span></i>Status Pesanan
                                                 </div>
                                             </td>
-                                            <td class="fw-bold text-end text-uppercase">
+                                            <td class="fw-bold text-end text-uppercase text-white">
                                                 {!! \App\Enums\OrderStatusEnum::badge($orderdetail->status) !!}
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="text-muted">
-                                                <div class="d-flex align-items-center">
-                                                    <i class="ki-duotone ki-user-square fs-2 me-2">
+                                                <div class="d-flex align-items-center text-white">
+                                                    <i class="ki-duotone ki-user-square fs-2 me-2 text-white">
                                                         <span class="path1"></span>
                                                         <span class="path2"></span>
                                                         <span class="path3"></span>
                                                         </i> PIC
                                                 </div>
                                             </td>
-                                            <td class="fw-bold text-end">
+                                            <td class="fw-bold text-end text-white">
                                                 {{ optional($orderdetail->pic)->name ?? '-' }}
                                             </td>
                                         </tr>
                                         
                                         <tr>
                                             <td class="text-muted">
-                                                <div class="d-flex align-items-center">
-                                                    <i class="ki-duotone ki-calendar fs-2 me-2"><span
+                                                <div class="d-flex align-items-center text-white">
+                                                    <i class="ki-duotone ki-calendar fs-2 me-2 text-white"><span
                                                             class="path1"></span><span class="path2"></span></i> Tanggal Dibuat
                                                 </div>
                                             </td>
-                                            <td class="fw-bold text-end">
+                                            <td class="fw-bold text-end text-white">
                                                 {{  App\Helpers\Helper::dateFormat($orderdetail->created_at, 'd F Y') }}
                                             </td>
                                         </tr>
                                         
                                         <tr>
                                             <td class="text-muted">
-                                                <div class="d-flex align-items-center">
-                                                    <i class="ki-duotone ki-wallet fs-2 me-2"><span class="path1"></span><span
+                                                <div class="d-flex align-items-center text-white">
+                                                    <i class="ki-duotone ki-wallet fs-2 me-2 text-white"><span class="path1"></span><span
                                                             class="path2"></span><span class="path3"></span><span
                                                             class="path4"></span></i> Metode Pemesanan
                                                 </div>
                                             </td>
-                                            <td class="fw-bold text-end">
+                                            <td class="fw-bold text-end text-white">
                                                 Online
-                                                {{-- <img src="/template/assets/media/svg/card-logos/002-girl.svg" class="w-50px ms-2"/> --}}
                                             </td>
                                         </tr>
                                         
@@ -148,11 +154,11 @@
                     <!--end::Order details-->
 
                     <!--begin::Customer details-->
-                    <div class="card card-flush py-4  flex-row-fluid">
+                    <div class="card card-flush py-4  flex-row-fluid bg-primarylight">
                         <!--begin::Card header-->
                         <div class="card-header">
                             <div class="card-title">
-                                <h2>Pelanggan</h2>
+                                <h2 class="text-white">Pelanggan</h2>
                             </div>
                         </div>
                         <!--end::Card header-->
@@ -162,20 +168,18 @@
                             <div class="table-responsive">
                                 <!--begin::Table-->
                                 <table class="table align-middle table-row-bordered mb-0 fs-6 gy-5 min-w-300px">
-                                    <tbody class="fw-semibold text-gray-600">
+                                    <tbody class="fw-semibold text-white">
                                         <tr>
                                             <td class="text-muted">
                                                 <div class="d-flex align-items-center">
-                                                    <i class="ki-duotone ki-profile-circle fs-2 me-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                                    <i class="ki-duotone ki-profile-circle fs-2 me-2 text-white"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
                                                     Pelanggan
                                                 </div>
                                             </td>
-
                                             <td class="fw-bold text-end">
                                                 <div class="d-flex align-items-center justify-content-end">
-                                        
                                                     <!--begin::Name-->
-                                                    <span class="text-gray-600">
+                                                    <span>
                                                         {{ $orderdetail->user->name}}
                                                     </span>
                                                     <!--end::Name-->
@@ -185,11 +189,11 @@
                                         <tr>
                                             <td class="text-muted">
                                                 <div class="d-flex align-items-center">
-                                                    <i class="ki-duotone ki-sms fs-2 me-2"><span class="path1"></span><span class="path2"></span></i>                                Email
+                                                    <i class="ki-duotone ki-sms fs-2 me-2 text-white"><span class="path1"></span><span class="path2"></span></i>                                Email
                                                 </div>
                                             </td>
                                             <td class="fw-bold text-end">
-                                                <a href="mailto:{{ $orderdetail->user->email }}" class="text-gray-600 text-hover-primary">
+                                                <a href="mailto:{{ $orderdetail->user->email }}" class="text-white text-hover-warning">
                                                     {{ $orderdetail->user->email}}
                                                 </a>
                                             </td>
@@ -197,7 +201,7 @@
                                         <tr>
                                             <td class="text-muted">
                                                 <div class="d-flex align-items-center">
-                                                    <i class="ki-duotone ki-phone fs-2 me-2"><span class="path1"></span><span class="path2"></span></i>                                Phone
+                                                    <i class="ki-duotone ki-phone fs-2 me-2 text-white"><span class="path1"></span><span class="path2"></span></i>                                Phone
                                                 </div>
                                             </td>
                                             <td class="fw-bold text-end">{{ $orderdetail->user->phone}}</td>
@@ -397,7 +401,7 @@
                                     <div class="table-responsive">
                                         <!--begin::Table-->
                                         <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0">
-                                            <thead>
+                                            <thead style="background-color: white;">
                                                 <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
                                                     <th class="min-w-575px">Product</th>
                                                     <th class="min-w-70px text-center">Jumlah Item</th>
@@ -567,7 +571,7 @@
                             <!--begin::Table-->
                             <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4" id="kt_modal_add_user">
                                 <!--begin::Table head-->
-                                <thead>
+                                <thead style="background-color: white;">
                                     <tr class="text-gray-500 fw-bold fs-7 text-uppercase">
                                         <th class="w-25px">No.</th>
                                         <th class="min-w-25px">Revisi Nomer</th>
@@ -654,7 +658,7 @@
                             <!--begin::Table-->
                             <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
                                 <!--begin::Table head-->
-                                <thead>
+                                <thead style="background-color: white;">
                                     <tr class="text-gray-500 fw-bold fs-7 text-uppercase">
                                         
                                         <th class="min-w-350px">Deskripsi</th>

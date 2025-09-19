@@ -12087,11 +12087,11 @@ fieldset:disabled .btn {
             var(--bs-bg-opacity)) !important;
 }
 
-/* .bg-primarylight {
+.bg-primarylight {
     --bs-bg-opacity: 1;
     background-color: rgba(var(--bs-primarylight-rgb),
             var(--bs-bg-opacity)) !important;
-} */
+}
 
 .bg-success {
     --bs-bg-opacity: 1;
