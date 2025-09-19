@@ -252,7 +252,9 @@ return [
     'please_login' => 'Log In to Process your Product',
     'already_have_an_account' => 'Already Have an Account?',
     'forgot_password' => 'Forgot Password?',
-    'i_accept_the_terms' => 'I accept The terms.',
+    'i_accept' => 'By registering, I accept the',
+    'terms' => 'Terms',
+    'conditions' => 'Privacy Policy',
     'enter_your_email_to_reset_password' => 'Enter your email to reset password.',
 
     'table-target-pic' => 'PIC Turnover Target Table',

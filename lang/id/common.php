@@ -258,7 +258,9 @@
     'btn_cancel_subscription' => 'Batalkan Langganan',
 
 
-    'i_accept_the_terms' => 'Saya setuju persyaratannya.',
+    'i_accept' => 'Dengan mendaftar, Saya setuju dengan',
+    'terms' => 'Syarat & Ketentuan',
+    'conditions' => 'Kebijakan Privasi',
     'please_register_an_account' => 'Silahkan Daftar Akun.',
     'please_login' => 'Masuk untuk Memproses Produk Anda',
     'forgot_password' => 'Lupa Kata Sandi?',
