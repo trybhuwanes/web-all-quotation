@@ -99,7 +99,7 @@
                         <div id="" class="table-responsive">
                             <table class="table align-middle table-row-dashed fs-7 gy-5 dataTable" id="kt_ecommerce_sales_table" style="width: 100%;">
                                 <thead>
-                                    <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0" role="row">
+                                    <tr class="text-center text-black fw-bold fs-7 text-uppercase gs-0" role="row">
                                         <th class="min-w-80px">Order ID</th>
                                         <th class="text-center min-w-100px">Pengiriman</th>
                                         <th class="text-center min-w-50px">Status</th>
@@ -131,7 +131,7 @@
                                                 @endif
                                                     <!--end::Company Destination-->
                                             </td>
-                                            <td class="text-end pe-0" data-order="Completed">
+                                            <td class="text-center pe-0" data-order="Completed">
                                                 <!--begin::Badges-->
                                                 <div class="badge badge-light-success">{!! \App\Enums\OrderStatusEnum::badge($data->status) !!}</div>
                                                 <!--end::Badges-->
