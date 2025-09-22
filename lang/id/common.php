@@ -257,7 +257,8 @@
     'btn_upgrade_paket' => 'Upgrade Paket',
     'btn_cancel_subscription' => 'Batalkan Langganan',
 
-
+    'login' => 'MASUK',
+    'register' => 'DAFTAR',
     'i_accept' => 'Dengan mendaftar, Saya setuju dengan',
     'terms' => 'Syarat & Ketentuan',
     'conditions' => 'Kebijakan Privasi',

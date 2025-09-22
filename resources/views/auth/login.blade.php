@@ -14,6 +14,18 @@
             transform: translateY(-50%);
             cursor: pointer;
         }
+
+        .login-aside {
+            background: url('/images/banner-login.webp') no-repeat center center;
+        }
+
+        /* Hanya untuk layar ≥ 992px (desktop) */
+        @media (min-width: 992px) {
+            .login-aside {
+                background-size: cover;
+                min-height: 100vh;
+            }
+        }
     </style>
 
     <!--begin::Root-->
@@ -25,8 +37,20 @@
             <div class="d-flex flex-column flex-lg-row-fluid w-lg-50 p-10 order-2 order-lg-1">
                 <!--begin::Form-->
                 <div class="d-flex flex-center flex-column flex-lg-row-fluid">
+                    <!--begin::Image-->                
+                    <img 
+                        class="mx-auto mb-6 d-block d-lg-none w-100px" 
+                        src="{{ url('template/assets/media/logos/maskot-grinviro.webp') }}" 
+                        alt="maskot grinviro"/>
+
+                    <img 
+                        class="d-none d-lg-block mx-auto w-100px mb-5 mb-lg-2" 
+                        src="{{ url('template/assets/media/logos/maskot-grinviro.webp') }}" 
+                        alt="maskot grinviro"/>                 
+                    <!--end::Image-->
+
                     <!--begin::Wrapper-->
-                    <div class="w-lg-500px p-10">
+                    <div class="w-lg-500px px-10">
 
                          <!-- Display success message -->
                         @if(session('success'))
@@ -35,13 +59,14 @@
                             </div>
                         @endif
                         
+                        
                         <!--begin::Form-->
                         <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" method="POST" action="{{ route('login') }}">@csrf
                             <!--begin::Heading-->
-                            <div class="text-center mb-11">
+                            <div class="text-center mb-8">
                                 <!--begin::Title-->
-                                <h1 class="text-gray-900 fw-bolder mb-3">
-                                    GUNA HIJAU INOVASI
+                                <h1 class="text-gray-900 fw-bolder fs-3 mb-3">
+                                    {{ __('common.login') }}
                                 </h1>
                                 <!--end::Title-->
                         
@@ -52,14 +77,9 @@
                                 <!--end::Subtitle--->
                             </div>
                             <!--begin::Heading-->
-
-                            <!--begin::Separator-->
-                            <div class="separator separator-content my-14">
-                            </div>
-                            <!--end::Separator-->
                         
                             <!--begin::Input group--->
-                            <div class="fv-row mb-8">
+                            <div class="fv-row mb-4">
                                 <!--begin::Email-->
                                 <input type="email" placeholder="Email" id="email" name="email" autocomplete="off" class="form-control bg-transparent"/>
                                 <x-input-error :messages="$errors->get('email')" class="text-danger"/>
@@ -77,7 +97,7 @@
                             <!--end::Input group--->
                         
                             <!--begin::Wrapper-->
-                            <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">
+                            <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-4">
                                 <div></div>
                         
                                 <!--begin::Link-->
@@ -89,7 +109,7 @@
                             <!--end::Wrapper-->    
 
                             <!--begin::Cap-->
-                            <div class="d-flex justify-content-center mb-10">
+                            <div class="d-flex justify-content-center mb-4">
                                 {!! NoCaptcha::renderJs() !!}
                                 <div>
                                     {!! NoCaptcha::display() !!}
@@ -99,7 +119,7 @@
                             <!--end::Cap-->
 
                             <!--begin::Submit button-->
-                            <div class="d-grid mb-10">
+                            <div class="d-grid mb-6">
                                 <button type="submit" id="kt_sign_in_submit" class="btn btn-primary">
                                     
                                     <!--begin::Indicator label-->
@@ -130,41 +150,33 @@
                 <!--end::Form-->       
         
                 <!--begin::Footer-->  
-                <div class="w-lg-500px d-flex flex-stack px-10 mx-auto">
+                <div class="d-flex flex-stack px-10 mx-auto text-center">
                     <x-add-link-footer/>
                 </div>
                 <!--end::Footer-->
             </div>
             <!--end::Body-->
-            
+
             <!--begin::Aside-->
-            <div class="d-flex flex-lg-row-fluid w-lg-50 bgi-size-cover bgi-position-center order-1 order-lg-2" style="background-image: url(/template/assets/media/misc/auth-bg.png)">
-                <!--begin::Content-->
-                <div class="d-flex flex-column flex-center py-7 py-lg-15 px-5 px-md-15 w-100">          
-                    <!--begin::Logo-->
-                    <a href="/home" class="mb-0 mb-lg-12">
-                        <img alt="Logo" src="{{ url('template/assets/media/logos/logo-ghi.webp') }}" class="h-60px h-lg-75px"/>
-                    </a>    
-                    <!--end::Logo-->
-        
-                    <!--begin::Image-->                
-                    <img class="d-none d-lg-block mx-auto w-75px w-md-50 w-xl-250px mb-10 mb-lg-20" src="{{ url('template/assets/media/logos/maskot-grinviro.webp') }}" alt="maskot grinviro"/>                 
-                    <!--end::Image-->
-        
-                    <!--begin::Title-->
-                    <h1 class="d-none d-lg-block text-white fs-2qx fw-bolder text-center mb-7"> 
-                        {{__('Manufacturing for Water, Wastewater & Energy')}}
-                    </h1>  
-                    <!--end::Title-->
-        
-                    <!--begin::Text-->
-                    <div class="d-none d-lg-block text-white fs-base text-center">
-                        Autonomous <a href="#" class="opacity-75-hover text-warning fw-bold me-1" title="" rel="">{{ __('Water Loop') }}</a>Closure<br>
-                        Unlocking the Potential of Waste for Green Energy
+            <div class="d-flex flex-lg-row-fluid w-lg-50 order-1 order-lg-2 login-aside">
+                <div class="d-flex flex-column flex-center w-100 text-center text-white">
+                    <!-- Logo (tampil di semua device) -->
+                    <a href="/home" class="my-6">
+                        <img alt="Logo" src="{{ url('template/assets/media/logos/logo-ghi-putih.webp') }}" 
+                            class="h-50px h-lg-75px"/>
+                    </a>  
+
+                    <!-- Desktop only text -->
+                    <div class="d-none d-lg-block">
+                        <h1 class="fs-2qx fw-bolder mb-4 text-white px-4">
+                            {{__('Manufacturing for Water, Wastewater & Energy')}}
+                        </h1>  
+                        <div>
+                            Autonomous <span class="text-warning fw-bold">{{ __('Water Loop') }}</span> Closure<br>
+                            Unlocking the Potential of Waste for Green Energy
+                        </div>
                     </div>
-                    <!--end::Text-->
                 </div>
-                <!--end::Content-->
             </div>
             <!--end::Aside-->
         </div>
