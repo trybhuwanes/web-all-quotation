@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard/salespic', [App\Http\Controllers\Admin\AdminController::class, 'getSalesPic'])->name('admin.dashboard.getsalespic');
         Route::get('/dashboard/productsale', [App\Http\Controllers\Admin\AdminController::class, 'getOrderStatus'])->name('admin.dashboard.getorderstatus');
         Route::get('/dashboard/salerevenuepic', [App\Http\Controllers\Admin\AdminController::class, 'getRevenuePic'])->name('admin.dashboard.getrevenuepic');
+        Route::get('/dashboard/orders/by-date', [App\Http\Controllers\Admin\AdminController::class, 'getOrdersByDate'])->name('admin.dashboard.orders.byDate');
 
         Route::resource('alluser', App\Http\Controllers\Admin\UserController::class);
         Route::resource('user-pic', App\Http\Controllers\Admin\PicuserController::class)->only(['create', 'store']);

@@ -239,4 +239,19 @@ class AdminController extends Controller
 
         return response()->json($result);
     }
+
+    public function getOrdersByDate(Request $request)
+    {
+        $picId = $request->pic_id;
+        [$year, $month] = explode('-', $request->month);
+
+        $orders = Order::where('pic_id', $picId)
+            ->whereYear('created_at', $year)
+            ->whereMonth('created_at', $month)
+            ->get();
+
+        $html = view('admin._list', compact('orders'))->render();
+
+        return response()->json(['html' => $html]);
+    }
 }

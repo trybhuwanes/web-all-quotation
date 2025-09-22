@@ -477,7 +477,11 @@
                                                         <span class="text-gray-900 fw-bold d-block fs-5">Sub Total</span>
                                                     </td>
                                                     <td class="fs-6 text-end">
-                                                        @idr($orderdetail->subtotal)
+                                                        @if (!$orderdetail->subtotal)
+                                                            @idr($orderdetail->total_price + $orderdetail->discount_amount - $orderdetail->shipping->shipping_cost)
+                                                        @else
+                                                            @idr($orderdetail->subtotal)
+                                                        @endif
                                                     </td>
                                                 </tr>
                                                 
@@ -485,7 +489,7 @@
                                                 <tr>
                                                     <td colspan="3" class="fs-6 text-gray-900 text-end">
                                                         <span class="text-gray-900 fw-bold d-block fs-5">Perkiraan Biaya Pengiriman</span>
-                                                        <span class="text-muted fs-7">(Masih dalam Proses Konfirmasi)</span>
+                                                        {{-- <span class="text-muted fs-7">(Masih dalam Proses Konfirmasi)</span> --}}
                                                     </td>
                                                     <td class="fs-6 text-end">
                                                         @if($orderdetail->shipping->shipping_cost)
@@ -518,8 +522,12 @@
                                                         Total Harga
                                                     </td>
                                                     <td class="text-gray-900 fs-3 fw-bolder text-end">
-                                                        @if ($orderdetail->shipping->shipping_cost)
-                                                            @idr($orderdetail->total_price + $orderdetail->shipping->shipping_cost)
+                                                        @if ($orderdetail->subtotal)
+                                                            @if ($orderdetail->shipping->shipping_cost)
+                                                                @idr($orderdetail->total_price + $orderdetail->shipping->shipping_cost)
+                                                            @else
+                                                                @idr($orderdetail->total_price)
+                                                            @endif
                                                         @else
                                                             @idr($orderdetail->total_price)
                                                         @endif
