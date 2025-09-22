@@ -298,6 +298,7 @@
                 @include('form-modal._form-prince-discont')
                 @include('form-modal._form-additional-product')
                 @include('form-modal._form-edit-additional-product')
+                @include('form-modal._form-edit-quantity-product')
 
                 {{-- ATTACHMENT --}}
                 <!--Begin::Attachment-->
@@ -448,8 +449,22 @@
                                                         </td>
                                                         
                                                         <td class="text-center">
-                                                            {{ $item->quantity }}
+                                                            <div class="d-flex justify-content-center align-items-center">
+                                                                <button type="button" 
+                                                                    class="btn btn-sm btn-icon btn-light-primary edit-quantity me-2"
+                                                                    data-bs-toggle="modal" 
+                                                                    data-bs-target="#kt_modal_edit_quantity"
+                                                                    data-id="{{ $item->id }}"
+                                                                    data-quantity="{{ $item->quantity }}"
+                                                                    >
+                                                                    <i class="ki-duotone ki-pencil fs-3"> <span class="path1"></span><span class="path2"></span></i>
+                                                                </button>
+                                                                <div class="fw-bold text-gray-800 me-2">
+                                                                    {{ $item->quantity }}
+                                                                </div>
+                                                            </div>
                                                         </td>
+                                                        
                                                         <td class="text-end">
                                                             @if ($item->productadd)
                                                                 <div class="d-flex justify-content-end align-items-center">
@@ -816,6 +831,7 @@
 <script src="{{ url('pages/js/manage_revisi_pic/form-add.js') }}"></script>
 <script src="{{ url('pages/js/manage_revisi_pic/form-attachment.js') }}"></script>
 <script src="{{ url('pages/js/manage_revisi_pic/form-edit-additional.js') }}"></script>
+<script src="{{ url('pages/js/manage_revisi_pic/form-edit-quantity.js') }}"></script>
 
 @endpush
 </x-app-layout>

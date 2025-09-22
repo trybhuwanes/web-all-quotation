@@ -13,7 +13,7 @@
 
     {{-- Banner Section --}}
     <section class="banner-wrapper">
-        <img src="{{ asset('images/banner-dummy.jpg') }}" 
+        <img src="{{ asset('images/banner-order.webp') }}" 
             alt="Banner Pemesanan" 
             class="w-100 img-fluid" 
             style="max-height: 250px; object-fit: cover;">

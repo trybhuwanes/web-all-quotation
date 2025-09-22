@@ -75,9 +75,9 @@ var KTDicountAdd = (function () {
                     `;
                 } else if (type === "percentage") {
                     html = `
+                        <button type="button" class="btn btn-light-primary w-100" data-kt-modal-discount="option">2%</button>
                         <button type="button" class="btn btn-light-primary w-100" data-kt-modal-discount="option">5%</button>
                         <button type="button" class="btn btn-light-primary w-100" data-kt-modal-discount="option">10%</button>
-                        <button type="button" class="btn btn-light-primary w-100" data-kt-modal-discount="option">25%</button>
                     `;
                 }
 

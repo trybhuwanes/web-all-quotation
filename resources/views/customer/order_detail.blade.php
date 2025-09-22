@@ -195,12 +195,12 @@
                             <div class="table-responsive">
                                 <!--begin::Table-->
                                 <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0">
-                                    <thead>
-                                        <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
+                                    <thead style="background-color: white;">
+                                        <tr class="text-center text-gray-500 fw-bold fs-7 text-uppercase gs-0">
                                             <th class="min-w-575px">Product</th>
-                                            <th class="min-w-70px text-end">Jumlah Item</th>
-                                            <th class="min-w-100px text-end">Harga Satuan</th>
-                                            <th class="min-w-100px text-end">Total</th>
+                                            <th class="min-w-70px">Jumlah Item</th>
+                                            <th class="min-w-100px">Harga Satuan</th>
+                                            <th class="min-w-100px">Total</th>
                                         </tr>
                                     </thead>
                                     <tbody class="fw-semibold text-gray-600">
@@ -242,7 +242,7 @@
                                                     </div>
                                                 </td>
                                                 
-                                                <td class="text-end">
+                                                <td class="text-center">
                                                     {{ $item->quantity }}
                                                 </td>
                                                 <td class="text-end">

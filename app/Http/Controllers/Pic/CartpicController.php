@@ -250,35 +250,37 @@ class CartpicController extends Controller
         return redirect()->back()->with('success', 'Harga produk tambahan berhasil diperbarui!');
     }
 
-    public function updateQuantity(Request $request)
+    public function updateQuantity(Request $request, $id)
     {
-        // dd($request->all());
-        try {
-            $itemId = $request->input('id');
-            $action = $request->input('action');
+        $request->validate([
+            'quantity' => 'required|numeric|min:1',
+        ]);
 
-            // Ambil item dari cart berdasarkan id
-            $cartItem = Detail_cart::find($itemId);
+        // Cari item
+        $item = Detail_order::findOrFail($id);
 
-            if ($action === 'increase') {
-                $cartItem->quantity += 1;
-            } elseif ($action === 'decrease' && $cartItem->quantity > 1) {
-                $cartItem->quantity -= 1;
-            }
-
-            // Simpan perubahan
-            $cartItem->save();
-            Session()->flash('status', 'Berhasil ditambah');
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Additional Prodcut updated.',
-                'data'    => null,
-            ]);
-        } catch (\Throwable $th) {
-            throw new \ErrorException($th->getMessage());
+        // Menentukan produk utama atau tambahan
+        if ($item->product_id !== null) {
+            // Produk utama
+            $item->quantity = $request->quantity;
+        } elseif ($item->productadd_id !== null) {
+            // Produk tambahan
+            $item->quantity = $request->quantity;
+        } else {
+            return redirect()->back()->with('error', 'Item tidak valid (bukan produk utama maupun tambahan).');
         }
+
+        $item->save();
+
+        $order = $item->order;
+        if ($order) {
+            $order->total_price = $this->priceService->recalculateTotalPrice($order);
+            $order->save();
+        }
+
+        return redirect()->back()->with('success', 'Kuantitas berhasil diperbarui!');
     }
+
 
 
 

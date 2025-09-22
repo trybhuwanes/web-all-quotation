@@ -123,6 +123,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/product-type/{productId}/{typeId}/edit', [App\Http\Controllers\Pic\ProducttypepicController::class, 'edit'])->name('picproduct.type.edit');
         Route::put('/product-type/{productId}/{typeId}/update', [App\Http\Controllers\Pic\ProducttypepicController::class, 'update'])->name('picproduct.type.update');
 
+        Route::get('select2/item-category', [App\Http\Controllers\Select2Controller::class, 'itemCategory'])->name('select.item-category');
+
         // Additional Product
         Route::resource('product-additional', App\Http\Controllers\Pic\AdditionalproductpicController::class)->names('picproduct-additional');;
 
@@ -145,6 +147,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('/cart/del/{id}', [App\Http\Controllers\Pic\CartpicController::class, 'deleteFromCart'])->name('pic.cart.delete');
         Route::post('/cart/add-additional-product', [App\Http\Controllers\Pic\CartpicController::class, 'addAdditionalProductToCart'])->name('pic.cart.addAdditionalProduct');
         Route::put('/cart/update-additional-product/{id}', [App\Http\Controllers\Pic\CartpicController::class, 'updateAdditionalProductPrice'])->name('pic.cart.updateAdditionalProductPrice');
+        Route::put('/cart/quantity/{id}', [App\Http\Controllers\Pic\CartpicController::class, 'updateQuantity'])->name('pic.cart.updateQuantity');
 
         // PDF Export Quot
         Route::get('/exportquot-pdf/order-pic/{laporan}/{type}/{filename?}', [App\Http\Controllers\Pic\QuotationController::class, 'exportQoutationpdf'])->name('order-pic.export-quot-pdf');
