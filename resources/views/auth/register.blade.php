@@ -14,6 +14,18 @@
             transform: translateY(-50%);
             cursor: pointer;
         }
+
+        .login-aside {
+            background: url('/images/banner-login.webp') no-repeat center center;
+        }
+
+        /* Hanya untuk layar ≥ 992px (desktop) */
+        @media (min-width: 992px) {
+            .login-aside {
+                background-size: cover;
+                min-height: 100vh;
+            }
+        }
     </style>
 
     <!--begin::Root-->
@@ -26,15 +38,26 @@
                 <!--begin::Form-->
                 <div class="d-flex flex-center flex-column flex-lg-row-fluid">
                     <!--begin::Wrapper-->
-                    <div class="w-lg-500px p-10">
-                        
+                    <div class="w-lg-500px pX-10">
                         <!--begin::Form-->
                         <form class="form w-150" novalidate="novalidate" id="kt_sign_in_form" method="POST" action="{{ route('register') }}">@csrf
+                            <!--begin::Image-->                
+                            <img 
+                                class="mx-auto mb-6 d-block d-lg-none w-100px" 
+                                src="{{ url('template/assets/media/logos/maskot-grinviro.webp') }}" 
+                                alt="maskot grinviro"/>
+
+                            <img 
+                                class="d-none d-lg-block mx-auto w-100px mb-5 mb-lg-2" 
+                                src="{{ url('template/assets/media/logos/maskot-grinviro.webp') }}" 
+                                alt="maskot grinviro"/>                 
+                            <!--end::Image-->
+
                             <!--begin::Heading-->
                             <div class="text-center mb-11">
                                 <!--begin::Title-->
                                 <h1 class="text-gray-900 fw-bolder mb-3">
-                                    GUNA HIJAU INOVASI
+                                    {{ __('common.register') }}
                                 </h1>
                                 <!--end::Title-->
                         
@@ -45,16 +68,11 @@
                                 <!--end::Subtitle--->
                             </div>
                             <!--begin::Heading-->
-                        
-                            <!--begin::Separator-->
-                            <div class="separator separator-content my-10">
-                            </div>
-                            <!--end::Separator-->
 
                             <!--begin::Input group--->
                             <div class="fv-row mb-3">
                                 <!--begin::Nama-->
-                                <input type="text" placeholder="Nama Lengkap" id="name" name="name" required autocomplete="off" class="form-control bg-transparent"/>
+                                <input type="text" placeholder="Nama Lengkap*" id="name" name="name" required autocomplete="off" class="form-control bg-transparent"/>
                                 <x-input-error :messages="$errors->get('name')" class="text-danger"/>
                                 <!--end::Nama-->
                             </div>
@@ -63,7 +81,7 @@
                             <!--begin::Input group--->
                             <div class="fv-row mb-3">
                                 <!--begin::Telpon-->
-                                <input type="number" placeholder="Nomer Telpon" id="phone" name="phone" required autocomplete="off" class="form-control bg-transparent"/>
+                                <input type="number" placeholder="Nomer Telepon*" id="phone" name="phone" required autocomplete="off" class="form-control bg-transparent"/>
                                 <x-input-error :messages="$errors->get('phone')" class="text-danger"/>
                                 <!--end::Telpon-->
                             </div>
@@ -75,25 +93,24 @@
                                 <!--begin::Col-->
                                 <div class="col-xl-6 mt-1">              
                                 <!--begin::Telpon-->
-                                <input class="form-control bg-transparent" type="text" placeholder="Jabatan" name="job_title" autocomplete="off" data-kt-translate="sign-up-input-first-name"/>
+                                <input class="form-control bg-transparent" type="text" placeholder="Jabatan*" name="job_title" required autocomplete="off" data-kt-translate="sign-up-input-first-name"/>
                                 <x-input-error :messages="$errors->get('job_title')" class="text-danger"/>
                                 <!--end::Telpon-->
                                 </div>
                                 <!--end::Col-->
                                 <!--begin::Col-->
                                 <div class="col-xl-6 mt-1">              
-                                    <input class="form-control bg-transparent" type="text" placeholder="Asal Institusi (PT/CV)" name="company" autocomplete="off" data-kt-translate="sign-up-input-first-name"/>
+                                    <input class="form-control bg-transparent" type="text" placeholder="Asal Institusi (PT/CV)*" required name="company" autocomplete="off" data-kt-translate="sign-up-input-first-name"/>
                                     <x-input-error :messages="$errors->get('company')" class="text-danger"/>
                                 </div>
                                 <!--end::Col-->
                             </div>
 
-
                             <!--begin::Input group-->
                             <div class="row fv-row mb-2">
                                 <!-- Select Provinsi -->
                                 <div class="col-xl-6 mt-1">              
-                                    <select name="location_company" id="lokasi_institusi" data-control="select2" data-placeholder="Pilih provinsi..." class="form-select form-select-solid provinsi">
+                                    <select name="location_company" id="lokasi_institusi" data-control="select2" required data-placeholder="Pilih provinsi*" class="form-select form-select-solid provinsi">
                                         <option value="">Pilih provinsi...</option>
                                         <option value="Nanggroe Aceh Darussalam">Nanggroe Aceh Darussalam</option>
                                         <option value="Sumatera Utara">Sumatera Utara</option>
@@ -134,13 +151,15 @@
                                         <option value="Papua Selatan">Papua Selatan</option>
                                         <option value="Papua Barat Daya">Papua Barat Daya</option>
                                     </select>
+                                    <x-input-error :messages="$errors->get('location_company')" class="text-danger"/>
                                 </div>
 
                                 <!-- Select Kota -->
                                 <div class="col-xl-6 mt-1">
-                                    <select name="location_city" id="kota" data-control="select2" data-placeholder="Pilih kota..." class="form-select form-select-solid kota">
+                                    <select name="location_city" id="kota" data-control="select2" data-placeholder="Pilih kota*" required class="form-select form-select-solid kota">
                                         <option value="">Pilih kota...</option>
                                     </select>
+                                    <x-input-error :messages="$errors->get('location_city')" class="text-danger"/>
                                 </div>
                             </div>
                             <!--end::Input group-->
@@ -151,7 +170,7 @@
                                 <div class="col-xl-6 mt-1">              
                                     {{-- <input class="form-control bg-transparent" type="text" placeholder="Bidang Institusi" name="field_company" autocomplete="off" data-kt-translate="sign-up-input-first-name"/> --}}
                                     <!--begin::Select-->
-                                    <select name="field_company" id="bidang_institusi" data-control="select2" data-placeholder="Pilih bidang..." class="form-select form-select-solid">
+                                    <select name="field_company" id="bidang_institusi" required data-control="select2" data-placeholder="Pilih bidang*" class="form-select form-select-solid">
                                         <option value="">Pilih...</option>
                                         <option value="Pertanian, Kehutanan, Perikanan">Pertanian, Kehutanan, Perikanan</option>
                                         <option value="Pertambangan dan Penggalian">Pertambangan dan Penggalian</option>
@@ -165,12 +184,14 @@
                                         <option value="Asosiasi/NGO">Asosiasi/NGO</option>
                                     </select>
                                     <!--end::Select-->
+                                    <x-input-error :messages="$errors->get('field_company')" class="text-danger"/>
                                 </div>
                                 <!--end::Col-->
 
                                 <!--begin::Col-->
                                 <div class="col-xl-6 mt-1">            
-                                    <input class="form-control bg-transparent" type="text" placeholder="Detail Institusi" name="detail_company" autocomplete="off" data-kt-translate="sign-up-input-last-name"/>
+                                    <input class="form-control bg-transparent" type="text" placeholder="Detail Institusi*" required name="detail_company" autocomplete="off" data-kt-translate="sign-up-input-last-name"/>
+                                    <x-input-error :messages="$errors->get('detail_company')" class="text-danger"/>
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -179,7 +200,7 @@
                             <!--begin::Input group--->
                             <div class="fv-row mb-3">
                                 <!--begin::Email-->
-                                <input type="email" placeholder="Email" id="email" name="email" required autocomplete="off" class="form-control bg-transparent"/>
+                                <input type="email" placeholder="Email*" id="email" name="email" required autocomplete="off" class="form-control bg-transparent"/>
                                 <x-input-error :messages="$errors->get('email')" class="text-danger"/>
                                 <!--end::Email-->
                             </div>
@@ -191,7 +212,7 @@
                                 <div class="mb-1">
                                     <!--begin::Input wrapper-->
                                     <div class="position-relative mb-3">    
-                                        <input class="form-control bg-transparent" id="password" type="password" placeholder="Password" name="password" autocomplete="off"/>
+                                        <input class="form-control bg-transparent" id="password" type="password" placeholder="Password*" name="password" autocomplete="off"/>
                                         <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2" data-kt-password-meter-control="visibility">
                                             <i class="fas fa-eye-slash fs-2"></i><i class="fas fa-eye fs-2 d-none"></i>
                                         </span>
@@ -222,18 +243,27 @@
                             <!--begin::Input group--->
                             <div class="fv-row mb-8 position-relative">    
                                 <!--begin::Password-->
-                                <input type="password" placeholder="Ulangi Password" id="password_confirmation" name="password_confirmation" required autocomplete="off" class="form-control bg-transparent"/>
+                                <input type="password" placeholder="Ulangi Password*" id="password_confirmation" name="password_confirmation" required autocomplete="off" class="form-control bg-transparent"/>
                                 <x-input-error :messages="$errors->get('password_confirmation')" class="text-danger" />
                                 <!--end::Password-->
                             </div>
                             <!--end::Input group--->
 
+                            @include('form-modal._form-terms')
+                            @include('form-modal._form-policy')
                             <!--begin::Accept-->
                             <div class="fv-row mb-8">
                                 <label class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" name="terms"/>
                                     <span class="form-check-label fw-semibold text-gray-700 fs-base ms-1">
-                                        {{ __('common.i_accept_the_terms') }}
+                                        {{ __('common.i_accept') }} 
+                                        <a href="" class="fw-bold text-primary" data-bs-toggle="modal" data-bs-target="#termsModal">
+                                            {{ __('common.terms') }}
+                                        </a>
+                                         and 
+                                        <a href="" class="fw-bold text-primary" data-bs-toggle="modal" data-bs-target="#policyModal">
+                                            {{ __('common.conditions') }}
+                                        </a>
                                     </span>
                                     <x-input-error :messages="$errors->get('terms')" class="text-danger" />
                                 </label>
@@ -281,7 +311,7 @@
                 <!--end::Form-->       
         
                 <!--begin::Footer-->  
-                <div class="w-lg-500px d-flex flex-stack px-10 mx-auto">
+                <div class="d-flex flex-stack px-10 mx-auto text-center">
                     <x-add-link-footer/>
                 </div>
                 <!--end::Footer-->
@@ -289,33 +319,25 @@
             <!--end::Body-->
             
             <!--begin::Aside-->
-            <div class="d-flex flex-lg-row-fluid w-lg-50 bgi-size-cover bgi-position-center order-1 order-lg-2" style="background-image: url(/template/assets/media/misc/auth-bg.png)">
-                <!--begin::Content-->
-                <div class="d-flex flex-column flex-center py-7 py-lg-15 px-5 px-md-15 w-100">          
-                    <!--begin::Logo-->
-                    <a href="/home" class="mb-0 mb-lg-12">
-                        <img alt="Logo" src="{{ url('template/assets/media/logos/logo-ghi.webp') }}" class="h-60px h-lg-75px"/>
-                    </a>    
-                    <!--end::Logo-->
-        
-                    <!--begin::Image-->                
-                    <img class="d-none d-lg-block mx-auto w-75px w-md-50 w-xl-250px mb-10 mb-lg-20" src="{{ url('template/assets/media/logos/maskot-grinviro.webp') }}" alt="maskot grinviro"/>                 
-                    <!--end::Image-->
-        
-                    <!--begin::Title-->
-                    <h1 class="d-none d-lg-block text-white fs-2qx fw-bolder text-center mb-7"> 
-                        {{__('Manufacturing for Water, Wastewater & Energy')}}
-                    </h1>  
-                    <!--end::Title-->
-        
-                    <!--begin::Text-->
-                    <div class="d-none d-lg-block text-white fs-base text-center">
-                        Autonomous <a href="#" class="opacity-75-hover text-warning fw-bold me-1" title="" rel="">{{ __('Water Loop') }}</a>Closure<br>
-                        Unlocking the Potential of Waste for Green Energy
+            <div class="d-flex flex-lg-row-fluid w-lg-50 order-1 order-lg-2 login-aside">
+                <div class="d-flex flex-column flex-center w-100 text-center text-white">
+                    <!-- Logo (tampil di semua device) -->
+                    <a href="/home" class="my-6">
+                        <img alt="Logo" src="{{ url('template/assets/media/logos/logo-ghi-putih.webp') }}" 
+                            class="h-50px h-lg-75px"/>
+                    </a>  
+
+                    <!-- Desktop only text -->
+                    <div class="d-none d-lg-block">
+                        <h1 class="fs-2qx fw-bolder mb-4 text-white px-4">
+                            {{__('Manufacturing for Water, Wastewater & Energy')}}
+                        </h1>  
+                        <div>
+                            Autonomous <span class="text-warning fw-bold">{{ __('Water Loop') }}</span> Closure<br>
+                            Unlocking the Potential of Waste for Green Energy
+                        </div>
                     </div>
-                    <!--end::Text-->
                 </div>
-                <!--end::Content-->
             </div>
             <!--end::Aside-->
         </div>
