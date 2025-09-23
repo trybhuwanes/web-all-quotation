@@ -1,7 +1,7 @@
 <x-app-layout>
     
     @slot('title')
-        {{ __('Kategori Produk') }}
+        {{ __('Daftar Pesanan') }}
     @endslot
     <!--begin::Main-->
     <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
@@ -39,7 +39,6 @@
                                     <!--end::Item-->          
                                 </ul>
                                 <!--end::Breadcrumb-->
-
                         </div>
                         <!--end::Page title-->
                     </div>

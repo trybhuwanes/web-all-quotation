@@ -247,14 +247,15 @@ return [
     'btn_upgrade_paket' => 'Upgrade Package',
     'btn_cancel_subscription' => 'Cancel Subscription',
 
-    'login' => 'LOGIN',
-    'register' => 'REGISTER',
-    'please_register_an_account' => 'Please Register an Account',
+    'login' => 'WELCOME',
+    'register' => 'CREATE ACCOUNT',
+    'please_register_an_account' => 'Fill your information bellow',
     'please_login' => 'Log In to Process your Product',
     'already_have_an_account' => 'Already Have an Account?',
     'forgot_password' => 'Forgot Password?',
     'i_accept' => 'By registering, I accept the',
     'terms' => 'Terms',
+    'and' => 'and',
     'conditions' => 'Privacy Policy',
     'enter_your_email_to_reset_password' => 'Enter your email to reset password.',
 

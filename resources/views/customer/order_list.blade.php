@@ -21,14 +21,11 @@
 
     <section class="bg-light">
         <div class="app-container container-xxl position-relative d-flex align-items-center flex-wrap pt-14">
-            {{-- <section class="mt-5"> --}}
             <ol class="breadcrumb breadcrumb-dot text-muted fs-6 fw-semibold">
                 <li class="breadcrumb-item"><a href="/" class="">{{ __('Home') }}</a></li>
                 <li class="breadcrumb-item text-muted">{{ __('Pemesanan') }}</li>
             </ol>
             <div class="border-gray-300 border-bottom border-bottom-dashed"></div>
-            {{-- </section> --}}
-
         </div>
     </section>
 

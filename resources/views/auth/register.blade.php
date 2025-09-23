@@ -44,19 +44,19 @@
                             <!--begin::Image-->                
                             <img 
                                 class="mx-auto mb-6 d-block d-lg-none w-100px" 
-                                src="{{ url('template/assets/media/logos/maskot-grinviro.webp') }}" 
-                                alt="maskot grinviro"/>
+                                src="{{ url('template/assets/media/logos/maskot-ghi.webp') }}" 
+                                alt="Maskot Guna Hijau Indonesia"/>
 
                             <img 
                                 class="d-none d-lg-block mx-auto w-100px mb-5 mb-lg-2" 
-                                src="{{ url('template/assets/media/logos/maskot-grinviro.webp') }}" 
-                                alt="maskot grinviro"/>                 
+                                src="{{ url('template/assets/media/logos/maskot-ghi.webp') }}" 
+                                alt="Maskot Guna Hijau Indonesia"/>                 
                             <!--end::Image-->
 
                             <!--begin::Heading-->
-                            <div class="text-center mb-11">
+                            <div class="text-center mb-8">
                                 <!--begin::Title-->
-                                <h1 class="text-gray-900 fw-bolder mb-3">
+                                <h1 class="text-gray-900 fw-bolder fs-3 mb-3">
                                     {{ __('common.register') }}
                                 </h1>
                                 <!--end::Title-->
@@ -260,7 +260,7 @@
                                         <a href="" class="fw-bold text-primary" data-bs-toggle="modal" data-bs-target="#termsModal">
                                             {{ __('common.terms') }}
                                         </a>
-                                         and 
+                                          {{ __('common.and') }}
                                         <a href="" class="fw-bold text-primary" data-bs-toggle="modal" data-bs-target="#policyModal">
                                             {{ __('common.conditions') }}
                                         </a>
@@ -330,8 +330,11 @@
                     <!-- Desktop only text -->
                     <div class="d-none d-lg-block">
                         <h1 class="fs-2qx fw-bolder mb-4 text-white px-4">
-                            {{__('Manufacturing for Water, Wastewater & Energy')}}
+                            {{__('PT Guna Hijau Indonesia')}}
                         </h1>  
+                        <h1 class="fs-2 fw-bolder mb-4 text-white px-4">
+                            {{__('Manufacturing for Water, Wastewater & Energy')}}
+                        </h1>   
                         <div>
                             Autonomous <span class="text-warning fw-bold">{{ __('Water Loop') }}</span> Closure<br>
                             Unlocking the Potential of Waste for Green Energy
