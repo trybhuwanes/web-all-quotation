@@ -41,12 +41,12 @@
                     <img 
                         class="mx-auto mb-6 d-block d-lg-none w-100px" 
                         src="{{ url('template/assets/media/logos/maskot-ghi.webp') }}" 
-                        alt="Maskot Guna Hijau Indonesia"/>
+                        alt="Maskot Guna Hijau Inovasi"/>
 
                     <img 
                         class="d-none d-lg-block mx-auto w-100px mb-5 mb-lg-2" 
                         src="{{ url('template/assets/media/logos/maskot-ghi.webp') }}" 
-                        alt="Maskot Guna Hijau Indonesia"/>                 
+                        alt="Maskot Guna Hijau Inovasi"/>                 
                     <!--end::Image-->
 
                     <!--begin::Wrapper-->
@@ -169,7 +169,7 @@
                     <!-- Desktop only text -->
                     <div class="d-none d-lg-block">
                         <h1 class="fs-2qx fw-bolder mb-4 text-white px-4">
-                            {{__('PT Guna Hijau Indonesia')}}
+                            {{__('PT Guna Hijau Inovasi')}}
                         </h1>  
                         <h1 class="fs-2 fw-bolder mb-4 text-white px-4">
                             {{__('Manufacturing for Water, Wastewater & Energy')}}
