@@ -1,3 +1,46 @@
+<header>
+    <style>
+        /* Range di tengah */
+        .daterangepicker td.in-range {
+            background-color: rgba(46, 130, 50, 0.2) !important;
+            color: #000 !important;
+        }
+
+        /* Hari awal range */
+        .daterangepicker td.start-date,
+        .daterangepicker td.start-date.available {
+            background-color: rgba(46, 130, 50, 0.7) !important;
+            color: #fff !important;
+            border-radius: 0 !important;
+        }
+
+        /* Hari akhir range */
+        .daterangepicker td.end-date,
+        .daterangepicker td.end-date.available {
+            background-color: rgba(46, 130, 50, 0.7) !important;
+            color: #fff !important;
+            border-radius: 0 !important;
+        }
+
+        /* Active (jika hanya 1 tanggal dipilih) */
+        .daterangepicker td.active {
+            background-color: rgba(46, 130, 50, 0.9) !important;
+            color: #fff !important;
+        }
+
+        /* Header bulan */
+        .daterangepicker .drp-calendar .calendar-table th.month {
+            background-color: #fff !important;
+            color: #000 !important;
+        }
+
+        /* Header hari */
+        .daterangepicker .calendar-table thead th {
+            background-color: #fff !important;
+            color: #000 !important;
+        }
+    </style>
+</header>
 <!--begin::Row-->
 <div class="row gy-5 gx-xl-10 mt-1">
 
