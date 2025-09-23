@@ -101,15 +101,12 @@ var KTUsersList = (function () {
                     order: [],
                     paging: false,
                     lengthChange: !1,
-                    scrollY: "200px", // 👈 ini pengganti div custom
-                    scrollCollapse: true,
                     columnDefs: [
                         {
                             orderable: !1,
                             targets: 0,
                         },
                     ],
-                    fixedHeader: true,
                 })).on("draw", function () {
                     l(), a();
                 }),
@@ -122,7 +119,6 @@ var KTUsersList = (function () {
                         }
                     }));
         },
-
         search: function (q) {
             console.log(`searching for ${q}...`);
             const currentParams = route().params;
@@ -132,40 +128,30 @@ var KTUsersList = (function () {
                 q,
                 ...currentParams,
             };
-            const url = route("order-admin.index", params);
+            const url = route("product.index", params);
             window.location.href = url;
         },
         edit: function (data) {
-            modal.find("#modal-title").text("Update Order Status");
-            modal.find("#soid").val(data.id);
-            // modal.find("#user-name").val(data.name);
-            modal
-                .find("input[name='so'][value='" + data.status + "']")
-                .prop("checked", true);
+            // modal.find("#modal-title").text(
+            //     'Ubah Kategori Product'
+            // );
+            // console.log(data.logo);
+            // modal.find("#category-id").val(data.id);
+            // modal.find("#category-description").val(data.deskripsi);
+            // if (data.logo) {
+            //     modal.find("#category-avatar").css("background-image", "url(" + data.logo + ")");
+            // }
 
-            modal.find("#category-description").val(data.deskripsi);
-            if (data.logo) {
-                modal
-                    .find("#category-avatar")
-                    .css("background-image", "url(" + data.logo + ")");
+            console.log(data.thumbnail);
+            document.querySelector("#product-name").val(data.nama_product);
+            if (data.thumbnail) {
+                // Menambahkan gambar ke elemen .image-input-wrapper
+                document
+                    .querySelector("change-file-thumb")
+                    .css("background-image", "url(" + data.thumbnail + ")");
             }
-
-            modal.modal("show");
-        },
-
-        pic: function (data) {
-            const modal = $("#kt_modal_add_pic");
-            modal.find("#modal-title").text("PIC");
-            modal.find("#poid").val(data.id);
-            modal
-                .find("#current-pic")
-                .val(JSON.stringify({ id: data.pid, name: data.pname })); // Simpan nilai current-pic sebagai JSON
-
-            // Tambahkan opsi baru ke Select2 dan set sebagai terpilih
-            var newOption = new Option(data.pname, data.pid, false, true);
-            $("#management-pic").append(newOption).trigger("change");
-
-            modal.modal("show");
+            document.querySelector("#kt_form_create_product").scrollIntoView();
+            // modal.modal("show");
         },
         clearForm: function () {
             modal.find("#modal-title").text("Ubah Kategori Product");
@@ -176,7 +162,7 @@ var KTUsersList = (function () {
         delete: function (data) {
             const id = data.id;
             const nama_kategori = data.nama_kategori;
-            const url = route("alluser.destroy", { id: id });
+            const url = route("kategori-product.destroy", { id: id });
             Swal.fire({
                 text: `Menghapus item ${nama_kategori}.`,
                 icon: "warning",
@@ -218,21 +204,6 @@ var KTUsersList = (function () {
             });
         },
 
-        detail: function (data) {
-            const modal = $("#kt_modal_show_user");
-            modal.find("#modal-title").text("Detail Kategori Product");
-            console.log(data.logo);
-            // modal.find("#category-id").text(data.id);
-            modal.find("#category-name").text(data.nama_kategori);
-            modal.find("#category-description").text(data.deskripsi);
-            if (data.logo) {
-                modal
-                    .find("#category-avatar")
-                    .css("background-image", "url(" + data.logo + ")");
-            }
-
-            modal.modal("show");
-        },
         exportExcel: function () {
             const currentParams = route().params;
             const params = {
@@ -246,32 +217,29 @@ var KTUsersList = (function () {
 KTUtil.onDOMContentLoaded(function () {
     KTUsersList.init();
 
-    $("#kt_table_users").on("click", ".pic", function () {
-        // console.log("hall");
-        const data = {
-            id: $(this).attr("data-kt-o-id"),
-            pid: $(this).attr("data-kt-o-picid"),
-            pname: $(this).attr("data-kt-o-pname"),
-            name: $(this).attr("data-kt-o-name"),
-            company: $(this).attr("data-kt-o-company"),
-        };
-        KTUsersList.pic(data);
-    });
+    $("#kt_ecommerce_add_product_type card-toolbar a").on(
+        "click",
+        ".new",
+        function () {
+            const data = {
+                id: $(this).attr("data-kt-user-id"),
+                // nama_product: $(this).attr("data-kt-user-name"),
+                // deskripsi:s $(this).attr("data-kt-user-deskripsi"),
+                // thumbnail: $(this).attr("data-kt-user-thumbnail"),
+            };
+            console.log(data);
+            KTUsersList.edit(data);
+        }
+    );
 
     $("#kt_table_users tbody").on("click", ".edit", function () {
         const data = {
             id: $(this).attr("data-kt-user-id"),
-            photo: $(this).attr("data-kt-user-photo"),
-            name: $(this).attr("data-kt-user-name"),
-            email: $(this).attr("data-kt-user-email"),
-            phone: $(this).attr("data-kt-user-phone"),
-            status: $(this).attr("data-kt-user-status"),
-            job_title: $(this).attr("data-kt-user-job_title"),
-            company: $(this).attr("data-kt-user-company"),
-            location_company: $(this).attr("data-kt-user-location_company"),
-            field_company: $(this).attr("data-kt-user-field_company"),
-            detail_company: $(this).attr("data-kt-user-detail_company"),
+            nama_product: $(this).attr("data-kt-user-name"),
+            // deskripsi:s $(this).attr("data-kt-user-deskripsi"),
+            thumbnail: $(this).attr("data-kt-user-thumbnail"),
         };
+        console.log(data);
         KTUsersList.edit(data);
     });
 
@@ -280,18 +248,8 @@ KTUtil.onDOMContentLoaded(function () {
             id: $(this).attr("data-kt-user-id"),
             nama_kategori: $(this).attr("data-kt-user-name"),
         };
-        KTUsersList.delete(data);
-    });
-
-    $("#kt_table_users tbody").on("click", ".detail", function () {
-        const data = {
-            id: $(this).attr("data-kt-user-id"),
-            nama_kategori: $(this).attr("data-kt-user-name"),
-            deskripsi: $(this).attr("data-kt-user-deskripsi"),
-            logo: $(this).attr("data-kt-user-logo"),
-        };
         console.log(data);
-        KTUsersList.detail(data);
+        KTUsersList.delete(data);
     });
 
     $("#kt_modal_add_user").on("hidden.bs.modal", function () {

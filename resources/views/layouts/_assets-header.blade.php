@@ -41,7 +41,9 @@
 <link href="{{ url('template/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ url('template/assets/css/pagination-js-2.5.0/pagination.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ url('template/assets/css/GrinviroCSS.css') }}" rel="stylesheet" type="text/css" />
-<!--end::Global Stylesheets Bundle-->
+{{-- <link href="https://cdn.datatables.net/v/bs5/dt-2.3.4/fh-4.0.3/datatables.min.css" rel="stylesheet" integrity="sha384-I75D+C0vu9zv3c8qqsAHljK4AcAaV7FUARJKbI8f2WzloIQBE4ZVUq7egqndzNFF" crossorigin="anonymous"> --}}
+<link href="https://cdn.datatables.net/v/dt/dt-2.3.4/fh-4.0.3/datatables.min.css" rel="stylesheet" integrity="sha384-HgPeX34ACRgakhGyuv/mVPbQR5sj8j9/H6NSFXgmkHee0zO05nSC5fv0Pm9Rskbd" crossorigin="anonymous">
+ <!--end::Global Stylesheets Bundle-->
 <style>
     .minimized{
         display: none;

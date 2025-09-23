@@ -30,6 +30,8 @@ var KTUsersList = (function () {
                     order: [],
                     paging: false,
                     lengthChange: !1,
+                    scrollY: "200px", // 👈 ini pengganti div custom
+                    scrollCollapse: true,
                     columnDefs: [
                         {
                             orderable: !1,

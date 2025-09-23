@@ -101,6 +101,8 @@ var KTUsersList = (function () {
                     order: [],
                     paging: false,
                     lengthChange: !1,
+                    scrollY: "200px", // 👈 ini pengganti div custom
+                    scrollCollapse: true,
                     columnDefs: [
                         {
                             orderable: !1,
@@ -142,31 +144,31 @@ var KTUsersList = (function () {
             modal.modal("show");
         },
         clearForm: function () {
-                modal.find("#modal-title").text("Target Baru");
-                modal.find("#target-id").val("");
-                modal.find("#target-month").val("");
-                modal.find("#target-amount").val("");
-                modal.find("#target-year").val("");
+            modal.find("#modal-title").text("Target Baru");
+            modal.find("#target-id").val("");
+            modal.find("#target-month").val("");
+            modal.find("#target-amount").val("");
+            modal.find("#target-year").val("");
 
-                // Ambil last target dari hidden input
-                let lastMonth = parseInt($("#last-target-month").val());
-                let lastYear  = parseInt($("#last-target-year").val());
+            // Ambil last target dari hidden input
+            let lastMonth = parseInt($("#last-target-month").val());
+            let lastYear = parseInt($("#last-target-year").val());
 
-                if (!isNaN(lastMonth) && !isNaN(lastYear)) {
-                    // Kalau target terakhir bulan Desember → mulai Januari tahun berikutnya
-                    if (lastMonth === 12) {
-                        modal.find("#target-month").val(1); // Januari
-                        modal.find("#target-year").val(lastYear + 1);
-                    } else {
-                        modal.find("#target-month").val(lastMonth + 1);
-                        modal.find("#target-year").val(lastYear);
-                    }
+            if (!isNaN(lastMonth) && !isNaN(lastYear)) {
+                // Kalau target terakhir bulan Desember → mulai Januari tahun berikutnya
+                if (lastMonth === 12) {
+                    modal.find("#target-month").val(1); // Januari
+                    modal.find("#target-year").val(lastYear + 1);
                 } else {
-                    // Kalau user belum punya target → default bulan & tahun sekarang
-                    let today = new Date();
-                    modal.find("#target-month").val(today.getMonth() + 1);
-                    modal.find("#target-year").val(today.getFullYear());
+                    modal.find("#target-month").val(lastMonth + 1);
+                    modal.find("#target-year").val(lastYear);
                 }
+            } else {
+                // Kalau user belum punya target → default bulan & tahun sekarang
+                let today = new Date();
+                modal.find("#target-month").val(today.getMonth() + 1);
+                modal.find("#target-year").val(today.getFullYear());
+            }
         },
         delete: function (data) {
             const id = data.id;
@@ -250,7 +252,6 @@ KTUtil.onDOMContentLoaded(function () {
         };
         KTUsersList.edit(data);
     });
-
 
     $("#kt_table_users tbody").on("click", ".detail", function () {
         const data = {

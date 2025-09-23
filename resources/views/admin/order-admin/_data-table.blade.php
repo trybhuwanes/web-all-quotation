@@ -1,10 +1,7 @@
 <!--begin::Form-->
 <form id="kt_report_setting_form" class="form" action="">
-    <!--begin::Table-->
-    <div class="table-container table responsive">
-            <table class="table table-striped align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
-            <!--begin::Table head-->
-            <thead>
+    <table class="table table-striped align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
+        <thead>
                 <!--begin::Table row-->
                 <tr class="text-center fw-bold fs-7 text-uppercase gs-0">
                     <th class="w-10px ps-2 text-center">No.</th>
@@ -19,65 +16,38 @@
                 </tr>
                 <!--end::Table row-->
             </thead>
-            <!--end::Table head-->
-            <!--begin::Table body-->
-            <tbody class="text-gray-600 fw-semibold">
-                <!--begin::Table row-->
+            <tbody class="text-gray-800 fw-semibold">
                 @foreach ($orderall as $order)
                     <tr id="row-{{ str_replace(' ', '-', $order->key) }}">
-
-                        <!--begin::Iteration-->
                         <td>
                             <div class="text-center">
-                                <span class="text-gray-800 text-hover-primary mb-1">
+                                <span class="text-hover-primary mb-1">
                                     {{ $loop->iteration }}.
                                 </span>
                             </div>
                         </td>
-                        <!--end::Iteration-->
-
-                        <!--begin::Trx Code-->
                         <td>
                             <div class="d-flex justify-content-start flex-column">
                                 <a href="#" class="text-gray-900 fw-bold mb-1 fs-7">{{ $order->trx_code}}</a>
                             </div>
                         </td>
-                        <!--end::Trx Code-->
-
-                        <!--begin::PIC-->
                         <td>
-                            <div class="d-flex align-items-center">
-                                <!--begin::Title-->
+                           <div class="d-flex align-items-center">
                                 <span class="text-gray-800 fs-7 fw-bold">{{ optional($order->pic)->name ?? '-' }}</span>
-                                <!--end::Title-->
                             </div>
                         </td>
-                        <!--end::PIC-->
-
-                        <!--begin::Customer Name-->
                         <td>
                             <div class="d-flex align-items-center">
-                                <!--begin::Title-->
                                 <span class="text-gray-800 fs-7 fw-bold">{{$order->user->name}}</span>
-                                <!--end::Title-->
                             </div>
                         </td>
-                        <!--end::Customer Name-->
-
-                        <!--begin::Company-->
                         <td>
                             <div class="d-flex align-items-center">
-                                <!--begin::Title-->
                                 <span class="text-gray-800 fs-7 fw-bold">{{$order->user->company}}</span>
-                                <!--end::Title-->
                             </div>
                         </td>
-                        <!--end::Company-->
-
-                        <!--begin::Company Destination-->
                         <td>
                             <div class="d-flex align-items-center">
-                                <!--begin::Title-->
                                 @if ($order->shipping->company_destination)
                                     <span class="text-gray-800 fs-7 fw-bold">{{$order->shipping->company_destination}}
                                         <p style="font-size: 11px">{{$order->shipping->country_destination}}, {{$order->shipping->state_destination}}</p>
@@ -87,29 +57,19 @@
                                         <p style="font-size: 11px">{{$order->shipping->country_destination}}, {{$order->shipping->state_destination}}</p>
                                     </span>
                                 @endif
-                                <!--end::Title-->
                             </div>
                         </td>
-                        <!--end::Company Destination-->
-
-                        <!--begin::Status-->
                         <td>
                             <div class="d-flex justify-content-start flex-column">
                                 <span class="text-gray-800 fs-5 fw-bold">{!! \App\Enums\OrderStatusEnum::badge($order->status) !!}</span>
                             </div>
                         </td>
-                        <!--end::Status-->
-
-                        <!--begin::Created At-->
                         <td>
                             <div class="d-flex justify-content-start flex-column">
                                 <span class="text-gray-800 fs-7 fw-bold">{{  App\Helpers\Helper::dateFormat($order->created_at, 'd/m/Y') }}</span>
                             </div>
                         </td>
-                        <!--end::Created At-->
-
-                        <!--begin::Button value-->
-                        <td class="text-end">
+                        <td>
                             {{-- @if (!$order->pic_id) --}}
                             <a href="javascript:;" class="pic btn btn-sm btn-light btn-flex btn-center btn-active-light-primary px-4 me-2" 
                                 data-kt-o-id="{{ $order->id }}"
@@ -176,57 +136,13 @@
                                     </a>
                                 </div>
                                 <!--begin::Menu item PDF Shipping-->
-                                
-                                <!--begin::Menu item Button Delete-->
-                                {{-- <div class="menu-item px-3">
-                                    <a href="javascript:;" class="delete menu-link px-3" 
-                                    data-kt-user-id="{{ $order->id }}" 
-                                    data-kt-user-name="{{ $order->nama_kategori }}" 
-                                    data-kt-users-table-filter="delete_row">
-                                        {{ __('common.btn_delete') }}
-                                    </a>
-                                </div> --}}
-                                <!--begin::Menu item Button Delete-->
-
-                                <!--begin::Menu item Button Show-->
-                                {{-- <div class="menu-item px-3">
-                                    <a href="javascript:;" class="detail menu-link px-3" 
-                                    data-kt-user-id="{{ $order->id }}" 
-                                    data-kt-user-name="{{ $order->nama_kategori }}" 
-                                    data-kt-user-logo="{{ $order->logo }}" 
-                                    data-kt-user-deskripsi="{{ $order->deskripsi }}">
-                                        {{ __('common.btn_show') }}
-                                    </a>
-                                </div> --}}
-                                <!--begin::Menu item Button Show-->
-
-                                
                             </div>
                             <!--end::Menu-->
                         </td>
-                        <!--end::Button value-->
                     </tr>
                 @endforeach
-                <!--end::Table row-->
             </tbody>
-            <!--end::Table body-->
-            <tfoot>
-                {{-- <tr>
-                    <th colspan="4">
-                        <button type="submit" class="btn btn-primary float-end" data-kt-settings-action="submit">
-                            <span class="indicator-label">{{ __('common.btn_save_x', ['x' => __('fields.pengaturan')]) }}</span>
-                            <span class="indicator-progress">
-                                {{ __('common.please_wait') }}...
-                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-                            </span>
-                        </button>
-                    </th>
-                </tr> --}}
-            </tfoot>
-        </table>
-    </div>
-    
-    <!--end::Table-->
+    </table>
 </form>
 <!--end::Form-->
 <!--begin::Pagination-->
