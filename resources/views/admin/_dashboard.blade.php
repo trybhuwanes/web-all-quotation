@@ -325,9 +325,6 @@ var KTChartsDashboard = function () {
                 }
             }, function (start, end) {
                 // Update hidden input
-                // document.getElementById("start_date").value = start.format("YYYY-MM-DD");
-                // document.getElementById("end_date").value   = end.format("YYYY-MM-DD");
-
                 $("#start_date").val(start.format("YYYY-MM-DD"));
                 $("#end_date").val(end.format("YYYY-MM-DD"));
 
