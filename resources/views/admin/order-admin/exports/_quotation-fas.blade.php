@@ -299,7 +299,13 @@
 
                         <tr>
                             <td colspan="4" class="text-end"><strong>Sub Total</strong></td>
-                            <td>@idr($orderfind->subtotal)</td>
+                            <td>
+                                @if (!$orderfind->subtotal)
+                                    @idr($orderfind->total_price + $orderfind->discount_amount - $orderfind->shipping->shipping_cost)
+                                @else
+                                    @idr($orderfind->subtotal)
+                                @endif
+                            </td>
                         </tr>
 
                         @if($orderfind->shipping)
@@ -331,8 +337,12 @@
                         <tr>
                             <td colspan="4" class="text-end"><strong>Grand Total (Exclude PPN)</strong></td>
                             <td>
-                                @if ($orderfind->shipping->shipping_cost)
-                                    @idr($orderfind->total_price + $orderfind->shipping->shipping_cost)
+                                @if ($orderfind->subtotal)
+                                    @if ($orderfind->shipping->shipping_cost)
+                                        @idr($orderfind->total_price + $orderfind->shipping->shipping_cost)
+                                    @else
+                                        @idr($orderfind->total_price)
+                                    @endif
                                 @else
                                     @idr($orderfind->total_price)
                                 @endif
