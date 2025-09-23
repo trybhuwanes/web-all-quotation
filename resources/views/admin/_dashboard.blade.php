@@ -71,6 +71,21 @@
 </div>
 <!--end::Row-->
 
+<!-- Modal -->
+<div class="modal fade" id="ordersModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Daftar Order - <span id="modalDate"></span></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div id="ordersList">Loading...</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 @push('js')
 <!--begin::Vendors Javascript(used by this page)-->
 <script>
@@ -147,7 +162,43 @@ var KTChartsDashboard = function () {
                         fontFamily: "inherit",
                         type: "bar",
                         height: 350,
-                        toolbar: { show: false }
+                        toolbar: { show: false },
+                        events: {
+                            dataPointSelection: function (event, chartContext, config) {
+                                let index = config.dataPointIndex;
+                                let clickedMonth = months[index];
+                                let selectedYear = new Date().getFullYear(); // atau ambil dari filter tahun kalau ada
+
+                                // Format ke YYYY-MM
+                                let monthIndex = moment(clickedMonth, "MMMM").format("MM"); 
+                                let formattedMonth = selectedYear + "-" + monthIndex;
+
+                                // Ambil PIC ID terpilih
+                                let selectedPicId = document.getElementById("picSelect").value || 4;
+
+                                // Ubah judul modal
+                                document.getElementById("modalDate").innerText = clickedMonth;
+
+                                // Tampilkan loading state
+                                document.getElementById("ordersList").innerHTML = "Loading...";
+
+                                // Request ke backend (pakai route baru khusus admin)
+                                axios.get(route("admin.dashboard.orders.byDate", {
+                                    month: formattedMonth,
+                                    pic_id: selectedPicId
+                                }))
+                                .then(response => {
+                                    document.getElementById("ordersList").innerHTML = response.data.html;
+                                    new bootstrap.Modal(document.getElementById("ordersModal")).show();
+                                })
+                                .catch(error => {
+                                    console.error(error);
+                                    document.getElementById("ordersList").innerHTML =
+                                        "<p class='text-danger'>Gagal memuat data</p>";
+                                    new bootstrap.Modal(document.getElementById("ordersModal")).show();
+                                });
+                            }
+                        }
                     },
                     plotOptions: {
                         bar: {
@@ -254,6 +305,7 @@ var KTChartsDashboard = function () {
                 endDate: end,
                 opens: "left",
                 autoUpdateInput: true,
+                linkedCalendars: false,
                 locale: {
                     format: "DD/MM/YYYY",
                     separator: " - ",
@@ -273,15 +325,19 @@ var KTChartsDashboard = function () {
                 }
             }, function (start, end) {
                 // Update hidden input
-                document.getElementById("start_date").value = start.format("YYYY-MM-DD");
-                document.getElementById("end_date").value   = end.format("YYYY-MM-DD");
+                // document.getElementById("start_date").value = start.format("YYYY-MM-DD");
+                // document.getElementById("end_date").value   = end.format("YYYY-MM-DD");
+
+                $("#start_date").val(start.format("YYYY-MM-DD"));
+                $("#end_date").val(end.format("YYYY-MM-DD"));
 
                 // Update teks tampilan
                 document.querySelector('[data-kt-daterangepicker="true"] .text-gray-600').innerText =
                     start.format("DD MMM YYYY") + " - " + end.format("DD MMM YYYY");
 
                 // Submit form
-                document.getElementById("filterForm").submit();
+                // document.getElementById("filterForm").submit();
+                $("#filterForm").submit();
             });
         }
     };
