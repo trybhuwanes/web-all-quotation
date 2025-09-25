@@ -1,7 +1,7 @@
 <div id="kt_form_create_product">
-    <form id="kt_create_product_form" class="form d-flex flex-column flex-lg-row" action="javascript:;" enctype="multipart/form-data" class="form">
+    <form id="kt_create_product_form" class="form d-flex flex-column" action="javascript:;" enctype="multipart/form-data" class="form">
         <!--begin::Aside column-->
-        <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
+        <div class="gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
             <!--begin::Thumbnail settings-->
             <div class="card card-flush py-4">
                 <!--begin::Card header-->
@@ -71,56 +71,15 @@
                 <!--end::Card body-->
             </div>
             <!--end::Thumbnail settings-->
-
-
-
-
-            <!--begin::Template settings-->
-            <div class="card card-flush py-4">
-                <!--begin::Card header-->
-                <div class="card-header">
-                    <!--begin::Card title-->
-                    <div class="card-title">
-                        <h2>Product Category</h2>
-                    </div>
-                    <!--end::Card title-->
-                </div>
-                <!--end::Card header-->
-
-                <!--begin::Card body-->
-                <div class="card-body pt-0">
-                    <!--begin::Select store template-->
-                    <label for="kt_ecommerce_add_product_store_template" class="form-label">Pilih kategori Produk</label>
-                    <!--end::Select store template-->
-
-                    <!--begin::Select2-->
-                    {{-- <input type="hidden" id="kategori-barang" value="{{ $product->category_id ? json_encode(App\Models\Category_product::find($product->category_id)) : '' }}"> --}}
-                    <select id="product-category" name="kategori_barang" class="form-select mb-2" data-control="select2" data-hide-search="true"
-                    data-placeholder="Select an option">
-                    <option></option>
-                    </select>
-                    <!--end::Select2-->
-
-                    <!--begin::Description-->
-                    <div class="text-muted fs-7">Tentukan kategori product tersebut.</div>
-                    <!--end::Description-->
-                    <span id="error-product-category" class="fv-plugins-message-container invalid-feedback"></span>
-                </div>
-                <!--end::Card body-->
-            </div>
-            <!--end::Template settings-->
         </div>
         <!--end::Aside column-->
 
         <!--begin::Main column-->
-        <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
-
-
-
+        <div class="flex-row-fluid gap-7 gap-lg-10">
             <!--begin::Tab content-->
             <div class="tab-content">
                 <!--begin::Tab pane-->
-                <div class="tab-pane fade show active" id="kt_ecommerce_add_product_general" role="tab-panel">
+                <div class="fade show active" id="kt_ecommerce_add_product_general" role="tab-panel">
                     <div class="d-flex flex-column gap-7 gap-lg-10">
 
                         <!--begin::General options-->
@@ -136,7 +95,27 @@
                             <!--begin::Card body-->
                             <div class="card-body pt-0">
                                 <!--begin::Input group-->
-                                <div class="mb-10 fv-row">
+                                <div class="mb-5 fv-row">
+                                    <!--begin::Label-->
+                                    <label class="required form-label">Kategori Produk</label>
+                                    <!--end::Label-->
+
+                                    <!--begin::Select2-->
+                                    <select id="product-category" name="kategori_barang" class="form-select mb-2" data-control="select2" data-hide-search="true"
+                                    data-placeholder="Select an option">
+                                    <option></option>
+                                    </select>
+                                    <!--end::Select2-->
+
+                                    <!--begin::Description-->
+                                    <div class="text-muted fs-7 mb-2">Tentukan kategori product tersebut.</div>
+                                    <!--end::Description-->
+                                    <span id="error-product-category" class="fv-plugins-message-container invalid-feedback"></span>
+                                </div>
+                                <!--end::Input group-->
+
+                                <!--begin::Input group-->
+                                <div class="mb-5 fv-row">
                                     <!--begin::Label-->
                                     <label class="required form-label">Nama Produk</label>
                                     <!--end::Label-->
@@ -154,7 +133,7 @@
                                 <!--end::Input group-->
 
                                 <!--begin::Input group-->
-                                <div class="mb-10 fv-row">
+                                <div class="mb-5 fv-row">
                                     <!--begin::Label-->
                                     <label class="required form-label">{{ __('Deskripsi Singkat') }}</label>
                                     <!--end::Label-->
@@ -172,26 +151,6 @@
                                         class="fv-plugins-message-container invalid-feedback"></span>
                                 </div>
                                 <!--end::Input group-->
-
-                                {{-- <!--begin::Input group-->
-                                <div class="mb-10 fv-row">
-                                    <!--begin::Label-->
-                                    <label class="required form-label">Harga (Rp.)</label>
-                                    <!--end::Label-->
-
-                                    <!--begin::Input-->
-                                    <input type="text" id="product-price" name="product-price" class="form-control mb-2"
-                                        placeholder="Harga produk" value="" />
-                                    <!--end::Input-->
-
-                                    <!--begin::Description-->
-                                    <div class="text-muted fs-7">Tetapkan harga produk.</div>
-                                    <!--end::Description-->
-                                    <span id="error-product-price" class="fv-plugins-message-container invalid-feedback"></span>
-                                </div>
-                                <!--end::Input group--> --}}
-
-
                             </div>
                             <!--end::Card header-->
                         </div>
@@ -258,7 +217,7 @@
                             </div>
                             <!--end::Card header-->
                             <input type="hidden" name="ringkasan_deskripsi" value="" id="ringkasanContent">
-                            <div id="ringkasan_editor" class="bg-transparent border-0 h-350px px-3"></div>
+                            <div id="ringkasan_editor" class="bg-transparent border-0 h-250px px-3"></div>
                         </div>
                         <!--end::Ringkasan Deskripsi-->
 
@@ -272,40 +231,65 @@
                             </div>
                             <!--end::Card header-->
                             <input type="hidden" name="spesifikasi_deskripsi" value="" id="spesifikasiContent">
-                            <div id="spesifikasi_editor" class="bg-transparent border-0 h-350px px-3"></div>
+                            <div id="spesifikasi_editor" class="bg-transparent border-0 h-250px px-3"></div>
                         </div>
                         <!--end::Spesifikasi Deskripsi-->
+
+                        <div class="card card-flush py-4">
+                            <!--begin::Card header-->
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h2>{{ __('Tipe Spesifikasi') }}</h2>
+                                </div>
+                            </div>
+                            <!--end::Card header-->
+
+                            <div class="card-body pt-0">
+                                <select id="specification_type" class="form-select mb-2">
+                                    <option value="">-- Pilih Tipe --</option>
+                                    <option value="fas">FAS</option>
+                                    <option value="fmp">FMP</option>
+                                    <option value="bf">BF</option>
+                                </select>
+                                <div class="text-muted fs-7">Pilih tipe spesifikasi yang sesuai.</div>
+                            </div>
+                        </div>
+
+                        <div class="card card-flush py-4" id="specification-forms">
+                            <div class="card-body pt-0" >
+                                @include('admin.product._form-specification-fas')
+                                @include('admin.product._form-specification-fmp')
+                                @include('admin.product._form-specification-bf')
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
                 <!--end::Tab pane-->
+                
+                <div class="d-flex justify-content-end mt-5">
+                    <!--begin::Button-->
+                    <a href="{{ route('admin.dashboard') }}" id="kt_ecommerce_add_product_cancel"
+                        class="btn btn-danger me-5">
+                        Batal
+                    </a>
+                    <!--end::Button-->
 
-
-
+                    <!--begin::Button-->
+                    <button type="submit" data-kt-product-action="submit" class="btn btn-primary" >
+                        <span class="indicator-label">
+                            Simpan
+                        </span>
+                        <span class="indicator-progress">
+                            Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                        </span>
+                    </button>
+                    <!--end::Button-->
+                </div>
             </div>
             <!--end::Tab content-->
-
-            <div class="d-flex justify-content-end">
-                <!--begin::Button-->
-                <a href="/metronic8/demo1/apps/ecommerce/catalog/products.html" id="kt_ecommerce_add_product_cancel"
-                    class="btn btn-danger me-5">
-                    Batal
-                </a>
-                <!--end::Button-->
-
-                <!--begin::Button-->
-                <button type="submit" data-kt-product-action="submit" class="btn btn-primary" >
-                    <span class="indicator-label">
-                        Simpan
-                    </span>
-                    <span class="indicator-progress">
-                        Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-                    </span>
-                </button>
-                <!--end::Button-->
-            </div>
         </div>
         <!--end::Main column-->
-
     </form>
 </div>
 <!--end::Form-->

@@ -19,8 +19,7 @@ class Select2Controller extends Controller
         public KategoriproductService $kategoriproductService,
         public ProductService $productService,
         public UserService $userService,
-    ) {
-    }
+    ) {}
 
     public function itemCategory(Request $request)
     {

@@ -9,12 +9,13 @@ use App\Http\Requests\CreateProductRequest;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use App\Services\ProductService;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
 
     public $productService;
-    
+
     public function __construct(ProductService $productService)
     {
         $this->productService = $productService;
@@ -26,12 +27,12 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         //
-        $filter['search']= $request->q;
+        $filter['search'] = $request->q;
         $products       = $this->productService
-                        ->filtering($filter)
-                        ->with('categoryProducts')
-                        ->orderBy('created_at', 'asc')
-                        ->paginate(10);
+            ->filtering($filter)
+            ->with('categoryProducts')
+            ->orderBy('created_at', 'asc')
+            ->paginate(10);
 
         // dd($products);
         return view('admin.product.index', compact('products'));
@@ -54,6 +55,7 @@ class ProductController extends Controller
     {
         //
         // dd($request->all());
+        Log::info('DEBUG REQUEST DATA', $request->all());
         try {
             $user = $this->productService->create($request->all());
             Session()->flash('status', 'Product berhasil dibuat.');
@@ -66,7 +68,6 @@ class ProductController extends Controller
         } catch (\Throwable $th) {
             throw new \ErrorException($th->getMessage());
         }
-        
     }
 
     /**
@@ -130,7 +131,8 @@ class ProductController extends Controller
     }
 
     // 
-    public function storageDropzoneImg(Request $request) {
+    public function storageDropzoneImg(Request $request)
+    {
         $path = storage_path('app/public/img/produk/tmp/');
 
         if (!file_exists($path)) {

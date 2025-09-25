@@ -29,26 +29,13 @@ var KTProductsAddProduct = (function () {
                 });
             })();
             this.initKategoriProductSelect2();
+            this.initSpecificationSwitcher();
         },
-
         initKategoriProductSelect2: function () {
             const url = route("select2.item-category");
             $("#product-category").select2(this.parentSelect2Options(url));
-
-            let current_category = $("#current-category").val();
-
-            if (current_category) {
-                let category = JSON.parse(kategori_barang);
-
-                var newOption = new Option(
-                    category.nama_kategori,
-                    category.id,
-                    false,
-                    true
-                );
-                $("#product-category").append(newOption).trigger("change");
-            }
         },
+
         parentSelect2Options: function (url) {
             const options = {
                 ajax: {
@@ -78,6 +65,45 @@ var KTProductsAddProduct = (function () {
 
             return options;
         },
+        initSpecificationSwitcher: function () {
+            const selectType = document.getElementById("specification_type");
+            if (!selectType) return;
+
+            selectType.addEventListener("change", function () {
+                document
+                    .querySelectorAll(".spec-form")
+                    .forEach((el) => el.classList.add("d-none"));
+                if (this.value) {
+                    document
+                        .getElementById("spec-form-" + this.value)
+                        .classList.remove("d-none");
+                }
+            });
+
+            // tambah row
+            document.addEventListener("click", function (e) {
+                if (e.target.classList.contains("add-row")) {
+                    const target = e.target.dataset.target;
+                    const table = document
+                        .querySelector(target)
+                        .querySelector("tbody");
+                    const newRow = table.rows[0].cloneNode(true);
+                    newRow
+                        .querySelectorAll("input")
+                        .forEach((input) => (input.value = ""));
+                    table.appendChild(newRow);
+                }
+            });
+
+            // hapus row
+            document.addEventListener("click", function (e) {
+                if (e.target.classList.contains("remove-row")) {
+                    const row = e.target.closest("tr");
+                    const tbody = row.closest("tbody");
+                    if (tbody.rows.length > 1) row.remove();
+                }
+            });
+        },
         submitForm: function () {
             KTGlobal().resetErrorbags();
 
@@ -106,6 +132,27 @@ var KTProductsAddProduct = (function () {
             formData.append("category_id", productCategory);
             formData.append("ringkasan_deskripsi", ringkasanContent);
             formData.append("spesifikasi_deskripsi", spesifikasiContent);
+
+            // simpan tipe spesifikasi
+            const specType = $("#specification_type").val();
+            formData.append("specification_type", specType);
+
+            if (specType) {
+                const rows = document.querySelectorAll(
+                    `#spec-form-${specType} tbody tr`
+                );
+                rows.forEach((row, index) => {
+                    row.querySelectorAll("input").forEach((input) => {
+                        let name = input.name; // contoh: "type_name", "harga", dll
+                        formData.append(
+                            `${specType}[${name}][${index}]`,
+                            input.value
+                        );
+                    });
+                });
+            }
+
+            // gallery
             let acceptedFiles = $(
                 "#kt_modal_create_product_galery"
             )[0].dropzone.getAcceptedFiles();
@@ -117,6 +164,12 @@ var KTProductsAddProduct = (function () {
             if (productThumb.get(0).files.length !== 0) {
                 formData.append("thumbnail", productThumb[0].files[0]);
             }
+
+            // sebelum axios.post
+            // console.log("=== DEBUG FORM DATA ===");
+            // for (let pair of formData.entries()) {
+            //     console.log(pair[0] + ": " + pair[1]);
+            // }
 
             axios
                 .post(url, formData)

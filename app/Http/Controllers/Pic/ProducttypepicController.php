@@ -54,9 +54,12 @@ class ProducttypepicController extends Controller
 
         // Daftar spesifikasi yang tersedia
         $specificationTypes = [
-            'specificationFas', 'specificationFmp', 
-            'specificationBg', 'specificationBf', 
-            'specificationDiac', 'specificationSag', 
+            'specificationFas',
+            'specificationFmp',
+            'specificationBg',
+            'specificationBf',
+            'specificationDiac',
+            'specificationSag',
             'specificationPcx'
         ];
 
@@ -102,7 +105,7 @@ class ProducttypepicController extends Controller
         // dd($request->all());
         try {
             $productFind = Product::where('uuid', $productId)->first();
-    
+
             // Daftar tipe spesifikasi yang terkait dengan modelnya
             $specificationMappings = [
                 'specificationFas' => Product_specification_fas::class,
@@ -113,7 +116,7 @@ class ProducttypepicController extends Controller
                 // 'specificationSag' => Product_specification_sag::class,
                 // 'specificationPcx' => Product_specification_pcx::class,
             ];
-    
+
             // Loop untuk menemukan spesifikasi yang ada
             $specification = null;
             foreach ($specificationMappings as $specificationType => $modelClass) {
@@ -124,7 +127,7 @@ class ProducttypepicController extends Controller
                     }
                 }
             }
-    
+
             if ($specification) {
                 $specification->update($request->all());
                 return redirect()->route('picproduct.index')->with('success', 'Tipe Produk Berhasil diperbarui!');

@@ -39,7 +39,6 @@
                                     <!--end::Item-->          
                                 </ul>
                                 <!--end::Breadcrumb-->
-
                         </div>
                         <!--end::Page title-->
                     </div>
@@ -60,7 +59,6 @@
                     {{-- @endslot   --}}
                 </div>
                 <!--end::Content container-->
-
             </div>
             <!--end::Content-->
         </div>
@@ -69,34 +67,11 @@
         @include('layouts._footer')
     </div>
 
-
     <!--end:::Main-->
     @push('js')
-        <!--begin::Vendors Javascript-->
         <script src="{{ url('template/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
-        <!--end::Vendors Javascript-->
-        
-        <!--begin::Cust Javascript-->
         <script src="{{ url('pages/js/product/form-create.js') }}"></script>
-        <!--end::Cust Javascript-->
         <script src="{{ url('pages/js/product/quill.js') }}"></script>
-        {{-- <script>
-            const i = document.getElementById('kt_create_product_form');
-                i.addEventListener('submit', function(event) {
-                    event.preventDefault(); // Mencegah submit form langsung
-                    var e = document.querySelector('.ql-editor');
-                    if (e) {
-                        const t = e.innerHTML;
-                        document.getElementById('spesifikasiContent').value = t; // Simpan konten editor ke input hidden
-                        i.submit(); // Setelah menyimpan, kirimkan form
-                    } else {
-                        console.error("Quill editor tidak ditemukan!");
-                    }
-                });
-
-        </script> --}}
-        <!--end::Cust Javascript-->
-
     @endpush
 </x-app-layout>
 

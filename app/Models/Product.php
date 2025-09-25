@@ -27,7 +27,7 @@ class Product extends Model implements HasMedia
      *
      * @var array
      */
-    protected $fillable = ['uuid', 'nama_produk', 'thumbnail', 'deskripsi_produk', 'ringkasan_deskripsi', 'spesifikasi_deskripsi', 'slug', 'category_id'];
+    protected $fillable = ['uuid', 'nama_produk', 'thumbnail', 'deskripsi_produk', 'ringkasan_deskripsi', 'spesifikasi_deskripsi', 'slug', 'category_id', 'specification_type'];
 
     /**
      * Generate UUID Automatis.

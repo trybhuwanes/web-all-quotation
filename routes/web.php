@@ -124,8 +124,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/product-type/{productId}/{typeId}/edit', [App\Http\Controllers\Pic\ProducttypepicController::class, 'edit'])->name('picproduct.type.edit');
         Route::put('/product-type/{productId}/{typeId}/update', [App\Http\Controllers\Pic\ProducttypepicController::class, 'update'])->name('picproduct.type.update');
 
-        Route::get('select2/item-category', [App\Http\Controllers\Select2Controller::class, 'itemCategory'])->name('select.item-category');
-
         // Additional Product
         Route::resource('product-additional', App\Http\Controllers\Pic\AdditionalproductpicController::class)->names('picproduct-additional');;
 

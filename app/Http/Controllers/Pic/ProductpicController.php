@@ -13,24 +13,24 @@ use App\Services\ProductService;
 class ProductpicController extends Controller
 {
     public $productService;
-    
+
     public function __construct(ProductService $productService)
     {
         $this->productService = $productService;
     }
-    
+
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
         //
-        $filter['search']= $request->q;
+        $filter['search'] = $request->q;
         $products       = $this->productService
-                        ->filtering($filter)
-                        ->with('categoryProducts')
-                        ->orderBy('created_at', 'asc')
-                        ->paginate(10);
+            ->filtering($filter)
+            ->with('categoryProducts')
+            ->orderBy('created_at', 'asc')
+            ->paginate(10);
         return view('pic.product.index', compact('products'));
     }
 
@@ -99,7 +99,7 @@ class ProductpicController extends Controller
         }
     }
 
-     
+
     public function destroy(string $id)
     {
         //
