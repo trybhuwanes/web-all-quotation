@@ -132,7 +132,7 @@ var KTUsersList = (function () {
                 q,
                 ...currentParams,
             };
-            const url = route("order-admin.index", params);
+            const url = route("equipment.order.index", params);
             window.location.href = url;
         },
         edit: function (data) {

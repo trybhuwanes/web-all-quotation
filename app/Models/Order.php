@@ -24,7 +24,7 @@ class Order extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'pic_id', 'uuid', 'po_path', 'attachment_path', 'status', 'discount_amount', 'discount_type', 'trx_code', 'total_price', 'subtotal'];
+    protected $fillable = ['user_id', 'created_by', 'pic_id', 'uuid', 'po_path', 'attachment_path', 'status', 'discount_amount', 'discount_type', 'trx_code', 'total_price', 'subtotal'];
 
     /**
      * Generate Transaction Code.
@@ -130,5 +130,14 @@ class Order extends Model
     public function notecommercil()
     {
         return $this->hasOne(Notes_commercial::class);
+    }
+
+    public function company()
+    {
+        return $this->hasOne(Company::class);
+    }
+
+    public function creator() {
+        return $this->belongsTo(User::class, 'created_by');
     }
 }

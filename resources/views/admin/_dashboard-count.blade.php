@@ -163,7 +163,7 @@
                                 @endphp
                                 <tr>
                                     <td>
-                                        <a href="{{ route('order-admin.index', [
+                                        <a href="{{ route('equipment.order.index', [
                                                 'status' => $status,
                                                 'start_date' => request('start_date'),
                                                 'end_date'   => request('end_date')
@@ -175,7 +175,7 @@
                                     {{-- <td>{{ Str::ucfirst($status) }}</td> --}}
                                     <td class="d-flex align-items-center border-0">
                                         <span class="fw-bold text-gray-800 fs-6 me-3">{{ $jumlah }}</span>
-                                        <a href="{{ route('order-admin.index', [
+                                        <a href="{{ route('equipment.order.index', [
                                                 'status' => $status,
                                                 'start_date' => request('start_date'),
                                                 'end_date'   => request('end_date')

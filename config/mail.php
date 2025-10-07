@@ -14,7 +14,7 @@ return [
     */
 
     'default' => env('MAIL_MAILER', 'smtp'),
-    'ghi_mail' => env('MAIL_GHI', 'nandang.grinviro@gmail.com'),
+    'ghi_mail' => env('MAIL_GHI', 'trybhuwanes.grinviro@gmail.com'),
 
     /*
     |--------------------------------------------------------------------------

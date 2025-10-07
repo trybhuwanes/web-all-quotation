@@ -265,5 +265,7 @@ return [
     'table-product-add' => 'Product Additional Table',
     'table-project' => 'Project References Table',
     'table-category' => 'Category Product Table',
-    'table-order' => 'Order Table'
+    'table-order' => 'Order Table',
+
+    'btn_make_quotation'  => 'Make Quotation',
 ];

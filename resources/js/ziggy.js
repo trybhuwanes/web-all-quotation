@@ -100,6 +100,14 @@ const Ziggy = {
             uri: "admin/select2/item-pic",
             methods: ["GET", "HEAD"],
         },
+        "select2.client": {
+            uri: "admin/select2/client",
+            methods: ["GET", "HEAD"],
+        },
+        "select2.client.show": {
+            uri: "admin/select2/client/{id}",
+            methods: ["GET", "HEAD"],
+        },
         "kategori-product.index": {
             uri: "admin/kategori-product",
             methods: ["GET", "HEAD"],
@@ -265,27 +273,27 @@ const Ziggy = {
             methods: ["DELETE"],
             parameters: ["product_additional"],
         },
-        "order-admin.index": {
-            uri: "admin/order-admin",
+        "equipment.order.index": {
+            uri: "admin/equipment/order",
             methods: ["GET", "HEAD"],
         },
-        "order-admin.show": {
-            uri: "admin/order-admin/{order_admin}",
-            methods: ["GET", "HEAD"],
-            parameters: ["order_admin"],
-        },
-        "order-admin.edit": {
-            uri: "admin/order-admin/{order_admin}/edit",
+        "equipment.order.show": {
+            uri: "admin/equipment/order/{order_admin}",
             methods: ["GET", "HEAD"],
             parameters: ["order_admin"],
         },
-        "order-admin.update": {
-            uri: "admin/order-admin/{order_admin}",
+        "equipment.order.edit": {
+            uri: "admin/equipment/order/{order_admin}/edit",
+            methods: ["GET", "HEAD"],
+            parameters: ["order_admin"],
+        },
+        "equipment.order.update": {
+            uri: "admin/equipment/order/{order_admin}",
             methods: ["PUT", "PATCH"],
             parameters: ["order_admin"],
         },
         "admin.sendEmailAndRedirect": {
-            uri: "admin/order-admin/{id}/send-email",
+            uri: "admin/equipment/order/{id}/send-email",
             methods: ["GET", "HEAD"],
             parameters: ["id"],
         },
@@ -485,22 +493,22 @@ const Ziggy = {
             methods: ["DELETE"],
             parameters: ["product_additional"],
         },
-        "order-pic.index": { uri: "pic/order-pic", methods: ["GET", "HEAD"] },
-        "order-pic.show": {
-            uri: "pic/order-pic/{order_pic}",
-            methods: ["GET", "HEAD"],
-            parameters: ["order_pic"],
-        },
-        "order-pic.edit": {
-            uri: "pic/order-pic/{order_pic}/edit",
-            methods: ["GET", "HEAD"],
-            parameters: ["order_pic"],
-        },
-        "order-pic.update": {
-            uri: "pic/order-pic/{order_pic}",
-            methods: ["PUT", "PATCH"],
-            parameters: ["order_pic"],
-        },
+        // "order-pic.index": { uri: "pic/order-pic", methods: ["GET", "HEAD"] },
+        // "order-pic.show": {
+        //     uri: "pic/order-pic/{order_pic}",
+        //     methods: ["GET", "HEAD"],
+        //     parameters: ["order_pic"],
+        // },
+        // "order-pic.edit": {
+        //     uri: "pic/order-pic/{order_pic}/edit",
+        //     methods: ["GET", "HEAD"],
+        //     parameters: ["order_pic"],
+        // },
+        // "order-pic.update": {
+        //     uri: "pic/order-pic/{order_pic}",
+        //     methods: ["PUT", "PATCH"],
+        //     parameters: ["order_pic"],
+        // },
         "pic.sendEmailAndRedirect": {
             uri: "pic/order-pic/{id}/send-email",
             methods: ["GET", "HEAD"],

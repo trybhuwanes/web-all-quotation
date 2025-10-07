@@ -137,6 +137,18 @@ class ProductService
             ])->first();
     }
 
+    // Show By ID
+    public function findById(int $id): ?Product
+    {
+        return $this->model->with([
+            'categoryProducts',
+            'additionalProducts',
+            'specificationFas',
+            'specificationFmp',
+            'specificationBf',
+        ])->find($id);
+    }
+
     // Update
     public function update(array $data, Product $product): Product
     {

@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
             ProductspecfasSeeder::class,
             ProductspecfmpSeeder::class,
             TargetSeeder::class,
-            AdditionalproductSeeder::class
+            AdditionalproductSeeder::class,
+            CompanySeeder::class,
         ]);
     }
 }

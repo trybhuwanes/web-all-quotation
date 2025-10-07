@@ -31,4 +31,11 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    // Lark Sheet
+    'lark' => [
+        'app_id' => env('LARK_APP_ID'),
+        'app_secret' => env('LARK_APP_SECRET'),
+        'base_token' => env('LARK_BASE_TOKEN'),
+        'table_id' => env('LARK_TABLE_ID'),
+    ],
 ];

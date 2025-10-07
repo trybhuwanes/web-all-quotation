@@ -47,7 +47,7 @@ class TermpaymentController extends Controller
     {
         //
         $term = Term_payments::where('id', $id)->with('order')->first();
-        return view('admin.order-admin.edit_term', compact('term'));
+        return view('admin.equipment.order.edit_term', compact('term'));
     }
 
     /**

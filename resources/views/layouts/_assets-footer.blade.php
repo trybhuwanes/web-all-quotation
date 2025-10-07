@@ -9,7 +9,6 @@
 <script src="{{ url('template/assets/js/pagination-js-2.5.0/pagination.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="{{ url('template/assets/js/GrinviroJS.js') }}"></script> 
-{{-- <script src="https://cdn.datatables.net/v/bs5/dt-2.3.4/fh-4.0.3/datatables.min.js" integrity="sha384-DtnB3FdDKnYQirYS+FmudxxVqAuORy3rA2hfogHu/ZwQgY79NK6PFYhtxaH9M7We" crossorigin="anonymous"></script> --}}
 <script src="https://cdn.datatables.net/v/dt/dt-2.3.4/fh-4.0.3/datatables.min.js" integrity="sha384-rW+7DHhAVQVcHeCKK6urtvaxQMPAUCOXlD4zVzDhqrZHvT8YWReyvy4jkYZmsQvA" crossorigin="anonymous"></script>
 
 <!--end::Global Javascript Bundle-->

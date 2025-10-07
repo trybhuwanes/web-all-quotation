@@ -20,7 +20,7 @@
                             <div class="carousel-item active">
                                 <img src="{{ asset('./images/guna-hijau-inovasi-project.webp') }}" class="d-block w-100 img-fluid" alt="Banner 1">
                                 <div class="carousel-caption">
-                                    <h1 class="text-white fw-bold">{{__('Guna Hijau Inovasi')}}</h1>
+                                    <h1 class="text-white fw-bold">{{__('Web Quotation Grinviro')}}</h1>
                                     <p class="text-white fs-2">{{__('Teknologi inovatif untuk pengelolaan air, limbah, dan energi.')}}</p>
                                     <a href="{{ route('product-overview.index')}}" class="btn btn-ghi fw-bolder mt-3 px-4 py-2" aria-label="View Product" rel="noopener noreferrer"> 
                                         {{ __('Produk') }}

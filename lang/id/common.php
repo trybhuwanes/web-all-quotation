@@ -275,5 +275,7 @@
     'table-product-add' => 'Tabel Produk Tambahan',
     'table-project' => 'Tabel Referensi Projek',
     'table-category' => 'Tabel Kategori Produk',
-    'table-order' => 'Tabel Pesanan'
+    'table-order' => 'Tabel Pesanan',
+
+    'btn_make_quotation'  => 'Buat Quotation',
   ];

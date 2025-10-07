@@ -85,7 +85,7 @@ var KTUsersAddUser = (function () {
         submitForm: function () {
             // *Insert Or Update*
             // *INSERT*
-            let url = route("order-admin.index");
+            let url = route("equipment.order.index");
             const soId = $("#soid").val();
             const co = $("input[name='so']:checked").val();
 

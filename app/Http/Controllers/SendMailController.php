@@ -12,12 +12,13 @@ class SendMailController extends Controller
     public function index()
     {
 
-        $email = 'nandang.grinviro@gmail.com';
-        $data = ['email' => 'nandang.grinviro@gmail.com',
-                'name' => 'nandang prayogi'];
- 
+        $email = 'trybhuwanes.grinviro@gmail.com';
+        $data = [
+            'email' => 'trybhuwanes.grinviro@gmail.com',
+            'name' => 'Try Bhuwaneswari'
+        ];
+
         Mail::to($email)->locale(app()->getLocale())->send(new ActiveStatusMail($data));
         return dd('terkirim');
     }
-
 }

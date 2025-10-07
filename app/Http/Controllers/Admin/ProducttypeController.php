@@ -9,15 +9,44 @@ use App\Models\Product_specification_fmp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use App\Services\ProductService;
+use Illuminate\Support\Facades\Log;
 
 class ProducttypeController extends Controller
 {
+    public $productService;
+
+    public function __construct(ProductService $productService)
+    {
+        $this->productService = $productService;
+    }
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($id)
     {
-        //
+        try {
+            $product = $this->productService->findById($id);
+
+            if (!$product) {
+                return response()->json(['message' => 'Product not found'], 404);
+            }
+
+            if ($product->specificationFas->isNotEmpty()) {
+                $types = $product->specificationFas;
+            } elseif ($product->specificationFmp->isNotEmpty()) {
+                $types = $product->specificationFmp;
+            } elseif ($product->specificationBf->isNotEmpty()) {
+                $types = $product->specificationBf;
+            } else {
+                $types = collect();
+            }
+
+            return response()->json($types);
+        } catch (\Throwable $e) {
+            Log::error("Error fetching types for product {$id}: " . $e->getMessage());
+            return response()->json(['message' => 'Internal Server Error'], 500);
+        }
     }
 
     /**
@@ -28,9 +57,12 @@ class ProducttypeController extends Controller
         $productFind = Product::where('uuid', $productId)->first();
         // Daftar spesifikasi yang tersedia
         $specificationTypes = [
-            'specificationFas', 'specificationFmp', 
-            'specificationBg', 'specificationBf', 
-            'specificationDiac', 'specificationSag', 
+            'specificationFas',
+            'specificationFmp',
+            'specificationBg',
+            'specificationBf',
+            'specificationDiac',
+            'specificationSag',
             'specificationPcx'
         ];
 
@@ -122,14 +154,17 @@ class ProducttypeController extends Controller
     public function edit(string $productId, string $typeId)
     {
         //
-        
+
         $productFind = Product::where('uuid', $productId)->first();
 
         // Daftar spesifikasi yang tersedia
         $specificationTypes = [
-            'specificationFas', 'specificationFmp', 
-            'specificationBg', 'specificationBf', 
-            'specificationDiac', 'specificationSag', 
+            'specificationFas',
+            'specificationFmp',
+            'specificationBg',
+            'specificationBf',
+            'specificationDiac',
+            'specificationSag',
             'specificationPcx'
         ];
 
@@ -174,7 +209,7 @@ class ProducttypeController extends Controller
         // dd($request->all());
         try {
             $productFind = Product::where('uuid', $productId)->first();
-    
+
             // Daftar tipe spesifikasi yang terkait dengan modelnya
             $specificationMappings = [
                 'specificationFas' => Product_specification_fas::class,
@@ -185,7 +220,7 @@ class ProducttypeController extends Controller
                 // 'specificationSag' => Product_specification_sag::class,
                 // 'specificationPcx' => Product_specification_pcx::class,
             ];
-    
+
             // Loop untuk menemukan spesifikasi yang ada
             $specification = null;
             foreach ($specificationMappings as $specificationType => $modelClass) {
@@ -196,11 +231,11 @@ class ProducttypeController extends Controller
                     }
                 }
             }
-    
+
             if ($specification) {
                 // Update spesifikasi dengan data dari permintaan
                 $specification->update($request->all());
-    
+
                 return redirect()->route('product.index')->with('success', 'Tipe Produk Berhasil diperbarui!');
             } else {
                 return back()->with('error', 'Spesifikasi produk tidak ditemukan.');

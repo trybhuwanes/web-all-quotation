@@ -4,15 +4,23 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
+use App\Services\LarkBaseService;
+use App\Services\LarkSyncService;
 
 class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
      */
-    public function register(): void
+    public function register()
     {
-        //
+        $this->app->singleton(LarkBaseService::class, function ($app) {
+            return new LarkBaseService();
+        });
+        
+        $this->app->singleton(LarkSyncService::class, function ($app) {
+            return new LarkSyncService($app->make(LarkBaseService::class));
+        });
     }
 
     /**
@@ -38,6 +46,5 @@ class AppServiceProvider extends ServiceProvider
         });
         
     }
-
     
 }

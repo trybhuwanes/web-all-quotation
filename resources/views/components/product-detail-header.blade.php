@@ -97,12 +97,6 @@
                                                             {{-- <span class="badge badge-circle badge-secondary ms-3">81</span> --}}
                                                         </h1>
                                                         <!--end::Title-->
-
-                                                        <!--begin::Description-->
-                                                        {{-- <div class="text-muted fw-semibold fs-5">
-                                                            If you need more info, please check outv<a href="#" class="link-primary fw-bold">FAQ Page</a>.
-                                                        </div> --}}
-                                                        <!--end::Description-->
                                                     </div>
                                                     <!--end::Heading-->
 

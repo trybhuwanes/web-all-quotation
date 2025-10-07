@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Pic\OrderAttachmentController;
 use App\Http\Controllers\Admin\ProjectController;
-
+use App\Http\Controllers\Admin\OrderEquipmentController;
+use App\Http\Controllers\Admin\ClientController;
+use App\Http\Controllers\Admin\SyncController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,21 +46,32 @@ Route::middleware('auth')->group(function () {
         Route::put('/change-pass/{userid}', [App\Http\Controllers\Admin\ChangesignacountController::class, 'updatePass'])->name('admin.update.pass');
         Route::put('/change-mail/{userid}', [App\Http\Controllers\Admin\ChangesignacountController::class, 'updateMail'])->name('admin.update.mail');
 
+        Route::resource('company', App\Http\Controllers\Admin\CompanyController::class);
+        // Route::resource('clients', App\Http\Controllers\Admin\ClientController::class);
+
         Route::get('select2/item-category', [App\Http\Controllers\Select2Controller::class, 'itemCategory'])->name('select2.item-category');
         Route::get('select2/item-product-main', [App\Http\Controllers\Select2Controller::class, 'itemProductmain'])->name('select2.item-productmain');
         Route::get('select2/item-pic', [App\Http\Controllers\Select2Controller::class, 'userPic'])->name('select2.item-pic');
+        Route::get('select2/item-product-additional/{mainProductId}', [App\Http\Controllers\Select2Controller::class, 'itemProductAdditional'])->name('select2.item-productadditional');
+        Route::get('select2/client', [App\Http\Controllers\Select2Controller::class, 'client'])->name('select2.client');
+        Route::get('select2/client/{id}', [App\Http\Controllers\Select2Controller::class, 'showClient'])->name('select2.client.show');
+        Route::get('select2/company', [App\Http\Controllers\Select2Controller::class, 'company'])->name('select2.company');
+        Route::get('select2/company/{id}', [App\Http\Controllers\Select2Controller::class, 'showCompany'])->name('select2.company.show');
+        // Route::get('/select2/client', [App\Http\Controllers\Select2Controller::class, 'client'])->name('select2.client');
+        // Route::get('/select2/client/{recordId}', [App\Http\Controllers\Select2Controller::class, 'showClient'])->name('select2.client.show');
 
         // Kategori Product
         Route::resource('kategori-product', App\Http\Controllers\Admin\KategoriproductController::class);
 
         // Target
-        Route::resource('targets', App\Http\Controllers\Admin\TargetController::class);
+        // Route::resource('targets', App\Http\Controllers\Admin\TargetController::class);
 
         // Product
         Route::resource('product', App\Http\Controllers\Admin\ProductController::class);
         Route::post('storage-dropzone-img', [App\Http\Controllers\Admin\ProductController::class, 'storageDropzoneImg'])->name('storage-dropzone-img');
 
         // Product Type
+        Route::get('/product-type/{productId}', [App\Http\Controllers\Admin\ProducttypeController::class, 'index'])->name('product.type');
         Route::get('/product-type/{productId}/create', [App\Http\Controllers\Admin\ProducttypeController::class, 'create'])->name('product.type.create');
         Route::post('/product-type/store', [App\Http\Controllers\Admin\ProducttypeController::class, 'store'])->name('product.type.store');
         Route::get('/product-type/{productId}/{typeId}/edit', [App\Http\Controllers\Admin\ProducttypeController::class, 'edit'])->name('product.type.edit');
@@ -68,9 +81,65 @@ Route::middleware('auth')->group(function () {
         Route::resource('product-additional', App\Http\Controllers\Admin\AdditionalproductController::class);
         Route::post('storage-dropzone-img', [App\Http\Controllers\Admin\ProductController::class, 'storageDropzoneImg'])->name('storage-dropzone-img');
 
+        // Quotation Equipment
+        Route::resource('quot-equipment', App\Http\Controllers\Admin\EquipmentController::class);
+
+        // Client
+        Route::resource('client', ClientController::class)->names([
+            'index' => 'client.index',
+            'store' => 'client.store'
+            // 'create' => 'equipment.order.create',
+            // 'store' => 'equipment.order.store',
+            // 'show' => 'equipment.order.show',
+            // 'edit' => 'equipment.order.edit',
+            // 'update' => 'equipment.order.update',
+        ]);
+        Route::get('/api/client/data', [ClientController::class, 'getData'])->name('client.data');
+        Route::get('/api/client/{recordId}/edit', [ClientController::class, 'edit'])->name('client.edit');
+        Route::put('/api/client/{recordId}', [ClientController::class, 'update'])->name('client.update');
+
+        // Sync routes
+        Route::prefix('sync')->group(function () {
+            Route::post('/all', [SyncController::class, 'syncAll'])->name('sync.all');
+            Route::post('/single/{recordId}', [SyncController::class, 'syncSingle'])->name('sync.single');
+            Route::get('/user/{recordId}', [SyncController::class, 'getUserByRecordId'])->name('sync.getUser');
+        });
+
+        Route::get('/debug-lark-base', function () {
+            try {
+                $service = new \App\Services\LarkBaseService();
+                $baseToken = config('services.lark.base_token');
+                $tableId = config('services.lark.table_id');
+
+                // Test get fields
+                $fields = $service->getTableFields($baseToken, $tableId);
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Koneksi berhasil!',
+                    'fields' => $fields
+                ]);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'success' => false,
+                    'message' => $e->getMessage()
+                ], 500);
+            }
+        });
+
         // Order
-        Route::resource('order-admin', App\Http\Controllers\Admin\OrderadminController::class)->only(['index', 'show', 'edit', 'update']);
-        Route::get('/order-admin/{id}/send-email', [App\Http\Controllers\Admin\OrderadminController::class, 'sendEmailAndRedirect'])->name('admin.sendEmailAndRedirect');
+        Route::prefix('equipment')->group(function () {
+            Route::resource('order', OrderEquipmentController::class)->names([
+                'index' => 'equipment.order.index',
+                'create' => 'equipment.order.create',
+                'store' => 'equipment.order.store',
+                'show' => 'equipment.order.show',
+                'edit' => 'equipment.order.edit',
+                'update' => 'equipment.order.update',
+            ]);
+            Route::get('/order/{id}/send-email', [OrderEquipmentController::class, 'sendEmailAndRedirect'])->name('admin.sendEmailAndRedirect');
+        });
+
 
         // Penentuan PIC
         Route::resource('deterimine-pic', App\Http\Controllers\Admin\DeterminepicController::class)->only(['index', 'show', 'update']);
@@ -98,7 +167,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('/order/{id}/attachment', [OrderAttachmentController::class, 'destroy'])->name('order-attachment.destroy');
 
         // Route Project
-        Route::resource('projects', ProjectController::class);
+        // Route::resource('projects', ProjectController::class);
 
         // Route Profile
         Route::get('/profile', [ProfileController::class, 'edit'])->name('admin.profile.edit');
@@ -128,10 +197,23 @@ Route::middleware('auth')->group(function () {
         Route::resource('product-additional', App\Http\Controllers\Pic\AdditionalproductpicController::class)->names('picproduct-additional');;
 
         // Order
-        Route::resource('order-pic', App\Http\Controllers\Pic\OrderpicController::class)->only(['index', 'show', 'edit', 'update']);
-        Route::get('/order-pic/{id}/send-email', [App\Http\Controllers\Pic\OrderpicController::class, 'sendEmailAndRedirect'])->name('pic.sendEmailAndRedirect');
+        // Route::resource('order-pic', App\Http\Controllers\Pic\OrderpicController::class)->only(['index', 'show', 'edit', 'update']);
+        // Route::get('/order-pic/{id}/send-email', [App\Http\Controllers\Pic\OrderpicController::class, 'sendEmailAndRedirect'])->name('pic.sendEmailAndRedirect');
 
-        Route::get('/order-pic/by-date/{date}', [App\Http\Controllers\Pic\PicController::class, 'byDate'])->name('orders.byDate');
+        
+
+        Route::prefix('equipment')->group(function () {
+            Route::resource('order', App\Http\Controllers\Pic\OrderEquipmentController::class)->names([
+                'index' => 'pic.equipment.order.index',
+                'create' => 'pic.equipment.order.create',
+                'store' => 'pic.equipment.order.store',
+                'show' => 'pic.equipment.order.show',
+                'edit' => 'pic.equipment.order.edit',
+                'update' => 'pic.equipment.order.update',
+            ]);
+            Route::get('/order/{id}/send-email', [OrderEquipmentController::class, 'sendEmailAndRedirect'])->name('pic.sendEmailAndRedirect');
+            Route::get('/order/by-date/{date}', [App\Http\Controllers\Pic\PicController::class, 'byDate'])->name('orders.byDate');
+        });
         // ======================
         Route::resource('note-commercial', App\Http\Controllers\Pic\Notescommercial::class)->only(['store', 'show', 'edit', 'update']);
         Route::resource('revisions', App\Http\Controllers\Pic\RevisionquotController::class)->only(['store', 'show', 'edit', 'update']);

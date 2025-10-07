@@ -124,7 +124,7 @@
                     
 
                     <!--begin::Link-->
-                    <a class="btn btn-sm bg-white btn-color-gray-800 me-2"  href="{{ route('order-pic.index') }}" >
+                    <a class="btn btn-sm bg-white btn-color-gray-800 me-2"  href="{{ route('pic.equipment.order.index') }}" >
                         Lihat Data
                     </a>
                     <!--end::Link-->
